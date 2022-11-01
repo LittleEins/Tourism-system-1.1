@@ -24,10 +24,18 @@ $(document).ready(function ()
     // Patar Beach Mark
     const patar_beach = L.marker([16.30598898523941, 119.77991480285729]).addTo(myMap);
     // Tundol Beach Marck
-    const tundol_beach = L.marker([16.315024710599904, 120.01323754786104]).addTo(myMap);
-    
+    const light_house = L.marker([16.307593819502713, 119.78571177268057]).addTo(myMap);
+    // tourism office
+    const Bolinao_tourism_office = L.marker([16.38876706227714, 119.89310398880232]).addTo(myMap);
     
     // circle on map
+    var Bolinao_tourism_office_circle = L.circle([16.38876706227714, 119.89310398880232], {
+        color: 'blue',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 500
+    }).addTo(myMap);
+
     var falls_circle = L.circle([16.313238135208962, 119.85853571415453], {
         color: 'red',
         fillColor: '#f03',
@@ -42,7 +50,7 @@ $(document).ready(function ()
         radius: 500
     }).addTo(myMap);
 
-    var tundol_circle = L.circle([16.315024710599904, 120.01323754786104], {
+    var light_house_circle = L.circle([16.307593819502713, 119.78571177268057], {
         color: 'red',
         fillColor: '#f03',
         fillOpacity: 0.5,
@@ -50,15 +58,26 @@ $(document).ready(function ()
     }).addTo(myMap);
 
     // add text circle
-    var tundol = L.divIcon({
+    var bolinao_tourism_office_div_icon = L.divIcon({
+        className: 'my-div-icon',
+        html: '<h1 style="font-size:10px; width:fit-content; height:300px;">Tourism Office</h1>',
+        iconAnchor: [15, -7]
+    });
+      // you can set .my-div-icon styles in CSS
+      
+      L.marker([ 16.38876706227714, 119.89310398880232], {
+        icon: bolinao_tourism_office_div_icon
+    }).addTo(myMap);
+
+    var light_house_div_icon = L.divIcon({
         className: 'my-div-icon',
         html: '<h1 style="font-size:10px; width:fit-content; height:300px;">Tundol Beach</h1>',
         iconAnchor: [15, -7]
     });
       // you can set .my-div-icon styles in CSS
       
-      L.marker([16.315024710599904, 120.01323754786104], {
-        icon: tundol
+      L.marker([16.307593819502713, 119.78571177268057], {
+        icon: light_house_div_icon
     }).addTo(myMap);
 
     var falls = L.divIcon({
@@ -90,47 +109,28 @@ $(document).ready(function ()
     },5000);
 
     
-
-    function counts ()
-    {
-
-        $.ajax ({
-            type: "GET",
-            url: "/visited",
-            dataType: "json",
-            success: function (response) 
-            {
        
-                // pop up message on map
-                bolinao_falls.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                <div style='font-size: 10px;'>Falls Visited</div>\
-                <div>"+response.falls+"\
-                </div>");
+    // pop up message on map
+    Bolinao_tourism_office.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
+    <div style='font-size: 10px;'>Tourism Office</div>\
+    <div><a href='https://goo.gl/maps/3z2huBXDSWNYnB6B8'>Visit</a>\
+    </div>");
 
-                patar_beach.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                <div style='font-size: 10px;'>Patar Visited</div>\
-                <div>"+response.patar+"\
-                </div>");
+    bolinao_falls.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
+    <div style='font-size: 10px;'>Falls Visited</div>\
+    <div>Login to view\
+    </div>");
 
-                tundol_beach.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                <div style='font-size: 10px;'>Patar Visited</div>\
-                <div>"+response.tundol+"\
-                </div>");
+    console.log('hello');
 
-                    // pop up message on map
-                Bolinao_tourism_office.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                <div style='font-size: 10px;'>Tourism Office</div>\
-                <div><a href='https://goo.gl/maps/3z2huBXDSWNYnB6B8'>Visit</a>\
-                </div>");
+    patar_beach.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
+    <div style='font-size: 10px;'>Patar Visited</div>\
+    <div>Login to view\
+    </div>");
 
-                light_house.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                <div style='font-size: 10px;'>Patar Visited</div>\
-                <div>Login to view\
-                </div>");
-                
-            }
- 
-        });
-    }
-       
+    light_house.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
+    <div style='font-size: 10px;'>Patar Visited</div>\
+    <div>Login to view\
+    </div>");
+
 });

@@ -5,7 +5,7 @@
 
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
-          <i class="bi bi-grid"></i>
+          <i class="bi bi-pass-fill"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
@@ -18,8 +18,7 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -31,26 +30,26 @@
                 <div class="col-sm-6 col-xl-3">
                     <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                         <i class="fa fa-chart-line fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Patar</p>
-                            <h6 class="mb-0">123</h6>
+                        <div id="falls_count" class="ms-3">
+                            <p class="mb-2">Bolinao Falls</p>
+                            <h6 id="patar_count" class="mb-0">{{ $falls }}</h6>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                         <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Falls</p>
-                            <h6 class="mb-0">1334</h6>
+                        <div id="tundol_count" class="ms-3">
+                            <p class="mb-2">Patar Beach</p>
+                            <h6 class="mb-0">{{ $tundol }}</h6>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                         <i class="fa fa-chart-area fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Elspis</p>
+                        <div id="elspis_count" class="ms-3">
+                            <p class="mb-2">Light House</p>
                             <h6 class="mb-0">34</h6>
                         </div>
                     </div>
@@ -58,8 +57,8 @@
                 <div class="col-sm-6 col-xl-3">
                     <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                         <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Tara</p>
+                        <div id="tara_falls" class="ms-3">
+                            <p class="mb-2">Tupa</p>
                             <h6 class="mb-0">234</h6>
                         </div>
                     </div>
@@ -85,6 +84,11 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+      {{-- jquery cdn --}}
+      <script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
+      {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
+      <script src="/user/assets/js/fetch_bookrequest.js"></script>
+
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/user/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -98,7 +102,7 @@
   <!-- Template Main JS File -->
   <script src="/user/assets/js/main.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
-  <script src="/user/assets/js/map.js"></script>
+  <script src="/user/assets/js/all.js"></script>
 
 </body>
 

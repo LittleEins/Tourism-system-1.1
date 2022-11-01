@@ -17,12 +17,15 @@ use App\Http\Controllers\StuffController;
 |
 */
 
-Route::get('/time', function (){
-    date_default_timezone_set('Asia/Manila');
-    echo "<span style='color:red;font-weight:bold;'>Date: </span>". date('F j, Y g:i:a  ');
-});
+Route::get('/stuff/book/view/all',[StuffController::class,'br_view']);
+Route::get('/stuff/book/delete',[StuffController::class,'br_delete']);
+Route::get('/stuff/book/confirm',[StuffController::class,'br_confirm']);
 
-Route::get('/check/point',[StuffController::class,'check_point'])->name('checkpoint.view');
+Route::get('/user/book/view/all',[UserController::class,'log_view']);
+Route::get('/user/book/delete',[UserController::class,'log_delete']);
+Route::get('/user/book/confirm',[UserController::class,'log_confirm']);
+
+Route::get('/user/log/view/all',[UserController::class,'records_group_view']);
 
 // Home Route
 Route::get('/',[MainController::class,'home']);
@@ -43,6 +46,13 @@ Route::post('/reset/check',[MainController::class,'reset_process'])->name('reset
 Route::post('/update/password',[MainController::class,'update_password'])->name('update.password'); // updating new password
 Route::post('/resend/resetpassword',[MainController::class,'resend_resetpass'])->name('resend.passreset'); //resending reset email
 
+// ajax
+Route::get('/fetch-checkpoint',[StuffController::class,'fetch_checkpoint']);
+Route::get('/visited',[UserController::class,'fetch_visit']);
+Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
+Route::get('/book2/count',[UserController::class,'book2_count']);
+Route::get('/graph/data',[StuffController::class,'graph_data']);
+
 // Route Proccess
 Route::post('auth/login',[MainController::class,'login_check'])->name('authUser.login'); //login proccissing
 Route::post('auth/register',[MainController::class,'register_store'])->name('authUser.register');  //signup proccess
@@ -50,7 +60,8 @@ Route::post('auth/register',[MainController::class,'register_store'])->name('aut
 //logout
 Route::get('/logout',[MainController::class,'logout'])->name('logout'); // logout removing data form session
    
-
+Route::get('/booking/log',[UserController::class,'book_log'])->name('book_log');
+Route::get('/records',[UserController::class,'records'])->name('history');
 // user route
 // Only authenticated can access this route
 Route::prefix('user')->middleware(['authCheck'])->group(function ()
@@ -60,6 +71,7 @@ Route::prefix('user')->middleware(['authCheck'])->group(function ()
     Route::get('/booking',[UserController::class,'book'])->name('book.view'); //booking section
     Route::get('/map',[UserController::class,'map'])->name('map.view'); //map section 
    
+    // Booking
     Route::post('/booking/next',[UserController::class,'book2'])->name('book2.view');//book2 section
     Route::post('/booking/submit',[UserController::class,'book_data'])->name('book.data');//booking insert data
     
@@ -67,6 +79,7 @@ Route::prefix('user')->middleware(['authCheck'])->group(function ()
     Route::get('/profile',[UserController::class,'profile'])->name('profileUser.view');
     Route::post('/update',[UserController::class,'profile_update'])->name('profileUser.process');
     Route::get('/profile/delete',[UserController::class,'delete_profile'])->name('profileDeleteUser.process');
+
    
 });
 
@@ -84,4 +97,6 @@ Route::prefix('stuff')->middleware(['isStuff'])->group(function ()
     Route::get('/profile/delete',[StuffController::class,'delete_profile'])->name('profileDelete.proccess');
 
     Route::post('/update',[StuffController::class,'profile_update'])->name('profile.process');
+    Route::get('/check/point',[StuffController::class,'check_point'])->name('checkpoint.view');
+    Route::get('/repors',[StuffController::class,'reports'])->name('report.view');
 });

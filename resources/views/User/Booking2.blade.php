@@ -4,9 +4,9 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dashboard">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+        <a class="nav-link " href="{{route('book.view')}}">
+          <i class="bi bi-car-front-fill"></i>
+          <span>Book</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -19,9 +19,8 @@
       <h1>Booking</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">User Info</li>
-          <li class="breadcrumb-item active">More Details</li>
+          <li class="breadcrumb-item"><a href="{{route('book.view')}}">User Information</a></li>
+          <li class="breadcrumb-item active">Additional Information</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -34,8 +33,8 @@
                 <div class="row g-0">
                   <div class="col-md-40 gradient-custom text-center text-white"
                     style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                      alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                    <img src="{{ asset('storage/img/'. $user_data['img_name']) }}"
+                      alt="Avatar" class="rounded-circle img-fluid my-5" style="width: 80px;" />
                     <i class="far fa-edit mb-5"></i>
                   </div>
                   <div class="col-md-40">
@@ -56,10 +55,10 @@
                                     <input type="hidden" name="solo" value="solo">
                                   </div>
                                   <div class="col-md-4 mb-1">
-                                    <select name="destination" class="form-select" aria-label="Default select example" required>
+                                    <select name="destination" id="locations" class="form-select" aria-label="Default select example" required>
                                       <option value="">Destination</option>
-                                      <option value="falls">Bolinao (Falls 200)</option>
-                                      <option value="tundol">Tundol (130)</option>
+                                      <option value="falls">Bolinao ({{ $falls_count }})</option>
+                                      <option value="tundol">Tundol ({{ $tundol_count }})</option>
                                     </select>
                                     <x-error_style/>@error('password') {{$message}} @enderror</p>
                                   </div>  
@@ -75,7 +74,7 @@
                                   </div>
                                 </div>
                                 <div>
-                                  <input type="submit" value="Book" class="btn btn-primary w-25" id="add_btn">
+                                  <input type="submit" value="Book" class="btn btn-primary w-25 request_book" id="add_btn">
                                 </div>
                               </form>
                             </div>
@@ -111,9 +110,12 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   {{-- jquery cdn --}}
-  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
   {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
   <script src="/user/assets/js/add_rows.js"></script>
+  <script src="/user/assets/js/all.js"></script>
+
+ 
 
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -128,7 +130,6 @@
   <!-- Template Main JS File -->
   <script src="/user/assets/js/main.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
-  <script src="/user/assets/js/map.js"></script>
 
 </body>
 

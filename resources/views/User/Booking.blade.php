@@ -4,9 +4,9 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dashboard">
-          <i class="bi bi-grid"></i>
-          <span>Booking</span>
+        <a class="nav-link " href="{{route('book.view')}}">
+          <i class="bi bi-car-front-fill"></i>
+          <span>Booker Info</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -19,8 +19,7 @@
       <h1>Booking</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">User Info</li>
+          <li class="breadcrumb-item"><a href="{{route('book.view')}}">User Info</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->

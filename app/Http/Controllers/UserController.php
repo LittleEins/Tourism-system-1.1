@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 // Import User Model
+use App\Models\Approve;
 use App\Models\User;
 use App\Models\Book_request;
+use App\Models\Book_data;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage; // use this if you make delete on storage
 
@@ -173,17 +175,65 @@ class UserController extends Controller
     {
 
         // get data and goto dasboard view
+        $falls = Approve::where('destination','=', 'falls')->get();
+        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
+        $tundol = Approve::where('destination','=', 'tundol')->get();
+        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['falls'] = $falls->count() + $fallsGroup->count();
+        $data['tundol'] = $tundol->count() + $tundolGroup->count();
 
         return view('user.dashboard', $data);
     }
 
+    function dashboard_fetch ()
+    {
+
+        $falls = Approve::where('destination','=', 'falls')->get();
+        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
+        $tundol = Approve::where('destination','=', 'tundol')->get();
+        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+
+        return response()->json([
+            'falls' => $falls->count() + $fallsGroup->count(),
+            'tundol' =>$tundol->count() + $tundolGroup->count(),
+            'patar' =>$tundol->count() + $tundolGroup->count(),
+        ]);
+
+    }
+
     function map ()
     {
-        // get data and goto map view
+ 
+        $falls = Approve::where('destination','=', 'falls')->get();
+        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
+        $tundol = Approve::where('destination','=', 'tundol')->get();
+        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+
+        $totalfalls = $falls->count() + $fallsGroup->count();
+        $totaltundol = $tundol->count(); + $tundolGroup->count();
+
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['falls_count'] = $totalfalls;
+        $data['tundol_count'] = $totaltundol;
 
         return view('user.map', $data);
+    }
+
+    function fetch_visit ()
+    {
+       
+        $falls = Approve::where('destination','=', 'falls')->get();
+        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
+        $tundol = Approve::where('destination','=', 'tundol')->get();
+        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+
+        return response()->json([
+            'falls' => $falls->count() + $fallsGroup->count(),
+            'tundol' =>$tundol->count() + $tundolGroup->count(),
+            'patar' =>$tundol->count() + $tundolGroup->count(),
+        ]);
     }
 
     function book ()
@@ -205,8 +255,42 @@ class UserController extends Controller
         } 
         else 
         {
-            return view('user.booking2', $data);
+            $book_exist = Book_request::where('user_id','=', session('LoggedUser'))->first();
+
+            if ($book_exist != null)
+            {
+                return back()->with('fails','You have already booked');
+            } 
+            else 
+            {
+                $falls = Approve::where('destination','=', 'falls')->get();
+                $fallsGroup = Book_data::where('destination','=', 'falls')->get();
+                $tundol = Approve::where('destination','=', 'tundol')->get();
+                $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+        
+                $totalfalls = $falls->count() + $fallsGroup->count();
+                $totaltundol = $tundol->count(); + $tundolGroup->count();
+        
+                $data['falls_count'] = $totalfalls;
+                $data['tundol_count'] = $totaltundol;
+
+                return view('user.booking2', $data);
+            }
+
         }
+    }
+
+    function book2_count ()
+    {
+        $falls = Approve::where('destination','=', 'falls')->get();
+        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
+        $tundol = Approve::where('destination','=', 'tundol')->get();
+        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+
+        return response()->json([
+            'falls'=> $falls->count() + $fallsGroup->count(),
+            'tundol'=> $tundol->count() + $tundolGroup->count(),
+        ]);
     }
 
     // insert booker data
@@ -219,6 +303,8 @@ class UserController extends Controller
         if ($req->group_book != null)
         {
             $book_number = random_int(100000, 999999);
+
+            $req->session()->put('book_number', $book_number);
 
             $data = User::where('id','=', session('LoggedUser'))->first();
             $insert_request = new Book_request;
@@ -236,38 +322,86 @@ class UserController extends Controller
 
             $book_id = Book_request::where('book_number','=', $book_number)->first();
 
-            $booker_id = $book_id->id;
-            $first_name = $req->first_name;
-            $last_name = $req->last_name;
-            $gender = $req->gender;
-            $destination = $req->destination;
-            $phone = $req->contact;
-            $address = $req->address;
 
-            for ($i=0; $i < count($first_name); $i++)
+            if ($req->phone == null)
+                {
+                $booker_id = $book_id->id;
+                $first_name = $req->first_name;
+                $last_name = $req->last_name;
+                $gender = $req->gender;
+                $destination = $req->destination;
+                $phone = $req->contact;
+                $address = $req->address;
+
+                for ($i=0; $i < count($first_name); $i++)
+                {
+                    $datasave = [
+                        'booker_id'   =>$booker_id,
+                        'first_name' =>$first_name[$i],
+                        'last_name' =>$last_name[$i],
+                        'gender' =>$gender[$i],
+                        'destination' =>$destination,
+                        'address' =>$address[$i],
+                        'book_number'=>$book_number,
+                        'time_date' =>$time_date,
+                    ];
+
+                    DB::table('book_datas')->insert($datasave);
+            
+                }
+
+                $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+                $group = DB::table('book_datas')->where('book_number', '=', $book_number)->get();
+                $groupCount = $group->count();
+                $data['book_number'] = $book_number;
+            
+                DB::table('book_requests')->where('book_number', $book_number)->update(['groups' => $groupCount]);
+
+                return view('user.book_result', $data)->with('success','Book Successfully.');
+            }
+            else 
             {
-                $datasave = [
-                    'booker_id'   =>$booker_id,
-                    'first_name' =>$first_name[$i],
-                    'last_name' =>$last_name[$i],
-                    'gender' =>$gender[$i],
-                    'destination' =>$destination[$i],
-                    'phone' =>$phone[$i],
-                    'address' =>$address[$i],
-                    'time_date' =>$time_date[$i],
-                ];
+                $booker_id = $book_id->id;
+                $first_name = $req->first_name;
+                $last_name = $req->last_name;
+                $gender = $req->gender;
+                $destination = $req->destination;
+                $phone = $req->contact;
+                $address = $req->address;
 
-                DB::table('book_datas')->insert($datasave);
-        
+                for ($i=0; $i < count($first_name); $i++)
+                {
+                    $datasave = [
+                        'booker_id'   =>$booker_id,
+                        'first_name' =>$first_name[$i],
+                        'last_name' =>$last_name[$i],
+                        'gender' =>$gender[$i],
+                        'destination' =>$destination,
+                        'phone' =>$phone[$i],
+                        'address' =>$address[$i],
+                        'time_date' =>$time_date,
+                    ];
+
+                    DB::table('book_datas')->insert($datasave);
+            
+                }
+
+                $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+                $group = DB::table('book_datas')->where('book_number', '=', $book_number)->get();
+                $groupCount = $group->count();
+            
+                DB::table('book_requests')->where('book_number', $book_number)->update(['groups' => $groupCount]);
+
+                return view('user.book_result', $data,['book'=>$book_number])->with('success','Book Successfully.');
             }
 
-            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-
-            return view('user.book_result', $data,['book'=>$book_number])->with('success','Book Successfully.');
+            
         }
         else
         {
             $book_number = random_int(100000, 999999);
+
+            $req->session()->put('book_number', $book_number);
 
             $data = User::where('id','=', session('LoggedUser'))->first();
             $insert_request = new Book_request;
@@ -281,11 +415,73 @@ class UserController extends Controller
             $insert_request->destination = $req->destination;
             $insert_request->time_date = $time_date;
             $insert_request->book_number = $book_number;
+            $insert_request->groups = 'solo';
             $insert_request->save();
 
             $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-            return view('user.book_result', $data,['book'=>$book_number])->with('success','Book Successfully.');
+            return view('user.book_result', $data,['book_number'=>$book_number])->with('success','Book Successfully.');
         }
 
     }
+
+    function book_log ()
+    {
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['list'] = Book_request::where('user_id','=', session('LoggedUser'))->first();
+
+        return view('user.book_log', $data);
+        
+    }
+
+    // log
+    function log_view (Request $req)
+    {
+        //getting all data with booker
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+        $data['groups'] = DB::table('book_datas')->where('book_number', '=', $req->id)->get();
+
+        if ($data['groups']->isNotEmpty())
+        {
+            return view('user.groups-view', $data);
+        }
+        else
+        {
+            return back();
+        }
+
+    }
+
+    function log_delete (Request $req)
+    {
+        $delete = DB::table('book_datas')->where('booker_id',$req->id)->delete();
+        $delete = DB::table('book_requests')->where('id',$req->id)->delete();
+
+        return back();
+    }
+
+    function records ()
+    {
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+        $data['lists'] = DB::table('approves')->where('user_id', '=', session('LoggedUser'))->get();
+
+        return view('user.history', $data);
+    }
+
+    function records_group_view (Request $req)
+    {
+        //getting all data with booker
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+        $data['groups'] = DB::table('book_datas')->where('book_number', '=', $req->id)->get();
+
+        if ($data['groups']->isNotEmpty())
+        {
+            return view('user.log-view', $data);
+        }
+        else
+        {
+            return back();
+        }
+
+    }
+
 }

@@ -4,9 +4,9 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dashboard">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+        <a class="nav-link " href="{{route('map.view')}}">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>Map</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -19,8 +19,7 @@
       <h1>Map</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Map</li>
+          <li class="breadcrumb-item"><a href="{{route('map.view')}}">Map</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -54,6 +53,9 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+
+  {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
+
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/user/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -67,6 +69,7 @@
   <!-- Template Main JS File -->
   <script src="/user/assets/js/main.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
+  <script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
   <script src="/user/assets/js/map.js"></script>
 
 </body>

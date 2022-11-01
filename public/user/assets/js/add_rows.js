@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+
   $(".add_item_btn").click(function(e) {
     // to stop the request
     e.preventDefault();
@@ -24,7 +26,7 @@ $(document).ready(function() {
     </div>
     <div class="row">
       <div class="col-md-3 mb-3">
-        <input type="number" name="contact[]" class="form-control" placeholder="Contact Number" maxlength="12" required>
+        <input type="number" name="contact[]" class="form-control" placeholder="Contact Number" maxlength="12">
       
       </div>
       <div class="col-md-6 mb-3">

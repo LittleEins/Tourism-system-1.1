@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Book_data;
 use App\Models\Book_request;
+use App\Models\Approve;
+use DateTime;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
 use Illuminate\Support\Facades\Storage; // use this if you make delete on storage
 
@@ -135,19 +138,153 @@ class StuffController extends Controller
 
     function dashboard ()
     {
+        // get data and goto dasboard view
+        $falls = Approve::where('destination','=', 'falls')->get();
+        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
+        $tundol = Approve::where('destination','=', 'tundol')->get();
+        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['falls'] = $falls->count() + $fallsGroup->count();
+        $data['tundol'] = $tundol->count() + $tundolGroup->count();
 
         return view('stuff.dashboard', $data);
     }
 
+    function dashboard_fetch ()
+    {
+
+        $falls = Approve::where('destination','=', 'falls')->get();
+        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
+        $tundol = Approve::where('destination','=', 'tundol')->get();
+        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+
+        return response()->json([
+            'falls' => $falls->count() + $fallsGroup->count(),
+            'tundol' =>$tundol->count() + $tundolGroup->count(),
+            'patar' =>$tundol->count() + $tundolGroup->count(),
+        ]);
+
+    }
+
+    function graph_data ()
+    {
+
+        date_default_timezone_set('Asia/Manila');
+        $time_date  = date('g:i:a ');
+   
+
+        $mon = Approve::where('day','=', $datetime->format('D'))->get();
+
+        if ($time_date >= strtotime("06:00:05"))
+        {   
+            if ()
+
+
+            return response()->json([
+                'hello'=>$time_date,
+            ]);
+        }
+        else 
+        {
+              return response()->json([
+            'hello'=>$time_date,
+        ]);
+        }
+
+      
+    }
+
     function check_point ()
     {
+        $acc_data = User::where('id','=', session('LoggedUser'))->first();
         // passing multiple variable to view
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['book_list'] = Book_request::all();
+        $data['book_list'] =  DB::table('book_requests')->where('destination', '=', $acc_data->location )->get();
         
         return view('stuff.check-point', $data);
 
+    }
+
+    function fetch_checkpoint ()
+    {
+        $acc_data = User::where('id','=', session('LoggedUser'))->first();
+
+        $checkpoint_list = DB::table('book_requests')->where('destination', '=', $acc_data->location )->get();
+
+        return response()->json([
+            'book_list'=>$checkpoint_list,
+        ]);
+    }
+
+    // viewe delete confirm book request
+    function br_view (Request $req)
+    {
+        //getting all data with booker
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+        $data['groups'] = DB::table('book_datas')->where('book_number', '=', $req->id)->get();
+
+        if ($data['groups'])
+        {
+            return view('stuff.groups-view', $data);
+        }
+        else
+        {
+            return back();
+        }
+
+    }
+
+    function br_delete (Request $req)
+    {
+        $delete = DB::table('book_datas')->where('booker_id',$req->id)->delete();
+        $delete = DB::table('book_requests')->where('id',$req->id)->delete();
+
+        return back();
+    }
+
+    function br_confirm (Request $req)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $time_date  = date('F j, Y g:i:a  ');
+
+        $datetime = DateTime::createFromFormat('YmdHi', '201308131830');
+
+        $confirm = Book_request::where('id','=', $req->id)->first();
+        $group = DB::table('book_datas')->where('booker_id', '=', $req->id)->get();
+        $groupCount = $group->count();
+
+        // approving request
+        $approve = new Approve;
+        $approve->booker_id = $confirm->id;
+        $approve->user_id = $confirm->user_id;
+        $approve->stuff_id = session('LoggedUser');
+        $approve->first_name = $confirm->first_name;
+        $approve->last_name = $confirm->last_name;
+        $approve->destination = $confirm->destination;
+        $approve->gender = $confirm->gender;
+        $approve->phone = $confirm->phone;
+        $approve->email = $confirm->email;
+        $approve->address = $confirm->address;
+        $approve->book_number = $confirm->book_number;
+        $approve->groups = $groupCount;
+        $approve->day = $datetime->format('D');
+        $approve->approve_td = $time_date;
+        $approve->save();
+
+        // delete the request after approve
+        DB::table('book_requests')->where('id',$req->id)->delete();
+
+        return back()->with('success','Approve Successfully');
+    }
+
+    //reports generation
+    function reports ()
+    {
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+        $data['approve_list'] = DB::table('book_datas')->where('stuff_id', '=', session('LoggedUser'))->get();
+        
+        return view('stuff.reports', $data);
     }
 
 }

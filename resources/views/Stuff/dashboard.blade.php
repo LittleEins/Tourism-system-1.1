@@ -28,123 +28,102 @@
           <!-- Sale & Revenue Start -->
           <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-line fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Patar</p>
-                            <h6 class="mb-0">123</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Falls</p>
-                            <h6 class="mb-0">1334</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-area fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Elspis</p>
-                            <h6 class="mb-0">34</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Tara</p>
-                            <h6 class="mb-0">234</h6>
-                        </div>
+              <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-line fa-3x text-primary"></i>
+                    <div id="falls_count" class="ms-3">
+                        <p class="mb-2">Bolinao Falls</p>
+                        <h6 id="patar_count" class="mb-0">{{ $falls }}</h6>
                     </div>
                 </div>
             </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                    <div id="tundol_count" class="ms-3">
+                        <p class="mb-2">Patar Beach</p>
+                        <h6 class="mb-0">{{ $tundol }}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-area fa-3x text-primary"></i>
+                    <div id="elspis_count" class="ms-3">
+                        <p class="mb-2">Light House</p>
+                        <h6 class="mb-0">34</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                    <div id="tara_falls" class="ms-3">
+                        <p class="mb-2">Tupa</p>
+                        <h6 class="mb-0">234</h6>
+                    </div>
+                </div>
+            </div>
+          </div>
         </div>
         <!-- Sale & Revenue End -->
 
         <div class="col-12">
           <div class="card">
 
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
             <div class="card-body">
-              <h5 class="card-title">Reports <span>/Today</span></h5>
-
-              <!-- Line Chart -->
-              <div id="reportsChart"></div>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new ApexCharts(document.querySelector("#reportsChart"), {
-                    series: [{
-                      name: 'Sales',
-                      data: [31, 40, 28, 51, 42, 82, 56],
-                    }, {
-                      name: 'Revenue',
-                      data: [11, 32, 45, 32, 34, 52, 41]
-                    }, {
-                      name: 'Customers',
-                      data: [15, 11, 32, 18, 9, 24, 11]
-                    }],
-                    chart: {
-                      height: 350,
-                      type: 'area',
-                      toolbar: {
-                        show: false
-                      },
-                    },
-                    markers: {
-                      size: 4
-                    },
-                    colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                    fill: {
-                      type: "gradient",
-                      gradient: {
-                        shadeIntensity: 1,
-                        opacityFrom: 0.3,
-                        opacityTo: 0.4,
-                        stops: [0, 90, 100]
-                      }
-                    },
-                    dataLabels: {
-                      enabled: false
-                    },
-                    stroke: {
-                      curve: 'smooth',
-                      width: 2
-                    },
-                    xaxis: {
-                      type: 'datetime',
-                      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                    },
-                    tooltip: {
-                      x: {
-                        format: 'dd/MM/yy HH:mm'
-                      },
-                    }
-                  }).render();
-                });
-              </script>
-              <!-- End Line Chart -->
-
+              <div>
+                <canvas id="myChart"></canvas>
+              </div>
             </div>
+
+            <script>
+              const labels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+              const data = {
+                labels: labels,
+                datasets: [{
+                  label: 'Total Visit',
+                  data: [50, 59, 80, 81, 56, 55, 40],
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                  ],
+                  borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                  ],
+                  borderWidth: 1
+                }]
+              };
+
+              const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  }
+                },
+              };
+
+              const myChart = new Chart(
+              document.getElementById('myChart'),config);  
+            </script>
+            
+            
+             
 
           </div>
         </div><!-- End Reports -->
@@ -166,6 +145,11 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+    {{-- jquery cdn --}}
+    <script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
+    {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
+    <script src="/user/assets/js/fetch_bookrequest.js"></script>
+
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/user/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -179,7 +163,7 @@
   <!-- Template Main JS File -->
   <script src="/user/assets/js/main.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
-  <script src="/user/assets/js/map.js"></script>
+  <script src="/user/assets/js/all.js"></script>
 
 </body>
 

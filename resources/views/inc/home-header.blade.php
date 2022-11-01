@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/home/vendors/nice-select/nice-select.css">
 
   <link rel="stylesheet" href="/home/css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css">
 </head>
 <body>
 	<!-- ================ header section start ================= -->	
@@ -58,8 +59,9 @@
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav">
               <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="about">About</a></li>
-              <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
+              <li class="nav-item"><a class="nav-link" href="#about-section">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="#map-section">Map</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact-section">Contact</a></li>
               <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
               <li class="nav-item"><a class="nav-link" href="{{route('signup')}}">Signup</a></li>
             </ul>

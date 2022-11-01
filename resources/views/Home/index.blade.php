@@ -17,7 +17,7 @@
     <!-- ================ end banner area ================= -->
 
     <!-- ================ welcome section start ================= --> 
-    <section class="welcome">
+    <section class="welcome" id="about-section">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-5 mb-4 mb-lg-0">
@@ -53,139 +53,34 @@
     <!-- ================ welcome section end ================= --> 
 
 
-    <!-- ================ Explore section start ================= -->
-    <section class="section-margin">
-      <div class="container">
-        <div class="section-intro text-center pb-80px">
-          <div class="section-intro__style">
-            <img src="/home/img/home/bed-icon.png" alt="">
-          </div>
-          <h2>Explore Our Rooms</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-            <div class="card card-explore">
-              <div class="card-explore__img">
-                <img class="card-img" src="/home/img/home/explore1.png" alt="">
-              </div>
-              <div class="card-body">
-                <h3 class="card-explore__price">$150.00 <sub>/ Per Night</sub></h3>
-                <h4 class="card-explore__title"><a href="#">Classic Bed Room</a></h4>
-                <p>Beginning fourth dominion creeping god was. Beginning, which fly yieldi dry beast moved blessed </p>
-                <a class="card-explore__link" href="#">Book Now <i class="ti-arrow-right"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-            <div class="card card-explore">
-              <div class="card-explore__img">
-                <img class="card-img" src="/home/img/home/explore2.png" alt="">
-              </div>
-              <div class="card-body">
-                <h3 class="card-explore__price">$170.00 <sub>/ Per Night</sub></h3>
-                <h4 class="card-explore__title"><a href="#">Premium Room</a></h4>
-                <p>Beginning fourth dominion creeping god was. Beginning, which fly yieldi dry beast moved blessed </p>
-                <a class="card-explore__link" href="#">Book Now <i class="ti-arrow-right"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-            <div class="card card-explore">
-              <div class="card-explore__img">
-                <img class="card-img" src="/home/img/home/explore3.png" alt="">
-              </div>
-              <div class="card-body">
-                <h3 class="card-explore__price">$190.00 <sub>/ Per Night</sub></h3>
-                <h4 class="card-explore__title"><a href="#">Family Room</a></h4>
-                <p>Beginning fourth dominion creeping god was. Beginning, which fly yieldi dry beast moved blessed </p>
-                <a class="card-explore__link" href="#">Book Now <i class="ti-arrow-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ================ Explore section end ================= --> 
-
-
-
+    
     <!-- ================ video section start ================= --> 
     <section class="video-area">
       <div class="container">
         <div class="row justify-content-center align-items-center flex-column text-center">
-          <a id="play-home-video" class="video-play-button" href="https://www.youtube.com/watch?v=ysdMAL7xLn4">
-            <span></span>
-          </a>
+          <video style="width: 100%; height: 400px;" controls>
+            <source src="/home/videos/home-video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>
           <h3>Bolinao?</h3>
           <p>What should i see on bolinao..</p>
+          
         </div>
       </div>  
     </section>
     <!-- ================ video section end ================= --> 
 
-    <!-- ================ special section start ================= -->
-    <section class="section-padding bg-porcelain">
+    <section class="map-area" id="map-section">
       <div class="container">
-        <div class="section-intro text-center pb-80px">
-          <div class="section-intro__style">
-            <img src="/home/img/home/bed-icon.png" alt="">
-          </div>
-          <h2>Special Facilities</h2>
+        <div class="row justify-content-center align-items-center flex-column text-center">
+          <div id="map" style="width: 100%; height: 400px; margin-bottom:10px;"></div>
+          <h3>Map Locations</h3>
+          <p>Visit us..</p>
         </div>
-        <div class="special-img mb-30px">
-          <img class="img-fluid" src="/home/img/home/special.png" alt="">
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-            <div class="card card-special">
-              <div class="media align-items-center mb-1">
-                <span class="card-special__icon"><i class="ti-home"></i></span>
-                <div class="media-body">
-                  <h4 class="card-special__title">Conference Room</h4>
-                </div>
-              </div>
-              <div class="card-body">
-                <p>Built purse maids cease her ham new seven among and. Pulled coming wooded tended it answer remain</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-            <div class="card card-special">
-              <div class="media align-items-center mb-1">
-                <span class="card-special__icon"><i class="ti-bell"></i></span>
-                <div class="media-body">
-                  <h4 class="card-special__title">Swimming Pool</h4>
-                </div>
-              </div>
-              <div class="card-body">
-                <p>Built purse maids cease her ham new seven among and. Pulled coming wooded tended it answer remain</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-            <div class="card card-special">
-              <div class="media align-items-center mb-1">
-                <span class="card-special__icon"><i class="ti-car"></i></span>
-                <div class="media-body">
-                  <h4 class="card-special__title">Sports Culb</h4>
-                </div>
-              </div>
-              <div class="card-body">
-                <p>Built purse maids cease her ham new seven among and. Pulled coming wooded tended it answer remain</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div>  
     </section>
-    <!-- ================ special section end ================= -->
-
+  
+   
     <!-- ================ carousel section start ================= -->
     <section class="section-margin">
       <div class="container">
@@ -325,7 +220,7 @@
 
 
   <!-- ================ start footer Area ================= -->
-  <footer class="footer-area section-gap">
+  <footer class="footer-area section-gap" id="contact-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
@@ -398,8 +293,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <!-- ================ End footer Area ================= -->
 
 
-
   <script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
+  <script src="/home/js/map.js"></script>
   <script src="/home/vendors/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="/home/vendors/magnefic-popup/jquery.magnific-popup.min.js"></script>
   <script src="/home/vendors/owl-carousel/owl.carousel.min.js"></script>
