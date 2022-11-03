@@ -52,6 +52,7 @@ Route::get('/visited',[UserController::class,'fetch_visit']);
 Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
 Route::get('/book2/count',[UserController::class,'book2_count']);
 Route::get('/graph/data',[StuffController::class,'graph_data']);
+Route::get('/data',[StuffController::class,'weekly_data']);
 
 // Route Proccess
 Route::post('auth/login',[MainController::class,'login_check'])->name('authUser.login'); //login proccissing

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Book_data;
 use App\Models\Book_request;
 use App\Models\Approve;
+use App\Models\Weekly_count;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
@@ -171,29 +172,57 @@ class StuffController extends Controller
     {
 
         date_default_timezone_set('Asia/Manila');
-        $time_date  = date('g:i:a ');
-   
+        $end = "18";
+        $now = date('19');
 
-        $mon = Approve::where('day','=', $datetime->format('D'))->get();
 
-        if ($time_date >= strtotime("06:00:05"))
-        {   
-            if ()
+        $current_count = Approve::where('day','=', date('l'))->get()->count();
+        $day = date('l');
+
+        $final = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
+
+    
+        if ($final == null)
+        {
+            $insert = new Weekly_count;
+            $insert->user_id = session('LoggedUser');
+            $insert->save();
+
+            $update = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
+            $update->$day = $current_count;
+            $update->save();
+
+            $data = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
 
 
             return response()->json([
-                'hello'=>$time_date,
+                'visit_count'=>$data,
             ]);
         }
-        else 
+        else
         {
-              return response()->json([
-            'hello'=>$time_date,
-        ]);
+            $final->$day = $current_count;
+            $final->save();
+    
+            $data = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
+    
+            return response()->json([
+                'visit_count'=>$data,
+            ]);
         }
-
-      
+  
     }
+
+    // function weekly_data ()
+    // {
+    //     $day = date('l');
+    //     $data = Weekly_count::select($day)->first();
+
+    //     dd($data);
+    //     // return response()->json([
+    //     //     'visit_count'=>$data,
+    //     // ]);
+    // }
 
     function check_point ()
     {
@@ -268,7 +297,7 @@ class StuffController extends Controller
         $approve->address = $confirm->address;
         $approve->book_number = $confirm->book_number;
         $approve->groups = $groupCount;
-        $approve->day = $datetime->format('D');
+        $approve->day = date('l');
         $approve->approve_td = $time_date;
         $approve->save();
 
