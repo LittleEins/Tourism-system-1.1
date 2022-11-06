@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2022 at 01:19 AM
+-- Generation Time: Nov 06, 2022 at 12:18 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -54,15 +54,13 @@ CREATE TABLE `approves` (
 --
 
 INSERT INTO `approves` (`id`, `booker_id`, `user_id`, `stuff_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `email`, `address`, `book_number`, `groups`, `day`, `approve_td`, `created_at`, `updated_at`) VALUES
-(21, '106', '9', '2', 'Jerhome', 'Reantaso', 'falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'samang', '641507', '2', NULL, 'October 25, 2022 8:47:pm  ', '2022-10-26 03:47:42', '2022-10-26 03:47:42'),
-(22, '107', '9', '2', 'Jerhome', 'Reantaso', 'falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'samang', '487520', '0', NULL, 'October 27, 2022 4:41:am  ', '2022-10-27 11:41:16', '2022-10-27 11:41:16'),
-(23, '111', '9', '10', 'Jerhome', 'Reantaso', 'tundol', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'samang', '986170', '0', NULL, 'October 27, 2022 4:50:am  ', '2022-10-27 11:50:17', '2022-10-27 11:50:17'),
-(24, '109', '9', '10', 'Jerhome', 'Reantaso', 'tundol', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'samang', '282518', '0', NULL, 'October 27, 2022 4:50:am  ', '2022-10-27 11:50:54', '2022-10-27 11:50:54'),
-(25, '113', '9', '10', 'Jerhome', 'Reantaso', 'tundol', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'samang', '503120', '1', NULL, 'October 29, 2022 12:33:am  ', '2022-10-29 07:33:02', '2022-10-29 07:33:02'),
-(26, '115', '9', '10', 'Jerhome', 'Reantaso', 'tundol', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'samang', '871984', '0', NULL, 'October 29, 2022 12:50:am  ', '2022-10-29 07:50:49', '2022-10-29 07:50:49'),
-(27, '116', '9', '10', 'Jerhome', 'Reantaso', 'tundol', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'samang', '226590', '0', NULL, 'October 29, 2022 12:55:am  ', '2022-10-29 07:55:26', '2022-10-29 07:55:26'),
-(28, '118', '9', '2', 'Jerhome', 'Reantaso', 'falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'samang', '276461', '1', NULL, 'November 1, 2022 10:45:am  ', '2022-11-01 17:45:47', '2022-11-01 17:45:47'),
-(29, '122', '9', '2', 'Jerhome', 'Reantaso', 'falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'Samang Norte', '530221', '1', 'Tue', 'November 1, 2022 9:50:pm  ', '2022-11-02 04:50:27', '2022-11-02 04:50:27');
+(40, '134', '8', '2', 'James', 'Batalla', 'falls', 'female', '09187705133', 'jerhomereantaso8@gmail.com', 'Anda', '672661', '0', 'Friday', 'November 4, 2022 11:07:am  ', '2022-11-04 03:07:49', '2022-11-04 03:07:49'),
+(41, '135', '8', '2', 'James', 'Batalla', 'falls', 'female', '09187705133', 'jerhomereantaso8@gmail.com', 'Anda', '490900', '0', 'Friday', 'November 4, 2022 11:13:am  ', '2022-11-04 03:13:12', '2022-11-04 03:13:12'),
+(42, '136', '8', '2', 'James', 'Batalla', 'falls', 'female', '09187705133', 'jerhomereantaso8@gmail.com', 'Anda', '604801', '0', 'Friday', 'November 4, 2022 11:19:am  ', '2022-11-04 03:19:53', '2022-11-04 03:19:53'),
+(43, '138', '8', '2', 'James', 'Batalla', 'falls', 'female', '09187705133', 'jerhomereantaso8@gmail.com', 'Anda', '594917', '0', 'Friday', 'November 4, 2022 11:21:am  ', '2022-11-04 03:21:30', '2022-11-04 03:21:30'),
+(44, '139', '8', '2', 'James', 'Batalla', 'falls', 'female', '09187705133', 'jerhomereantaso8@gmail.com', 'Anda', '761972', '0', 'Friday', 'November 4, 2022 12:18:pm  ', '2022-11-04 04:18:29', '2022-11-04 04:18:29'),
+(45, '140', '8', '2', 'James', 'Batalla', 'falls', 'female', '09187705133', 'jerhomereantaso8@gmail.com', 'Anda', '861315', '0', 'Sunday', 'November 6, 2022 6:57:pm  ', '2022-11-06 10:57:40', '2022-11-06 10:57:40'),
+(46, '140', '8', '2', 'James', 'Batalla', 'falls', 'female', '09187705133', 'jerhomereantaso8@gmail.com', 'Anda', '861315', '0', 'Sunday', 'November 6, 2022 6:58:pm  ', '2022-11-06 10:58:12', '2022-11-06 10:58:12');
 
 -- --------------------------------------------------------
 
@@ -82,19 +80,9 @@ CREATE TABLE `book_datas` (
   `book_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `time_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `day` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `book_datas`
---
-
-INSERT INTO `book_datas` (`id`, `booker_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `address`, `book_number`, `time_date`, `created_at`, `updated_at`) VALUES
-(75, '106', 'cvcv', 'gdf', 'falls', 'female', NULL, 'dfs', '641507', 'October 25, 2022 8:46:pm  ', NULL, NULL),
-(76, '106', 'dfsdf', 'dfsdf', 'falls', 'male', NULL, 'fds', '641507', 'October 25, 2022 8:46:pm  ', NULL, NULL),
-(77, '113', 'james', 'kuro', 'tundol', 'female', NULL, 'samang', '503120', 'October 29, 2022 12:32:am  ', NULL, NULL),
-(78, '118', 'gdfg', 'dfgd', 'falls', 'male', NULL, 'samang', '276461', 'November 1, 2022 9:45:am  ', NULL, NULL),
-(80, '122', 'fgfd', 'fbgfd', 'falls', 'female', NULL, 'fgfg', '530221', 'November 1, 2022 3:53:pm  ', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -124,7 +112,7 @@ CREATE TABLE `book_requests` (
 --
 
 INSERT INTO `book_requests` (`id`, `user_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `email`, `address`, `groups`, `book_number`, `time_date`, `created_at`, `updated_at`) VALUES
-(124, '8', 'James', 'Batalla', 'falls', 'female', '09187705133', 'jerhomereantaso8@gmail.com', 'Anda', 'solo', '220440', 'November 1, 2022 5:24:pm  ', '2022-11-02 00:24:59', '2022-11-02 00:24:59');
+(140, '8', 'James', 'Batalla', 'falls', 'female', '09187705133', 'jerhomereantaso8@gmail.com', 'Anda', 'solo', '861315', 'November 6, 2022 4:56:pm  ', '2022-11-06 08:56:14', '2022-11-06 08:56:14');
 
 -- --------------------------------------------------------
 
@@ -165,6 +153,31 @@ CREATE TABLE `group_approves` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `map_locations`
+--
+
+CREATE TABLE `map_locations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `latitude` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `longitude` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `visit_count` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `map_locations`
+--
+
+INSERT INTO `map_locations` (`id`, `latitude`, `longitude`, `name`, `visit_count`, `created_at`, `updated_at`) VALUES
+(7, '16.313238135208962', '119.85853571415453', 'Falls', NULL, '2022-11-05 23:55:18', '2022-11-05 23:55:18'),
+(8, '16.30598898523941', '119.77991480285729', 'Patar', NULL, '2022-11-05 23:56:17', '2022-11-05 23:56:17'),
+(9, '16.38876706227714', '119.89310398880232', 'Tourism Office', NULL, '2022-11-06 00:37:06', '2022-11-06 00:37:06');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -191,7 +204,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2022_10_18_071301_add_book_number_to__book_requests_table', 6),
 (11, '2022_10_19_122642_create_approves_table', 7),
 (12, '2022_10_21_043546_create_group_approves_table', 8),
-(13, '2022_10_18_071301_add_book_number_to__book_data_table', 9);
+(13, '2022_10_18_071301_add_book_number_to__book_data_table', 9),
+(14, '2014_10_12_000000_create_weekly_datas_table', 10),
+(15, '2014_10_12_000000_create_weekly_counts_table', 11),
+(16, '2014_10_12_000000_create_map_locations_table', 12);
 
 -- --------------------------------------------------------
 
@@ -261,7 +277,39 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `phone`, `otp`, `email`, `
 (3, 'admin', 'admin', '09187705134', '247844', 'admin@gmail.com', '', NULL, 'default-profile.png', NULL, 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '2', NULL, NULL, NULL, '2022-10-17 06:53:09', '2022-10-17 06:53:36'),
 (8, 'James', 'Batalla', '09187705133', '931406', 'jerhomereantaso8@gmail.com', 'female', 'Anda', 'default-img', NULL, 'a707572d6f0e8e4ef64aeb26f27dd3fab6df3fec', 1, '$2y$10$HkFSs1B289EHVUn5sWsmiOwBqSCLpumHma8kplj0.yg4T8LghDRaW', '0', NULL, NULL, NULL, '2022-10-17 13:54:20', '2022-10-19 12:52:58'),
 (9, 'Jerhome', 'Reantaso', '09187705134', '998186', 'jerhomereantaso85@gmail.com', 'male', 'Samang Norte', 'bootstrap-admin-template-free.jpg', '80928', 'fa0921298659294fd9ddad8e6d895b5e5b4d43c4', 1, '$2y$10$SdaWteBKGdBy7DwPLP5um.TokMplgoOF0gS/eVgvOlTb0WuLbycWC', '0', '189086', NULL, NULL, '2022-10-17 13:58:05', '2022-11-01 09:59:37'),
-(10, 'Tundol', 'CheckPoint', '09187705134', '247844', 'tundol@gmail.com', '', NULL, 'messages-1.jpg', '6459', 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '1', NULL, 'tundol', NULL, '2022-10-17 06:53:09', '2022-10-17 14:50:47');
+(10, 'Patar', 'CheckPoint', '09187705134', '247844', 'patar@gmail.com', '', NULL, 'messages-1.jpg', '6459', 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '1', NULL, 'patar', NULL, '2022-10-17 06:53:09', '2022-10-17 14:50:47'),
+(11, 'light house', 'CheckPoint', '09187705134', '247844', 'lighthouse@gmail.com', '', NULL, 'messages-1.jpg', '6459', 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '1', NULL, 'light house', NULL, '2022-10-17 06:53:09', '2022-10-17 14:50:47'),
+(12, 'Tupa', 'CheckPoint', '09187705134', '247844', 'tupa@gmail.com', '', NULL, 'messages-1.jpg', '6459', 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '1', NULL, 'tupa', NULL, '2022-10-17 06:53:09', '2022-10-17 14:50:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `weekly_counts`
+--
+
+CREATE TABLE `weekly_counts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `Monday` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Tuesday` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Wednesday` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Thursday` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Friday` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Saturday` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Sunday` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `weekly_counts`
+--
+
+INSERT INTO `weekly_counts` (`id`, `user_id`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`, `date`, `remember_token`, `created_at`, `updated_at`) VALUES
+(26, 2, NULL, NULL, NULL, NULL, '5', NULL, '0', NULL, NULL, '2022-11-03 16:00:46', '2022-11-06 02:25:06'),
+(31, 11, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, '2022-11-04 13:50:58', '2022-11-04 13:59:05');
 
 --
 -- Indexes for dumped tables
@@ -299,6 +347,12 @@ ALTER TABLE `group_approves`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `map_locations`
+--
+ALTER TABLE `map_locations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -326,6 +380,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `weekly_counts`
+--
+ALTER TABLE `weekly_counts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -333,19 +393,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `approves`
 --
 ALTER TABLE `approves`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `book_datas`
 --
 ALTER TABLE `book_datas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `book_requests`
 --
 ALTER TABLE `book_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -360,10 +420,16 @@ ALTER TABLE `group_approves`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `map_locations`
+--
+ALTER TABLE `map_locations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -375,7 +441,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `weekly_counts`
+--
+ALTER TABLE `weekly_counts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -175,8 +175,9 @@ class StuffController extends Controller
         $end = "18";
         $now = date('19');
 
+        $acc = User::where('id','=', session('LoggedUser'))->first();
 
-        $current_count = Approve::where('day','=', date('l'))->get()->count();
+        $current_count = Approve::where('day','=', date('l'))->where('destination','=', $acc->location )->get()->count();
         $day = date('l');
 
         $final = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
@@ -213,16 +214,6 @@ class StuffController extends Controller
   
     }
 
-    // function weekly_data ()
-    // {
-    //     $day = date('l');
-    //     $data = Weekly_count::select($day)->first();
-
-    //     dd($data);
-    //     // return response()->json([
-    //     //     'visit_count'=>$data,
-    //     // ]);
-    // }
 
     function check_point ()
     {
@@ -300,6 +291,16 @@ class StuffController extends Controller
         $approve->day = date('l');
         $approve->approve_td = $time_date;
         $approve->save();
+
+        $data = User::where('id','=', session('LoggedUser'))->first();
+
+        $visit_count = Approve::where('book_number','=', $confirm->book_number)->where('day','=', $data->location )->get();
+        $visit_group = Book_data::where('book_number','=', $confirm->book_number)->where('day','=', $data->location )->get();
+        $total = $visit_count->count() + $visit_group->count();
+
+        $insert_count = Map_location ;
+        $insert_count->visit_count = $total;
+        $insert_count->save();
 
         // delete the request after approve
         DB::table('book_requests')->where('id',$req->id)->delete();

@@ -8,6 +8,7 @@ use App\Models\Approve;
 use App\Models\User;
 use App\Models\Book_request;
 use App\Models\Book_data;
+use App\Models\Map_location;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage; // use this if you make delete on storage
 
@@ -190,10 +191,10 @@ class UserController extends Controller
     function dashboard_fetch ()
     {
 
-        $falls = Approve::where('destination','=', 'falls')->get();
-        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
-        $tundol = Approve::where('destination','=', 'tundol')->get();
-        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+        $falls = Approve::where('destination','=', 'falls')->where('day','=', date('l'))->get();
+        $fallsGroup = Book_data::where('destination','=', 'falls')->where('day','=', date('l'))->get();
+        $tundol = Approve::where('destination','=', 'tundol')->where('day','=', date('l'))->get();
+        $tundolGroup = Book_data::where('destination','=', 'tundol')->where('day','=', date('l'))->get();
 
         return response()->json([
             'falls' => $falls->count() + $fallsGroup->count(),
@@ -206,10 +207,10 @@ class UserController extends Controller
     function map ()
     {
  
-        $falls = Approve::where('destination','=', 'falls')->get();
-        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
-        $tundol = Approve::where('destination','=', 'tundol')->get();
-        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+        $falls = Approve::where('destination','=', 'falls')->where('day','=', date('l'))->get();
+        $fallsGroup = Book_data::where('destination','=', 'falls')->where('day','=', date('l'))->get();
+        $tundol = Approve::where('destination','=', 'tundol')->where('day','=', date('l'))->get();
+        $tundolGroup = Book_data::where('destination','=', 'tundol')->where('day','=', date('l'))->get();
 
         $totalfalls = $falls->count() + $fallsGroup->count();
         $totaltundol = $tundol->count(); + $tundolGroup->count();
@@ -219,6 +220,15 @@ class UserController extends Controller
         $data['tundol_count'] = $totaltundol;
 
         return view('user.map', $data);
+    }
+
+    function map_locations ()
+    {
+        $locations = Map_location::get(['id','name', 'latitude','longitude']);
+
+        return response()->json([
+            'locations' => $locations,
+        ]);
     }
 
     function fetch_visit ()

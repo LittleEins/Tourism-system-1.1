@@ -135,6 +135,7 @@
   <script src="/user/assets/js/main.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
   <script src="/user/assets/js/all.js"></script>
+  <script src="/user/assets/js/grap_count.js"></script>
 
 </body>
 

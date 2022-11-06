@@ -27,6 +27,9 @@ Route::get('/user/book/confirm',[UserController::class,'log_confirm']);
 
 Route::get('/user/log/view/all',[UserController::class,'records_group_view']);
 
+Route::get('/edit/location',[AdminController::class,'edit_location']);
+Route::get('/delete/location',[AdminController::class,'delete_location']);
+
 // Home Route
 Route::get('/',[MainController::class,'home']);
 Route::get('/login',[MainController::class,'login'])->name('login'); //login view
@@ -53,6 +56,10 @@ Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
 Route::get('/book2/count',[UserController::class,'book2_count']);
 Route::get('/graph/data',[StuffController::class,'graph_data']);
 Route::get('/data',[StuffController::class,'weekly_data']);
+Route::get('/locations/map',[UserController::class,'map_locations']);
+Route::get('/maplocation',[AdminController::class,'map_location_fetch']);
+Route::post('/addlocation',[AdminController::class,'add_location']);
+
 
 // Route Proccess
 Route::post('auth/login',[MainController::class,'login_check'])->name('authUser.login'); //login proccissing
@@ -88,6 +95,7 @@ Route::prefix('user')->middleware(['authCheck'])->group(function ()
 Route::prefix('admin')->middleware(['isAdmin'])->group(function () 
 {
     Route::get('/dashboard',[AdminController::class,'dashboard']);
+    Route::get('/map/locations',[AdminController::class,'add_map_location'])->name('admin.addmap');
 });
 
 // stuff route

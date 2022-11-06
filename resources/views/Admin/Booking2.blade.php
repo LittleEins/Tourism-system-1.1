@@ -82,8 +82,10 @@
                                       <div class="col-md-3 mb-3">
                                         <select name="destination[]" class="form-select" aria-label="Default select example" required>
                                           <option selected>Destination</option>
-                                          <option value="falls">Bolinao (Falls 200)</option>
-                                          <option value="tundol">Tundol (130)</option>
+                                          <option value="falls">Falls (Falls 200)</option>
+                                          <option value="light house">Light House (130)</option>
+                                          <option value="tupa">Tupa (Falls 200)</option>
+                                          <option value="patar">Patar House (130)</option>
                                         </select>
                                         <x-error_style/>@error('password') {{$message}} @enderror</p>
                                       </div>
