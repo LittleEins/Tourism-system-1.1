@@ -57,6 +57,7 @@ class AdminController extends Controller
             $add_location->latitude = $req->input('latitude');
             $add_location->longitude = $req->input('longitude');
             $add_location->save();
+            
 
             return response()->json([
                 'status'=>200,

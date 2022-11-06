@@ -53,7 +53,7 @@
                     <a href="/stuff/book/delete?id={{ $list->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></a> 
                     </td>
                     <td>
-                    <a href="/stuff/book/confirm?id={{ $list->id }}" class="btn btn-success approve_btn"><i class="far fa-check-circle"></i></a> 
+                    <a href="/stuff/book/confirm?id={{ $list->id }}" id="approve" class="btn btn-success approve_btn"><i class="far fa-check-circle"></i></a> 
                     </td>
                   </tr>
                   @endforeach
@@ -85,7 +85,7 @@
 <script src="/user/assets/js/map.js"></script>
 {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
 <script src="/user/assets/js/all.js"></script>
-<script src="/user/assets/js/fetch_bookrequest.js"></script>
+<script src="/user/assets/js/map.js"></script>
 
 <!-- Vendor JS Files -->
 <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>

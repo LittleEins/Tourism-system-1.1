@@ -8,6 +8,7 @@ use App\Models\Book_data;
 use App\Models\Book_request;
 use App\Models\Approve;
 use App\Models\Weekly_count;
+use App\Models\Map_location;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
@@ -288,22 +289,32 @@ class StuffController extends Controller
         $approve->address = $confirm->address;
         $approve->book_number = $confirm->book_number;
         $approve->groups = $groupCount;
-        $approve->day = date('l');
+        $approve->day = strtolower(date('l'));
         $approve->approve_td = $time_date;
         $approve->save();
 
         $data = User::where('id','=', session('LoggedUser'))->first();
 
-        $visit_count = Approve::where('book_number','=', $confirm->book_number)->where('day','=', $data->location )->get();
-        $visit_group = Book_data::where('book_number','=', $confirm->book_number)->where('day','=', $data->location )->get();
+        $visit_count = Approve::where('book_number','=', $confirm->book_number)->where('destination','=', strtolower($data->location))->get();
+        $visit_group = Book_data::where('book_number','=', $confirm->book_number)->where('destination','=', strtolower($data->location))->get();
         $total = $visit_count->count() + $visit_group->count();
 
-        $insert_count = Map_location ;
-        $insert_count->visit_count = $total;
-        $insert_count->save();
+        $data2 = Map_location::get(['name']);
+        $count = $data2->count();
+        
+        
+        for($i = 0; $i < $count; $i++){
+            if (strtolower($data->location) == strtolower($data2[$i]->name))
+            {
+                $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                $map_count->visit_count = $total;
+                $map_count->save();
 
-        // delete the request after approve
-        DB::table('book_requests')->where('id',$req->id)->delete();
+                break;
+            }
+        }
+
+        // DB::table('book_requests')->where('id',$req->id)->delete();
 
         return back()->with('success','Approve Successfully');
     }
