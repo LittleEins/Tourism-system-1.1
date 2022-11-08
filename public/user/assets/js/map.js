@@ -2,6 +2,26 @@ const apiKey = 'pk.eyJ1IjoiamVyaG9tZTEyIiwiYSI6ImNsOHpkeWk4MTBsNHYzb3A0aXhwM3N2O
 
 $(document).ready(function ()
 {
+    load_map();
+
+    var myMap = L.map('map', {
+        maxZoom: 20,
+        minZoom: 6,
+        zoomControl: false
+    }).setView([16.3398435,119.8216285], 11);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 100,
+    }).addTo(myMap);
+
+    L.control.zoom({
+        position: 'bottomright'
+    }).addTo(myMap);
+
+
+
+    function load_map ()
+    {
         $.ajax ({
             type: "GET",
             url: "/locations/map",
@@ -9,29 +29,15 @@ $(document).ready(function ()
             success: function (response) 
             {
                 console.log('ddd');
-                
-                var myMap = L.map('map', {
-                    maxZoom: 20,
-                    minZoom: 6,
-                    zoomControl: false
-                }).setView([16.3398435,119.8216285], 11);
-    
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 100,
-                }).addTo(myMap);
-    
-                L.control.zoom({
-                    position: 'bottomright'
-                }).addTo(myMap);
     
                 let l = response.locations.length;
-    
                 for (let i = 0; i < l; i++)
                 {
                     var name = response.locations[i].name;
                     var names = name;
                     var count_visit = response.locations[i].visit_count;
     
+                    
                     // Mark
                   var name = L.marker([response.locations[i].latitude, response.locations[i].longitude]).addTo(myMap);
     
@@ -64,5 +70,8 @@ $(document).ready(function ()
                 }
             }
         });
+    }
+
+
        
 });

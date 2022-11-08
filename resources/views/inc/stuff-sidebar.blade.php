@@ -9,9 +9,9 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="/alert/notification">
           <i class="bi bi-exclamation-diamond"></i>
-          <span>Alert</span>x
+          <span>Alert</span>
         </a>
       </li><!-- Map Page Nav -->
 

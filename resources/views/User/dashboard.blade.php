@@ -24,50 +24,22 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-          <!-- Sale & Revenue Start -->
-          <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-line fa-3x text-primary"></i>
-                        <div id="falls_count" class="ms-3">
-                            <p class="mb-2">Bolinao Falls</p>
-                            <h6 id="patar_count" class="mb-0">{{ $falls }}</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                        <div id="tundol_count" class="ms-3">
-                            <p class="mb-2">Patar Beach</p>
-                            <h6 class="mb-0">{{ $tundol }}</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-area fa-3x text-primary"></i>
-                        <div id="elspis_count" class="ms-3">
-                            <p class="mb-2">Light House</p>
-                            <h6 class="mb-0">34</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                        <div id="tara_falls" class="ms-3">
-                            <p class="mb-2">Tupa</p>
-                            <h6 class="mb-0">234</h6>
-                        </div>
-                    </div>
-                </div>
+    
+      <div class="container-fluid pt-4 px-4">
+        <div class="row g-4" id="dahboard">
+          @for($i=0;$i < $count; $i++)
+          <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-users fa-3x text-primary"></i>
+              <div id="falls_count" class="ms-3">
+                  <p class="mb-2">{{ $location[$i]->name }}</p>
+                  <h6 id="patar_count" class="mb-0">{{ $location[$i]->visit_count }}</h6>
+              </div>
             </div>
+          </div>
+          @endfor
         </div>
-        <!-- Sale & Revenue End -->
-
-
+      </div>
     </section>
 
   </main><!-- End #main -->

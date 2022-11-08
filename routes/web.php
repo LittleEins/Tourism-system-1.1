@@ -20,6 +20,7 @@ use App\Http\Controllers\StuffController;
 Route::get('/stuff/book/view/all',[StuffController::class,'br_view']);
 Route::get('/stuff/book/delete',[StuffController::class,'br_delete']);
 Route::get('/stuff/book/confirm',[StuffController::class,'br_confirm']);
+Route::get('/alert/notification',[StuffController::class,'alert']);
 
 Route::get('/user/book/view/all',[UserController::class,'log_view']);
 Route::get('/user/book/delete',[UserController::class,'log_delete']);
@@ -56,9 +57,12 @@ Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
 Route::get('/book2/count',[UserController::class,'book2_count']);
 Route::get('/graph/data',[StuffController::class,'graph_data']);
 Route::get('/data',[StuffController::class,'weekly_data']);
+Route::post('/create/notification',[StuffController::class,'send_notification']);
+Route::get('/notif',[StuffController::class,'notif_log']);
 Route::get('/locations/map',[UserController::class,'map_locations']);
 Route::get('/maplocation',[AdminController::class,'map_location_fetch']);
 Route::post('/addlocation',[AdminController::class,'add_location']);
+
 
 
 // Route Proccess

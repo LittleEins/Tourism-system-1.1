@@ -9,6 +9,7 @@ use App\Models\Book_request;
 use App\Models\Approve;
 use App\Models\Weekly_count;
 use App\Models\Map_location;
+use App\Models\Notification;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
@@ -140,31 +141,47 @@ class StuffController extends Controller
 
     function dashboard ()
     {
-        // get data and goto dasboard view
-        $falls = Approve::where('destination','=', 'falls')->get();
-        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
-        $tundol = Approve::where('destination','=', 'tundol')->get();
-        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+        date_default_timezone_set('Asia/Manila');
+        $end = "18";
+        $now = date('H');
+        $day = date('l');
+        $date  = date('F j, Y');
 
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-        $data['falls'] = $falls->count() + $fallsGroup->count();
-        $data['tundol'] = $tundol->count() + $tundolGroup->count();
+        $location = Map_location::get(['name','visit_count','date']);
+        $count = Map_location::get(['name','visit_count'])->count();
 
+    
+        // resetting count 
+        for ($i = 0; $i < $count; $i++)
+        {
+            if ((strtolower($date) != strtolower($location[$i]->date)) && (strtolower($location[$i]->date != null)))
+            {   
+                DB::table('map_locations')->update(['visit_count'=>'0']);
+
+            }   
+        }
+
+        $data['location'] = Map_location::get(['name','visit_count']);
+        $data['count'] = Map_location::get(['name','visit_count'])->count();
+        
         return view('stuff.dashboard', $data);
     }
 
     function dashboard_fetch ()
     {
 
-        $falls = Approve::where('destination','=', 'falls')->get();
-        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
-        $tundol = Approve::where('destination','=', 'tundol')->get();
-        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+        date_default_timezone_set('Asia/Manila');
+        $end = "18";
+        $now = date('H');
+        $day = date('l');
+
+        $data = Map_location::get(['name','visit_count']);
+        $count = Map_location::get(['name','visit_count'])->count();
 
         return response()->json([
-            'falls' => $falls->count() + $fallsGroup->count(),
-            'tundol' =>$tundol->count() + $tundolGroup->count(),
-            'patar' =>$tundol->count() + $tundolGroup->count(),
+            'data' => $data,
+            'count' => $count,
         ]);
 
     }
@@ -178,41 +195,71 @@ class StuffController extends Controller
 
         $acc = User::where('id','=', session('LoggedUser'))->first();
 
-        $current_count = Approve::where('day','=', date('l'))->where('destination','=', $acc->location )->get()->count();
         $day = date('l');
 
-        $final = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
+        $data = Weekly_count::where('user_id','=', session('LoggedUser'))->where('location','=', $acc->location)->first();
 
-    
-        if ($final == null)
+        return response()->json([
+            'visit_count'=>$data,
+        ]);
+ 
+  
+    }
+
+    function alert ()
+    {
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+
+        
+        return view('stuff.alert', $data);
+    }
+
+    function notif_log ()
+    {
+        $data = Notification::where('creator_id','=', session('LoggedUser'))->get();
+
+        return response()->json([
+            'notification'=>$data,
+        ]);
+    }
+
+    function send_notification (Request $req)
+    {
+        // validator
+        $validate = \Validator::make($req->all(), [
+            'type' => 'required',
+            'message' => 'required|max:500',
+        ]);
+
+        if ($validate->fails())
         {
-            $insert = new Weekly_count;
-            $insert->user_id = session('LoggedUser');
-            $insert->save();
-
-            $update = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
-            $update->$day = $current_count;
-            $update->save();
-
-            $data = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
-
-
             return response()->json([
-                'visit_count'=>$data,
+                'status'=>400,
+                'errors'=>$validate->messages(),
             ]);
         }
         else
-        {
-            $final->$day = $current_count;
-            $final->save();
-    
-            $data = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
-    
+        { 
+            date_default_timezone_set('Asia/Manila');
+
+            $sender = User::where('id','=', session('LoggedUser'))->first();
+
+            $notification = new Notification;
+            $notification->creator_id = $sender->id;
+            $notification->message = $req->input('message');
+            $notification->type = $req->input('type');
+            $notification->time =  date('g:i:a');
+            $notification->date =  date('F j, Y');
+            $notification->save();
+            
+
             return response()->json([
-                'visit_count'=>$data,
+                'status'=>200,
+                'success'=>'Notification sent',
             ]);
         }
-  
+
+      
     }
 
 
@@ -269,7 +316,7 @@ class StuffController extends Controller
         date_default_timezone_set('Asia/Manila');
         $time_date  = date('F j, Y g:i:a  ');
 
-        $datetime = DateTime::createFromFormat('YmdHi', '201308131830');
+        $datetime = DateTime::createFromFormat('YmdHi', '201308131830'); 
 
         $confirm = Book_request::where('id','=', $req->id)->first();
         $group = DB::table('book_datas')->where('booker_id', '=', $req->id)->get();
@@ -301,22 +348,59 @@ class StuffController extends Controller
 
         $data2 = Map_location::get(['name']);
         $count = $data2->count();
-        
-        
+        $date  = date('F j, Y');
+        $end = "18";
+        $now = date('H');
+        $day = date('l');
+
+
         for($i = 0; $i < $count; $i++){
             if (strtolower($data->location) == strtolower($data2[$i]->name))
             {
                 $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
                 $map_count->visit_count = $total;
+                $map_count->date = $date;
                 $map_count->save();
 
                 break;
             }
         }
 
-        // DB::table('book_requests')->where('id',$req->id)->delete();
+        $acc = User::where('id','=', session('LoggedUser'))->first();
 
-        return back()->with('success','Approve Successfully');
+       
+        $final = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
+
+
+        if ($final == null)
+        {
+            $insert = new Weekly_count;
+            $insert->user_id = session('LoggedUser');
+            $insert->location = $acc->location;
+            $insert->save();
+
+            $update = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
+            $update->$day = $total;
+            $update->save();
+
+            
+            DB::table('book_requests')->where('id',$req->id)->delete();
+
+            return redirect('/stuff/check/point')->with('success','Approve Successfully');
+
+        }
+        else
+        {
+            $final->$day = $total;
+            $final->location = $acc->location;
+            $final->save();
+
+            
+            DB::table('book_requests')->where('id',$req->id)->delete();
+
+            return redirect('/stuff/check/point')->with('success','Approve Successfully');
+    
+        }
     }
 
     //reports generation

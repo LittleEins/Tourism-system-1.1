@@ -11,6 +11,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   {{-- data table cdn --}}
   <link href="/user/assets/css/bootstrap.min.css" rel="stylesheet">

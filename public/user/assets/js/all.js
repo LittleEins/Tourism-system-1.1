@@ -14,14 +14,20 @@ $(document).ready(function ()
             dataType: "json",
             success: function (response) 
             {
-
-                $('#falls_count').html("");
-                $('#falls_count').append('<p class="mb-2">Bolinao Falls</p>\
-                <h6 class="mb-0">'+response.falls+'</h6>');
-
-                $('#tundol_count').html("");
-                $('#tundol_count').append('<p class="mb-2">Tundol</p>\
-                <h6 class="mb-0">'+response.tundol+'</h6>');
+                let l = response.count;
+                $('#dahboard').html("");
+                for (let i = 0; i < l; i++)
+                {
+                    $('#dahboard').append('<div class="col-sm-6 col-xl-3">\
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">\
+                      <i class="fa fa-users fa-3x text-primary"></i>\
+                      <div id="falls_count" class="ms-3">\
+                          <p class="mb-2">'+response.data[i].name+'</p>\
+                          <h6 id="patar_count" class="mb-0">'+response.data[i].visit_count+'</h6>\
+                      </div>\
+                    </div>\
+                  </div>')
+                }
 
             }
  
@@ -47,7 +53,9 @@ $(document).ready(function ()
             }
  
         });
-    }  
+    } 
+
+
 
 
 });

@@ -64,7 +64,7 @@ $(document).ready(function ()
                     $('#err_name').append(response.errors.name);
                     $('#err_latitude').append(response.errors.latitude);
                     $('#err_longitude').append(response.errors.longitude);
-                    $('#add_success').addClass('alert alert-success');
+
           
                 }
                 else
@@ -74,6 +74,9 @@ $(document).ready(function ()
                     $('#add_success').addClass('alert alert-success');
                     $('#add_success').text(response.success);
                     $('#addlocationModal').find('input').val("");
+                    $('#err_name').html("");
+                    $('#err_latitude').html("");
+                    $('#err_longitude').html("");
                 }
 
                 map_locations();

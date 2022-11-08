@@ -174,32 +174,42 @@ class UserController extends Controller
 
     function dashboard ()
     {
-
-        // get data and goto dasboard view
-        $falls = Approve::where('destination','=', 'falls')->get();
-        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
-        $tundol = Approve::where('destination','=', 'tundol')->get();
-        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+        date_default_timezone_set('Asia/Manila');
+        $end = "18";
+        $now = date('H');
+        $day = date('l');
+        $date  = date('F j, Y');
 
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-        $data['falls'] = $falls->count() + $fallsGroup->count();
-        $data['tundol'] = $tundol->count() + $tundolGroup->count();
+        $location = Map_location::get(['name','visit_count','date']);
+        $count = Map_location::get(['name','visit_count'])->count();
 
+    
+        // resetting count 
+        for ($i = 0; $i < $count; $i++)
+        {
+            if ((strtolower($date) != strtolower($location[$i]->date)) && (strtolower($location[$i]->date != null)))
+            {   
+                DB::table('map_locations')->update(['visit_count'=>'0']);
+
+            }   
+        }
+
+        $data['location'] = Map_location::get(['name','visit_count']);
+        $data['count'] = Map_location::get(['name','visit_count'])->count();
+        
         return view('user.dashboard', $data);
     }
 
     function dashboard_fetch ()
     {
-
-        $falls = Approve::where('destination','=', 'falls')->where('day','=', date('l'))->get();
-        $fallsGroup = Book_data::where('destination','=', 'falls')->where('day','=', date('l'))->get();
-        $tundol = Approve::where('destination','=', 'tundol')->where('day','=', date('l'))->get();
-        $tundolGroup = Book_data::where('destination','=', 'tundol')->where('day','=', date('l'))->get();
+    
+        $data = Map_location::get(['name','visit_count']);
+        $count = Map_location::get(['name','visit_count'])->count();
 
         return response()->json([
-            'falls' => $falls->count() + $fallsGroup->count(),
-            'tundol' =>$tundol->count() + $tundolGroup->count(),
-            'patar' =>$tundol->count() + $tundolGroup->count(),
+            'data' => $data,
+            'count' => $count,
         ]);
 
     }
