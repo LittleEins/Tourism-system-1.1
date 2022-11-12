@@ -114,6 +114,7 @@
   {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
   <script src="/user/assets/js/add_rows.js"></script>
   <script src="/user/assets/js/all.js"></script>
+  <script src="/user/assets/js/send_notification.js"></script>
 
  
 

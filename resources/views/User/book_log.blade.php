@@ -29,7 +29,19 @@
                   <th scope="col">Destination</th>
                   <th scope="col">Groups</th>
                   <th scope="col">Book Number</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">View</th>
+                  @if ($list != null)
+                    @if ($list->status == "pending")
+                    <th scope="col">Cancel</th>
+                    @endif
+                    @if ($list->status == "approve")
+                    <th scope="col">Leave</th>
+                    @endif
+                  @endif
+                  @if ($list == null)
+                    <th scope="col">Action</th>
+                  @endif
                 </tr>
               </thead>
                 <tbody>
@@ -43,10 +55,20 @@
                     <td>{{ $list->destination}}</td>
                     <td>{{ $list->groups }}</td>
                     <td>{{ $list->book_number }}</td>
+                    <td>{{ $list->status }}</td>
                     <td>
                     <a href="/user/book/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> 
-                    <a href="/user/book/delete?id={{ $list->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></a> 
                     </td>
+                        @if ($list->status == "pending")
+                        <td>
+                          <a href="/user/book/delete?id={{ $list->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></a> 
+                        </td>
+                        @endif
+                        @if ($list->status == "approve")
+                        <td>
+                          <a href="/user/book/leave?id={{ $list->book_number }}" class="btn btn-danger"><i class="fa fa-taxi"></i></a> 
+                        </td>
+                        @endif
                     @endif
                   </tr>
               </tbody>
@@ -75,6 +97,7 @@
 <script src="/user/assets/js/map.js"></script>
 {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
 <script src="/user/assets/js/fetch_bookrequest.js"></script>
+<script src="/user/assets/js/send_notification.js"></script>
 
 <!-- Vendor JS Files -->
 <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>

@@ -71,6 +71,7 @@
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
   <script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
   <script src="/user/assets/js/map.js"></script>
+  <script src="/user/assets/js/send_notification.js"></script>
 
 </body>
 

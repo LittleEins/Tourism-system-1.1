@@ -24,7 +24,9 @@ Route::get('/alert/notification',[StuffController::class,'alert']);
 
 Route::get('/user/book/view/all',[UserController::class,'log_view']);
 Route::get('/user/book/delete',[UserController::class,'log_delete']);
+Route::get('/user/book/leave',[UserController::class,'leave_location']);
 Route::get('/user/book/confirm',[UserController::class,'log_confirm']);
+Route::get('/user/view/all',[UserController::class,'notifications']);
 
 Route::get('/user/log/view/all',[UserController::class,'records_group_view']);
 
@@ -55,10 +57,17 @@ Route::get('/fetch-checkpoint',[StuffController::class,'fetch_checkpoint']);
 Route::get('/visited',[UserController::class,'fetch_visit']);
 Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
 Route::get('/book2/count',[UserController::class,'book2_count']);
+Route::get('user/notific',[UserController::class,'get_notif']);
+Route::get('/view/data',[UserController::class,'view_data']);
 Route::get('/graph/data',[StuffController::class,'graph_data']);
 Route::get('/data',[StuffController::class,'weekly_data']);
 Route::post('/create/notification',[StuffController::class,'send_notification']);
+Route::get('/view/notif',[UserController::class,'view_notif']);
+Route::get('/user/notif',[UserController::class,'user_notif_log']);
+Route::get('/user/view/notification',[UserController::class,'user_notif_view']);
 Route::get('/notif',[StuffController::class,'notif_log']);
+Route::get('delete/notif',[StuffController::class,'delete_notif']);
+Route::get('/user/delete/notif',[UserController::class,'user_delete_notif']);
 Route::get('/locations/map',[UserController::class,'map_locations']);
 Route::get('/maplocation',[AdminController::class,'map_location_fetch']);
 Route::post('/addlocation',[AdminController::class,'add_location']);

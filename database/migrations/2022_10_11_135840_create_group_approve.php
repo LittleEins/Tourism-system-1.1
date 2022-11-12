@@ -11,16 +11,18 @@ return new class extends Migration
      *
      * @return void
      */
-
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('group_approves', function (Blueprint $table) {
             $table->id();
-            $table->string('creator_id')->nullable();
-            $table->string('type')->nullable();
-            $table->string('message')->nullable();
-            $table->string('time')->nullable();
-            $table->string('date')->nullable();
+            $table->string('user_id');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('destination');
+            $table->string('gender');
+            $table->string('phone');
+            $table->string('address');
+            $table->string('book_number');
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('book_data');
     }
 };

@@ -9,7 +9,9 @@ use App\Models\Book_request;
 use App\Models\Approve;
 use App\Models\Weekly_count;
 use App\Models\Map_location;
-use App\Models\Notification;
+use App\Models\Stuff_notification;
+use App\Models\User_notification;
+use App\Models\Admin_notification;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\Storage; // use this if you make delete on storag
 
 class StuffController extends Controller
 {
+
     function profile ()
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
@@ -164,6 +167,21 @@ class StuffController extends Controller
 
         $data['location'] = Map_location::get(['name','visit_count']);
         $data['count'] = Map_location::get(['name','visit_count'])->count();
+
+        // analytics resets
+        $dateTime = new DateTime('now');
+        $monday = clone $dateTime->modify(('Sunday' == $dateTime->format('l')) ? 'Monday last week' : 'Monday this week');
+        $sunday = clone $dateTime->modify('Sunday this week');
+        $now = date('Y-m-d');
+        $end = $sunday->format('Y-m-d');
+        // for modification date
+        // $end = strtotime("2022-11-01");
+
+        if (strtotime($now)  > $end)
+        {
+            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+        }
+
         
         return view('stuff.dashboard', $data);
     }
@@ -191,7 +209,7 @@ class StuffController extends Controller
 
         date_default_timezone_set('Asia/Manila');
         $end = "18";
-        $now = date('19');
+        $now = date('H');
 
         $acc = User::where('id','=', session('LoggedUser'))->first();
 
@@ -216,11 +234,21 @@ class StuffController extends Controller
 
     function notif_log ()
     {
-        $data = Notification::where('creator_id','=', session('LoggedUser'))->get();
+        $acc = User::where('id','=', session('LoggedUser'))->first();
+        $data = Stuff_notification::where('creator_id','=', $acc->location)->get();
 
         return response()->json([
             'notification'=>$data,
         ]);
+    }
+
+    function delete_notif (Request $req)
+    {
+        DB::table('stuff_notifications')->where('id',$req->id)->delete();
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+
+        
+        return view('stuff.alert', $data);
     }
 
     function send_notification (Request $req)
@@ -244,12 +272,32 @@ class StuffController extends Controller
 
             $sender = User::where('id','=', session('LoggedUser'))->first();
 
-            $notification = new Notification;
-            $notification->creator_id = $sender->id;
+            
+            $user_notification = new User_notification;
+            $user_notification->creator_id = $sender->location;
+            $user_notification->message = $req->input('message');
+            $user_notification->type = $req->input('type');
+            $user_notification->time =  date('g:i:a');
+            $user_notification->date =  date('F j, Y');
+            $user_notification->status = "unread";
+            $user_notification->save();
+
+            // $user_notification = new Admin_notification;
+            // $user_notification->creator_id = $sender->location;
+            // $user_notification->message = $req->input('message');
+            // $user_notification->type = $req->input('type');
+            // $user_notification->time =  date('g:i:a');
+            // $user_notification->date =  date('F j, Y');
+            // $user_notification->status = "unread";
+            // $user_notification->save();
+
+            $notification = new Stuff_notification;
+            $notification->creator_id = $sender->location;
             $notification->message = $req->input('message');
             $notification->type = $req->input('type');
             $notification->time =  date('g:i:a');
             $notification->date =  date('F j, Y');
+            $notification->status = "unread";
             $notification->save();
             
 
@@ -268,7 +316,7 @@ class StuffController extends Controller
         $acc_data = User::where('id','=', session('LoggedUser'))->first();
         // passing multiple variable to view
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['book_list'] =  DB::table('book_requests')->where('destination', '=', $acc_data->location )->get();
+        $data['book_list'] =  DB::table('book_requests')->where('destination', '=', $acc_data->location )->where('status','=','pending')->get();
         
         return view('stuff.check-point', $data);
 
@@ -278,7 +326,7 @@ class StuffController extends Controller
     {
         $acc_data = User::where('id','=', session('LoggedUser'))->first();
 
-        $checkpoint_list = DB::table('book_requests')->where('destination', '=', $acc_data->location )->get();
+        $checkpoint_list = DB::table('book_requests')->where('destination', '=', $acc_data->location )->where('status','=','pending')->get()->get();
 
         return response()->json([
             'book_list'=>$checkpoint_list,
@@ -350,21 +398,23 @@ class StuffController extends Controller
         $count = $data2->count();
         $date  = date('F j, Y');
         $end = "18";
-        $now = date('H');
         $day = date('l');
 
 
         for($i = 0; $i < $count; $i++){
             if (strtolower($data->location) == strtolower($data2[$i]->name))
             {
-                $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
-                $map_count->visit_count = $total;
-                $map_count->date = $date;
-                $map_count->save();
 
+                $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                $count = $total + (int)$map_count->visit_count;
+                $map_count->visit_count = $count ;
+                $map_count->date = $date;
+                $rews = $map_count->save();
+               
                 break;
             }
         }
+        
 
         $acc = User::where('id','=', session('LoggedUser'))->first();
 
@@ -372,31 +422,37 @@ class StuffController extends Controller
         $final = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
 
 
+
         if ($final == null)
         {
+         
             $insert = new Weekly_count;
             $insert->user_id = session('LoggedUser');
             $insert->location = $acc->location;
             $insert->save();
 
             $update = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
-            $update->$day = $total;
+            $update->$day = $count;
             $update->save();
 
             
-            DB::table('book_requests')->where('id',$req->id)->delete();
+            $status_update = Book_request::where('id',$req->id)->first();
+            $status_update->status = "approve";
+            $status_update->save();
 
             return redirect('/stuff/check/point')->with('success','Approve Successfully');
 
         }
         else
         {
-            $final->$day = $total;
+    
+            $final->$day = $count;
             $final->location = $acc->location;
             $final->save();
 
-            
-            DB::table('book_requests')->where('id',$req->id)->delete();
+            $status_update = Book_request::where('id',$req->id)->first();
+            $status_update->status = "approve";
+            $status_update->save();
 
             return redirect('/stuff/check/point')->with('success','Approve Successfully');
     

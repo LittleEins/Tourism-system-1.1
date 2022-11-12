@@ -1,4 +1,4 @@
-@include('inc.stuff-header');
+@include('inc.user-header');
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -10,10 +10,37 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-    @include('inc.stuff-sidebar');
+    @include('inc.user-sidebar');
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+    
+   <!-- Modal add location -->
+   <div class="modal fade" id="viewnotif" tabindex="-1" aria-labelledby="viewnotif" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Notification from <span id="sender"></span></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="add_success"></div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <h4>Notification Level: <span id="type"></span></h4>
+            </div>
+            <div class="mb-3">
+              <p id="message"></p>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="pagetitle">
       <h1>Alert</h1>
       <nav>
@@ -66,7 +93,7 @@
           <div class="card">
 
             <div class="card-header">
-              <h4>Notification<a href="#" class="btn btn-primary float-end"  data-bs-toggle="modal" data-bs-target="#createNotification" data-bs-whatever="@mdo">Create Notification</a></h4>
+              <h4>Notification</h4>
             </div>
 
             <div class="card-body">
@@ -77,10 +104,11 @@
                     <th scope="col">Message</th>
                     <th scope="col">Time</th>
                     <th scope="col">Date</th>
+                    <th scope="col">View</th>
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>
-                <tbody id="notifications">
+                <tbody id="user_notif">
 
                 </tbody>
               </table>
@@ -108,6 +136,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <script src="/user/assets/js/send_notification.js"></script>
 
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>

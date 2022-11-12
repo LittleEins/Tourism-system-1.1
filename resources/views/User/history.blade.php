@@ -74,6 +74,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
 <script src="/user/assets/js/fetch_bookrequest.js"></script>
+<script src="/user/assets/js/send_notification.js"></script>
 
 <!-- Vendor JS Files -->
 <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>

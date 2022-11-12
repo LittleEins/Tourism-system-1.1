@@ -1,9 +1,9 @@
 
 $(document).ready(function ()
-{  
-    
+{
     dashboard();
     book_count();
+
 
     function dashboard ()
     {

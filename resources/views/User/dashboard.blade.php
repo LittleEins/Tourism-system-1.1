@@ -60,6 +60,8 @@
       <script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
       {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
       <script src="/user/assets/js/fetch_bookrequest.js"></script>
+      <script src="/user/assets/js/all.js"></script>
+      <script src="/user/assets/js/send_notification.js"></script>
 
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -74,7 +76,7 @@
   <!-- Template Main JS File -->
   <script src="/user/assets/js/main.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
-  <script src="/user/assets/js/all.js"></script>
+
 
 </body>
 

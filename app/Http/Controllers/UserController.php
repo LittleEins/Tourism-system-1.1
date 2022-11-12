@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Book_request;
 use App\Models\Book_data;
 use App\Models\Map_location;
+use App\Models\User_notification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage; // use this if you make delete on storage
 
@@ -191,7 +192,6 @@ class UserController extends Controller
             if ((strtolower($date) != strtolower($location[$i]->date)) && (strtolower($location[$i]->date != null)))
             {   
                 DB::table('map_locations')->update(['visit_count'=>'0']);
-
             }   
         }
 
@@ -212,6 +212,69 @@ class UserController extends Controller
             'count' => $count,
         ]);
 
+    }
+
+    function notifications ()
+    {
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+
+        return view('user.alert', $data);
+    }
+
+    function user_notif_view(Request $req)
+    {
+        DB::table('user_notifications')->where('id', $req->id)->update(['status' => 'seen']);
+        $data = ['message'=> User::where('id','=', $req->id)->first()];
+
+        return back()->with('click',$req->id);
+    }
+
+    function user_notif_log ()
+    {
+        $acc = User::where('id','=', session('LoggedUser'))->first();
+        //getting data by new insert
+        $data = User_notification::orderBy('created_at','desc')->get();
+
+        return response()->json([
+            'notification'=>$data,
+        ]);
+    }
+
+    function get_notif ()
+    {
+        $get_notif = User_notification::where('status','=', 'unread')->paginate(3);
+        $all = User_notification::where('status','=', 'unread')->get();
+
+        return response()->json([
+            'get_notif' => $get_notif,
+            'unread' => $all,
+        ]);
+    }
+
+    function user_delete_notif (Request $req)
+    {
+        DB::table('user_notifications')->where('id',$req->id)->delete();
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+
+        
+        return view('user.alert', $data);
+    }
+
+    function view_notif (Request $req)
+    {
+        DB::table('user_notifications')->where('id', $req->id)->update(['status' => 'seen']);
+        $data = ['message'=> User::where('id','=', $req->id)->first()];
+
+        return back()->with('click',$req->id);
+    }
+
+    function view_data (Request $req)
+    {
+        $data = User_notification::where('id','=', $req->input('view'))->first();
+
+        return response()->json([
+            'view_data' => $data,
+        ]);
     }
 
     function map ()
@@ -279,9 +342,32 @@ class UserController extends Controller
 
             if ($book_exist != null)
             {
-                return back()->with('fails','You have already booked');
-            } 
-            else 
+                if ($book_exist->status == "pending")
+                {
+                    return back()->with('fails','You have already booked');
+                }
+                else if ($book_exist->status == "approve")
+                {
+                    return back()->with('fails','You are already in');
+                }
+                else 
+                {
+                    $falls = Approve::where('destination','=', 'falls')->get();
+                    $fallsGroup = Book_data::where('destination','=', 'falls')->get();
+                    $tundol = Approve::where('destination','=', 'tundol')->get();
+                    $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+            
+                    $totalfalls = $falls->count() + $fallsGroup->count();
+                    $totaltundol = $tundol->count(); + $tundolGroup->count();
+            
+                    $data['falls_count'] = $totalfalls;
+                    $data['tundol_count'] = $totaltundol;
+
+                    return view('user.booking2', $data);
+                }
+
+            }
+            else
             {
                 $falls = Approve::where('destination','=', 'falls')->get();
                 $fallsGroup = Book_data::where('destination','=', 'falls')->get();
@@ -296,7 +382,7 @@ class UserController extends Controller
 
                 return view('user.booking2', $data);
             }
-
+            
         }
     }
 
@@ -338,6 +424,7 @@ class UserController extends Controller
             $insert_request->destination = $req->destination;
             $insert_request->time_date = $time_date;
             $insert_request->book_number = $book_number;
+            $insert_request->status = "pending";
             $insert_request->save();
 
             $book_id = Book_request::where('book_number','=', $book_number)->first();
@@ -367,6 +454,7 @@ class UserController extends Controller
                     ];
 
                     DB::table('book_datas')->insert($datasave);
+                    DB::table('group_approves')->insert($datasave);
             
                 }
 
@@ -399,10 +487,12 @@ class UserController extends Controller
                         'destination' =>$destination,
                         'phone' =>$phone[$i],
                         'address' =>$address[$i],
+                        'book_number'=>$book_number,
                         'time_date' =>$time_date,
                     ];
 
                     DB::table('book_datas')->insert($datasave);
+                    DB::table('group_approves')->insert($datasave);
             
                 }
 
@@ -435,6 +525,7 @@ class UserController extends Controller
             $insert_request->destination = $req->destination;
             $insert_request->time_date = $time_date;
             $insert_request->book_number = $book_number;
+            $insert_request->status = "pending";
             $insert_request->groups = 'solo';
             $insert_request->save();
 
@@ -458,7 +549,7 @@ class UserController extends Controller
     {
         //getting all data with booker
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['groups'] = DB::table('book_datas')->where('book_number', '=', $req->id)->get();
+        $data['groups'] = DB::table('group_approves')->where('book_number', '=', $req->id)->get();
 
         if ($data['groups']->isNotEmpty())
         {
@@ -477,6 +568,40 @@ class UserController extends Controller
         $delete = DB::table('book_requests')->where('id',$req->id)->delete();
 
         return back();
+    }
+
+    function leave_location (Request $req)
+    {
+
+        $data = User::where('id','=', session('LoggedUser'))->first();
+
+        $leave_count = DB::table('book_datas')->where('book_number',$req->id)->get();
+        $leave_group = DB::table('group_approves')->where('book_number',$req->id)->get();
+
+        $req_details = Book_request::where('book_number',$req->id)->first();
+        $total = $leave_group->count() + $leave_count->count();
+
+        $data2 = Map_location::get(['name']);
+        $count = $data2->count();
+
+
+        for($i = 0; $i < $count; $i++){
+            if (strtolower(strtolower($req_details->destination)) == strtolower($data2[$i]->name))
+            {
+               
+                $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                $count = $total - (int)$map_count->visit_count;
+                $map_count->visit_count = $count ;
+                $map_count->save();
+
+                break;
+            }
+        }
+
+        $delete = DB::table('book_requests')->where('book_number',$req->id)->delete();
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+
+        return view('user.book_log', $data);
     }
 
     function records ()
