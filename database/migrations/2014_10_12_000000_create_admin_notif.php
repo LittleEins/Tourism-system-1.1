@@ -14,9 +14,15 @@ return new class extends Migration
 
     public function up()
     {
-        Schema::create('map_locations', function (Blueprint $table) {
+        Schema::create('admin_notifs', function (Blueprint $table) {
             $table->id();
-            $table->string('map_location')->nullable();
+            $table->string('sender')->nullable();
+            $table->string('type')->nullable();
+            $table->string('message')->nullable();
+            $table->string('status')->nullable();
+            $table->string('sendto')->nullable();
+            $table->string('time')->nullable();
+            $table->string('date')->nullable();
             $table->timestamps();
         });
     }

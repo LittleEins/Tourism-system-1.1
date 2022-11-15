@@ -8,6 +8,7 @@ use App\Models\Approve;
 use App\Models\User;
 use App\Models\Book_request;
 use App\Models\Book_data;
+use App\Models\Group_approve;
 use App\Models\Map_location;
 use App\Models\User_notification;
 use Illuminate\Support\Facades\DB;
@@ -575,7 +576,7 @@ class UserController extends Controller
 
         $data = User::where('id','=', session('LoggedUser'))->first();
 
-        $leave_count = DB::table('book_datas')->where('book_number',$req->id)->get();
+        $leave_count = DB::table('approves')->where('book_number',$req->id)->get();
         $leave_group = DB::table('group_approves')->where('book_number',$req->id)->get();
 
         $req_details = Book_request::where('book_number',$req->id)->first();
@@ -590,7 +591,7 @@ class UserController extends Controller
             {
                
                 $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
-                $count = $total - (int)$map_count->visit_count;
+                $count =(int)$map_count->visit_count - $total ;
                 $map_count->visit_count = $count ;
                 $map_count->save();
 
@@ -599,7 +600,9 @@ class UserController extends Controller
         }
 
         $delete = DB::table('book_requests')->where('book_number',$req->id)->delete();
+        $delete = DB::table('book_datas')->where('book_number',$req->id)->delete();
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+        $data['list'] = Book_request::where('user_id','=', session('LoggedUser'))->first();
 
         return view('user.book_log', $data);
     }
@@ -607,7 +610,7 @@ class UserController extends Controller
     function records ()
     {
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['lists'] = DB::table('approves')->where('user_id', '=', session('LoggedUser'))->get();
+        $data['lists'] = Approve::where('user_id', '=', session('LoggedUser'))->paginate(10);
 
         return view('user.history', $data);
     }
@@ -616,7 +619,7 @@ class UserController extends Controller
     {
         //getting all data with booker
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['groups'] = DB::table('book_datas')->where('book_number', '=', $req->id)->get();
+        $data['groups'] = Group_approve::where('book_number', '=', $req->id)->paginate(10);
 
         if ($data['groups']->isNotEmpty())
         {

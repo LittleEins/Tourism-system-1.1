@@ -18,6 +18,36 @@ $(document).ready(function ()
         position: 'bottomright'
     }).addTo(myMap);
 
+    var tourism_office = L.marker([ 16.388653840169958, 119.89281431024764]).addTo(myMap);
+
+    // circle on map
+   L.circle([16.388653840169958, 119.89281431024764], {
+       color: 'red',
+       fillColor: '#f03',
+       fillOpacity: 0.5,
+       radius: 500
+   }).addTo(myMap);
+
+   // add text circle
+   var tourismoffice = L.divIcon({
+       className: 'my-div-icon',
+       html: '<h1 style="font-size:10px; width:fit-content; height:300px;">Tourism Office</h1>',
+       iconAnchor: [15, -7]
+   });
+   // you can set .my-div-icon styles in CSS
+   
+   L.marker([119.89281431024764, 119.89281431024764], {
+       icon: tourismoffice
+   }).addTo(myMap);
+
+   // pop up message on map
+  
+   tourism_office.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
+   <div style='font-size: 10px;'>Tourism Office</div>\
+   <div><a href='https://goo.gl/maps/Jb6MPWpCgaXXu739A'>Visit</a>\
+   </div>");
+
+
 
 
     function load_map ()

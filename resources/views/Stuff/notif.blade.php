@@ -66,7 +66,7 @@
           <div class="card">
 
             <div class="card-header">
-              <h4>Notification<a href="#" class="btn btn-primary float-end"  data-bs-toggle="modal" data-bs-target="#createNotification" data-bs-whatever="@mdo">Create Notification</a></h4>
+              <h4>Notification</a></h4>
             </div>
 
             <div class="card-body">
@@ -77,10 +77,11 @@
                     <th scope="col">Message</th>
                     <th scope="col">Time</th>
                     <th scope="col">Date</th>
+                    <th scope="col">View</th>
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>
-                <tbody id="notifications">
+                <tbody id="stuff_notifications">
 
                 </tbody>
               </table>
@@ -109,6 +110,7 @@
   
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
   <script src="/user/assets/js/stuff_send_notif.js"></script>
+
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/user/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -76,7 +76,7 @@ class MainController extends Controller
                 }
                 else if ($userInfo->role == '2')
                 {
-                    return redirect('admin/dashboard');
+                    return redirect()->route('admin.dashboard');
                 }
                 
             }

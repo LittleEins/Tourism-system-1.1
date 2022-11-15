@@ -31,11 +31,7 @@
           </div>
           <div class="ml-auto d-none d-md-block d-md-flex">
             <div class="media header-top-info">
-              <span class="header-top-info__icon"><i class="fa-duotone fa-envelope"></i></span>
-              <div class="media-body">
-                <p>Have any question?</p>
-                <p>Free: <a href="bolinaotourism@gmail.com">bolinaotourism@gmail.com</a></p>
-              </div>
+            
             </div>
             </div>
           </div>

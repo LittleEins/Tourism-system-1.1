@@ -1,4 +1,4 @@
-@include('inc.user-header');
+@include('inc.stuff-header');
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -6,11 +6,11 @@
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
           <i class="bi bi-grid"></i>
-          <span>Groups</span>
+          <span>Reports</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
-    @include('inc.user-sidebar');
+    @include('inc.stuff-sidebar');
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -24,21 +24,34 @@
                   <th scope="col">Name</th>
                   <th scope="col">Gender</th>
                   <th scope="col">Phone</th>
+                  <th scope="col">Email</th>
                   <th scope="col">Address</th>
+                  <th scope="col">Destination</th>
+                  <th scope="col">Book Number</th>
+                  <th scope="col">Groups</th>
+                  <th scope="col">Data & Time </th>
                 </tr>
               </thead>
                 <tbody>
-                  @foreach ($groups as $list)
+                  @foreach($lists as $list)
                   <tr>
-                    <td>{{ $list->first_name }} {{ $list->last_name }}</td>
+                    <th scope="row">{{ $list->first_name }} {{ $list->last_name }}</th>
                     <td>{{ $list->gender }}</td>
                     <td>{{ $list->phone }}</td>
+                    <td>{{ $list->email }}</td>
                     <td>{{ $list->address }}</td>
+                    <td>{{ $list->destination }}</td>
+                    <td>{{ $list->book_number }}</td>
+                    <td>{{ $list->groups }} 
+                      @if ($list->groups != "0")
+                      <a href="/stuff/log/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> </td>
+                      @endif
+                      <td>{{ $list->approve_td }}</td>
                   </tr>
                   @endforeach
               </tbody>
             </table>
-            {{$groups->links()}}
+            {{$lists->links()}}
           </div>
         </div>
       </div>
@@ -59,7 +72,7 @@
 
 
 {{-- jquery cdn --}}
-<script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
 <script src="/user/assets/js/fetch_bookrequest.js"></script>
 <script src="/user/assets/js/send_notification.js"></script>

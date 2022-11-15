@@ -5,7 +5,7 @@
 
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
-          <i class="bi bi-grid"></i>
+          <i class="bi bi-pass-fill"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
@@ -18,22 +18,28 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-          <!-- Sale & Revenue Start -->
-          <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-               
+    
+      <div class="container-fluid pt-4 px-4">
+        <div class="row g-4" id="dahboard">
+          @for($i=0;$i < $count; $i++)
+          <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-users fa-3x text-primary"></i>
+              <div id="falls_count" class="ms-3">
+                  <p class="mb-2">{{ $location[$i]->name }}</p>
+                  <h6 id="patar_count" class="mb-0">{{ $location[$i]->visit_count }}</h6>
+              </div>
             </div>
+          </div>
+          @endfor
         </div>
-        <!-- Sale & Revenue End -->
-
-
+      </div>
     </section>
 
   </main><!-- End #main -->
@@ -50,6 +56,13 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+      {{-- jquery cdn --}}
+      <script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
+      {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
+      <script src="/user/assets/js/fetch_bookrequest.js"></script>
+      <script src="/user/assets/js/all.js"></script>
+      <script src="/user/assets/js/send_notification.js"></script>
+
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/user/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -63,7 +76,7 @@
   <!-- Template Main JS File -->
   <script src="/user/assets/js/main.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
-  <script src="/user/assets/js/map.js"></script>
+
 
 </body>
 

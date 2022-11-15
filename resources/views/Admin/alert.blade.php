@@ -1,4 +1,4 @@
-@include('inc.stuff-header');
+@include('inc.admin-header');
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -6,11 +6,11 @@
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
           <i class="bi bi-exclamation-diamond"></i>
-          <span>Notification</span>
+          <span>Alert</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
-    @include('inc.stuff-sidebar');
+    @include('inc.admin-sidebar');
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -26,35 +26,46 @@
     <section class="section dashboard">
 
     <!-- Modal add location -->
-    <div class="modal fade" id="createNotification" tabindex="-1" aria-labelledby="createNotification" aria-hidden="true">
+    <div class="modal fade" id="admin_createNotification" tabindex="-1" aria-labelledby="admin_createNotification" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Create Notification</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div id="add_success"></div>
+          <div id="admin_add_success"></div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
-                <select id="type" class="type form-select" aria-label="Default select example">
+                <select id="admin_type" class="admin_type form-select" aria-label="Default select example">
                   <option value="">Notification type</option>
                   <option value="normal">Normal</option>
                   <option value="alert">Alert</option>
                   <option value="danger">Danger</option>
                 </select>
-                <x-error_style/><span id="err_type"></span></p>
+                <x-error_style/><span id="admin_err_type"></span></p>
+              </div>
+              <div class="mb-3">
+                <select id="sendto" class="admin_sendto form-select" aria-label="Default select example">
+                  <option value="">Send to </option>
+                  <option value="all_stuffs">All (stuffs)</option>
+                  <option value="all_users">All (users)</option>
+                  @foreach ($stuff as $list)
+                    <option value="{{$list->name}}">{{$list->name}}</option>
+                  @endforeach
+                </select>
+                <x-error_style/><span id="admin_err_sendto"></span></p>
               </div>
               <div class="mb-3">
                 <label for="message-text" class="col-form-label">Message:</label>
-                <textarea class="message form-control" id="message"></textarea>
-                <x-error_style/><span id="err_message"></span></p>
+                <textarea class="admin_message form-control" id="admin_message"></textarea>
+                <x-error_style/><span id="admin_err_message"></span></p>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary create_notification">Send message</button>
+            <button type="button" class="btn btn-primary admin_create_notification">Send message</button>
           </div>
         </div>
       </div>
@@ -66,7 +77,7 @@
           <div class="card">
 
             <div class="card-header">
-              <h4>Notification<a href="#" class="btn btn-primary float-end"  data-bs-toggle="modal" data-bs-target="#createNotification" data-bs-whatever="@mdo">Create Notification</a></h4>
+              <h4>Notification<a href="#" class="btn btn-primary float-end"  data-bs-toggle="modal" data-bs-target="#admin_createNotification" data-bs-whatever="@mdo">Create Notification</a></h4>
             </div>
 
             <div class="card-body">
@@ -75,12 +86,13 @@
                   <tr>
                     <th class="col-2">Notification</th>
                     <th scope="col">Message</th>
+                    <th scope="col">Sent</th>
                     <th scope="col">Time</th>
                     <th scope="col">Date</th>
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>
-                <tbody id="notifications">
+                <tbody id="admin_notification">
 
                 </tbody>
               </table>
@@ -109,6 +121,7 @@
   
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
   <script src="/user/assets/js/stuff_send_notif.js"></script>
+
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/user/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

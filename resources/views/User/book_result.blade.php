@@ -42,7 +42,7 @@
                       <div class="container height-100 d-flex justify-content-center align-items-center" >
                         <div class="text-center">
                           <x-flash-message/>
-                          <p>Please bring this book id to location your are  going..</p>
+                          <p>Please bring this book ticket # to location your are  going..</p>
                           <div class="panel-body d-flex justify-content-center">
                               <div class="form-group">
                                 <div class="row">

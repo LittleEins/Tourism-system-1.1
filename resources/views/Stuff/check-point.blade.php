@@ -27,7 +27,7 @@
                   <th>Email</th>
                   <th>Address</th>
                   <th>Groups</th>
-                  <th>BookNumber</th>
+                  <th>Ticket#</th>
                   <th>View</th>
                   <th>Delete</th>
                   <th>Confirm</th>

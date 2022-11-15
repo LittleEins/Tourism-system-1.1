@@ -31,12 +31,6 @@
             <div class="col col-lg-100 mb-4 mb-lg-0">
               <div class="card mb-3" style="border-radius: .5rem;">
                 <div class="row g-0">
-                  <div class="col-md-40 gradient-custom text-center text-white"
-                    style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                    <img src="{{ asset('storage/img/'. $user_data['img_name']) }}"
-                      alt="Avatar" class="rounded-circle img-fluid my-5" style="width: 80px;" />
-                    <i class="far fa-edit mb-5"></i>
-                  </div>
                   <div class="col-md-40">
                     <div class="card-body p-4">
                         <h6>Information</h6>
@@ -56,9 +50,7 @@
                                   </div>
                                   <div class="col-md-4 mb-1">
                                     <select name="destination" id="locations" class="form-select" aria-label="Default select example" required>
-                                      <option value="">Destination</option>
-                                      <option value="falls">Bolinao ({{ $falls_count }})</option>
-                                      <option value="tundol">Tundol ({{ $tundol_count }})</option>
+                                      <option value="">Please Wait</option>
                                     </select>
                                     <x-error_style/>@error('password') {{$message}} @enderror</p>
                                   </div>  

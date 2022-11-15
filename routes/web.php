@@ -17,18 +17,8 @@ use App\Http\Controllers\StuffController;
 |
 */
 
-Route::get('/stuff/book/view/all',[StuffController::class,'br_view']);
-Route::get('/stuff/book/delete',[StuffController::class,'br_delete']);
-Route::get('/stuff/book/confirm',[StuffController::class,'br_confirm']);
+
 Route::get('/alert/notification',[StuffController::class,'alert']);
-
-Route::get('/user/book/view/all',[UserController::class,'log_view']);
-Route::get('/user/book/delete',[UserController::class,'log_delete']);
-Route::get('/user/book/leave',[UserController::class,'leave_location']);
-Route::get('/user/book/confirm',[UserController::class,'log_confirm']);
-Route::get('/user/view/all',[UserController::class,'notifications']);
-
-Route::get('/user/log/view/all',[UserController::class,'records_group_view']);
 
 Route::get('/edit/location',[AdminController::class,'edit_location']);
 Route::get('/delete/location',[AdminController::class,'delete_location']);
@@ -59,19 +49,27 @@ Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
 Route::get('/book2/count',[UserController::class,'book2_count']);
 Route::get('user/notific',[UserController::class,'get_notif']);
 Route::get('/view/data',[UserController::class,'view_data']);
+Route::get('/stuff/view/data',[StuffController::class,'view_data']);
 Route::get('/graph/data',[StuffController::class,'graph_data']);
 Route::get('/data',[StuffController::class,'weekly_data']);
 Route::post('/create/notification',[StuffController::class,'send_notification']);
 Route::get('/view/notif',[UserController::class,'view_notif']);
 Route::get('/user/notif',[UserController::class,'user_notif_log']);
 Route::get('/user/view/notification',[UserController::class,'user_notif_view']);
+Route::get('/stuff/view/notification',[StuffController::class,'stuff_notif_view']);
 Route::get('/notif',[StuffController::class,'notif_log']);
+Route::get('/stuff/notific',[StuffController::class,'get_notif']);
+Route::get('/stuff/notif',[StuffController::class,'stuff_notif_log']);
+Route::get('/stuff/view/notif',[StuffController::class,'view_notif']);
 Route::get('delete/notif',[StuffController::class,'delete_notif']);
 Route::get('/user/delete/notif',[UserController::class,'user_delete_notif']);
+Route::get('/stuff/delete/notif',[StuffController::class,'stuff_delete_notif']);
 Route::get('/locations/map',[UserController::class,'map_locations']);
 Route::get('/maplocation',[AdminController::class,'map_location_fetch']);
 Route::post('/addlocation',[AdminController::class,'add_location']);
-
+Route::post('/admin/create/notification',[AdminController::class,'send_notification']);
+Route::get('/admin/notif',[AdminController::class,'notif_log']);
+Route::get('/admin/delete/notif',[AdminController::class,'delete_notif']);
 
 
 // Route Proccess
@@ -81,8 +79,7 @@ Route::post('auth/register',[MainController::class,'register_store'])->name('aut
 //logout
 Route::get('/logout',[MainController::class,'logout'])->name('logout'); // logout removing data form session
    
-Route::get('/booking/log',[UserController::class,'book_log'])->name('book_log');
-Route::get('/records',[UserController::class,'records'])->name('history');
+
 // user route
 // Only authenticated can access this route
 Route::prefix('user')->middleware(['authCheck'])->group(function ()
@@ -101,14 +98,22 @@ Route::prefix('user')->middleware(['authCheck'])->group(function ()
     Route::post('/update',[UserController::class,'profile_update'])->name('profileUser.process');
     Route::get('/profile/delete',[UserController::class,'delete_profile'])->name('profileDeleteUser.process');
 
-   
+    Route::get('/book/view/all',[UserController::class,'log_view']);
+    Route::get('/book/delete',[UserController::class,'log_delete']);
+    Route::get('/book/leave',[UserController::class,'leave_location']);
+    Route::get('/book/confirm',[UserController::class,'log_confirm']);
+    Route::get('/view/all',[UserController::class,'notifications']);
+    Route::get('/log/view/all',[UserController::class,'records_group_view']);
+    Route::get('/booking/log',[UserController::class,'book_log'])->name('book_log');
+    Route::get('/records',[UserController::class,'records'])->name('history');
 });
 
 // admin route
 Route::prefix('admin')->middleware(['isAdmin'])->group(function () 
 {
-    Route::get('/dashboard',[AdminController::class,'dashboard']);
+    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::get('/map/locations',[AdminController::class,'add_map_location'])->name('admin.addmap');
+    Route::get('/alert/notification',[AdminController::class,'alert']);
 });
 
 // stuff route
@@ -121,4 +126,12 @@ Route::prefix('stuff')->middleware(['isStuff'])->group(function ()
     Route::post('/update',[StuffController::class,'profile_update'])->name('profile.process');
     Route::get('/check/point',[StuffController::class,'check_point'])->name('checkpoint.view');
     Route::get('/repors',[StuffController::class,'reports'])->name('report.view');
+
+    Route::get('/stuff/book/view/all',[StuffController::class,'br_view']);
+    Route::get('/book/delete',[StuffController::class,'br_delete']);
+    Route::get('/book/confirm',[StuffController::class,'br_confirm']);
+    Route::get('/log',[StuffController::class,'logs']);
+    Route::get('/log/view/all',[StuffController::class,'records_group_view']);
+    Route::get('/alert/notifications',[StuffController::class,'alert']);
+    Route::get('/view/all',[StuffController::class,'notifications']);
 });

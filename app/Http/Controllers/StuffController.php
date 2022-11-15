@@ -12,6 +12,9 @@ use App\Models\Map_location;
 use App\Models\Stuff_notification;
 use App\Models\User_notification;
 use App\Models\Admin_notification;
+use App\Models\Group_approve;
+use App\Models\Reset_analytic;
+use App\Models\Stuff_alert;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
@@ -19,6 +22,70 @@ use Illuminate\Support\Facades\Storage; // use this if you make delete on storag
 
 class StuffController extends Controller
 {
+    function get_notif ()
+    {
+        $get_notif = Stuff_alert::where('status','=', 'unread')->paginate(3);
+        $all = Stuff_alert::where('status','=', 'unread')->get();
+
+        return response()->json([
+            'get_notif' => $get_notif,
+            'unread' => $all,
+        ]);
+    }
+
+    function view_notif (Request $req)
+    {
+        DB::table('stuff_alerts')->where('id', $req->id)->update(['status' => 'seen']);
+        $data = ['message'=> User::where('id','=', $req->id)->first()];
+
+        return back()->with('stuff_click',$req->id);
+    }
+
+    function stuff_notif_view(Request $req)
+    {
+        DB::table('stuff_alerts')->where('id', $req->id)->update(['status' => 'seen']);
+        $data = ['message'=> User::where('id','=', $req->id)->first()];
+
+        return back()->with('stuff_click',$req->id);
+    }
+
+    function stuff_notif_log ()
+    {
+        $acc = User::where('id','=', session('LoggedUser'))->first();
+        //getting data by new insert
+        $data = Stuff_alert::orderBy('created_at','desc')->get();
+
+        return response()->json([
+            'notification'=>$data,
+        ]);
+    }
+
+    function stuff_delete_notif (Request $req)
+    {
+        DB::table('stuff_alerts')->where('id',$req->id)->delete();
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+
+        
+        return view('stuff.notif', $data);
+    }
+
+    function notifications ()
+    {
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+
+        return view('stuff.notif', $data);
+    }
+
+    function view_data (Request $req)
+    {
+        $data = Stuff_alert::where('id','=', $req->input('view'))->first();
+
+        return response()->json([
+            'stuff_view_data' => $data,
+        ]);
+    }
+
+
 
     function profile ()
     {
@@ -173,17 +240,82 @@ class StuffController extends Controller
         $monday = clone $dateTime->modify(('Sunday' == $dateTime->format('l')) ? 'Monday last week' : 'Monday this week');
         $sunday = clone $dateTime->modify('Sunday this week');
         $now = date('Y-m-d');
+        $start = $monday->format('Y-m-d');
         $end = $sunday->format('Y-m-d');
         // for modification date
         // $end = strtotime("2022-11-01");
 
-        if (strtotime($now)  > $end)
+        $check_date = Reset_analytic::where('stuff', session('LoggedUser'))->first();
+
+        if ($check_date != null)
         {
-            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+            if (strtotime($check_date->start) == strtotime($start))
+            {
+                if (strtotime($now) > strtotime($check_date->end))
+                {
+                    //reset analytics
+                    DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                    
+                    return view('stuff.dashboard', $data);
+                }
+                else
+                {
+                    return view('stuff.dashboard', $data);
+                }
+            }
+            else 
+            {
+                //update start end date
+                $up_date = Reset_analytic::where('stuff', session('LoggedUser'))->first();
+                $up_date->start = $start;
+                $up_date->end = $end;
+                $up_date->save();
+
+                //reset analytics
+                DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                    
+                return view('stuff.dashboard', $data);
+            }
+        }
+        else
+        {
+            $td_start_end = new Reset_analytic;
+            $td_start_end->stuff = session('LoggedUser');
+            $td_start_end->start = $start;
+            $td_start_end->end = $end;
+            $td_start_end->save();
+
+            $check_date = Reset_analytic::where('stuff', session('LoggedUser'))->first();
+        
+            if (strtotime($check_date->start) == $start)
+            {
+                if (strtotime($now) > strtotime($check_date->end))
+                {
+                    //reset analytics
+                    DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                    
+                    return view('stuff.dashboard', $data);
+                }
+                else
+                {
+                    return view('stuff.dashboard', $data);
+                }
+            }
+            else 
+            {
+                  //update start end date
+                  $up_date = Reset_analytic::where('stuff', session('LoggedUser'))->first();
+                  $up_date->start = $start;
+                  $up_date->end = $end;
+                  $up_date->save();
+
+                //reset analytics
+                DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                    
+                return view('stuff.dashboard', $data);
+            }
         }
 
-        
-        return view('stuff.dashboard', $data);
     }
 
     function dashboard_fetch ()
@@ -282,14 +414,6 @@ class StuffController extends Controller
             $user_notification->status = "unread";
             $user_notification->save();
 
-            // $user_notification = new Admin_notification;
-            // $user_notification->creator_id = $sender->location;
-            // $user_notification->message = $req->input('message');
-            // $user_notification->type = $req->input('type');
-            // $user_notification->time =  date('g:i:a');
-            // $user_notification->date =  date('F j, Y');
-            // $user_notification->status = "unread";
-            // $user_notification->save();
 
             $notification = new Stuff_notification;
             $notification->creator_id = $sender->location;
@@ -432,7 +556,7 @@ class StuffController extends Controller
             $insert->save();
 
             $update = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
-            $update->$day = $count;
+            $update->$day = $total + (int)$update->$day;
             $update->save();
 
             
@@ -445,8 +569,8 @@ class StuffController extends Controller
         }
         else
         {
-    
-            $final->$day = $count;
+            $update = Weekly_count::where('user_id','=', session('LoggedUser'))->first();
+            $final->$day = $total + (int)$update->$day;
             $final->location = $acc->location;
             $final->save();
 
@@ -460,12 +584,29 @@ class StuffController extends Controller
     }
 
     //reports generation
-    function reports ()
+    function logs ()
     {
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['approve_list'] = DB::table('book_datas')->where('stuff_id', '=', session('LoggedUser'))->get();
-        
-        return view('stuff.reports', $data);
+        $data['lists'] = Approve::where('stuff_id',session('LoggedUser'))->paginate(10);
+
+        return view('stuff.history', $data);
+    }
+
+    function records_group_view (Request $req)
+    {
+        //getting all data with booker
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+        $data['groups'] = Group_approve::where('book_number', '=', $req->id)->paginate(10);
+
+        if ($data['groups']->isNotEmpty())
+        {
+            return view('stuff.log-view', $data);
+        }
+        else
+        {
+            return back();
+        }
+
     }
 
 }

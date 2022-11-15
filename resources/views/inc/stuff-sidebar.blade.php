@@ -9,7 +9,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/alert/notification">
+        <a class="nav-link collapsed" href="/stuff/alert/notifications">
           <i class="bi bi-exclamation-diamond"></i>
           <span>Alert</span>
         </a>
@@ -21,7 +21,15 @@
           <i class="bi bi-sign-stop"></i>
           <span>Check Point</span>
         </a>
-      </li><!-- Booking Nav -->
+      </li><!-- check_point -->
+
+        
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/stuff/log">
+          <i class="bi bi-sign-stop"></i>
+          <span>Log</span>
+        </a>
+      </li>
 
     </ul>
     
