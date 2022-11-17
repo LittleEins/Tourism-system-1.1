@@ -44,21 +44,21 @@
 <body>
 
    <!-- Modal add location -->
-   <div class="modal fade" id="stuff_viewnotif" tabindex="-1" aria-labelledby="viewnotif" aria-hidden="true">
+   <div class="modal fade" id="staff_viewnotif" tabindex="-1" aria-labelledby="viewnotif" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Notification from <span id="stuff_sender"></span></h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Notification from <span id="staff_sender"></span></h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div id="stuff_add_success"></div>
+        <div id="staff_add_success"></div>
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <h4>Notification Level: <span id="stuff_type"></span></h4>
+              <h4>Notification Level: <span id="staff_type"></span></h4>
             </div>
             <div class="mb-3">
-              <p id="stuff_message"></p>
+              <p id="staff_message"></p>
             </div>
           </form>
         </div>
@@ -72,9 +72,9 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
-    @if (Session::get('stuff_click'))
+    @if (Session::get('staff_click'))
     <div class=" mb-2">
-      <input type="hidden" class="stuff_view_click" value="{{ Session::get('stuff_click') }}">
+      <input type="hidden" class="staff_view_click" value="{{ Session::get('staff_click') }}">
     </div>
     @endif
     <div class="d-flex align-items-center justify-content-between">
@@ -98,23 +98,23 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
-            <span class="" id="stuff_notif_count"></span>
+            <span class="" id="staff_notif_count"></span>
           </a><!-- End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
               Notifications
-              <a href="/stuff/view/all"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              <a href="/staff/view/all"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <div id="stuff_notif">
+            <div id="staff_notif">
             </div>
 
             <li class="dropdown-footer">
-              <a href="/stuff/view/all" >Show all notifications</a>
+              <a href="/staff/view/all" >Show all notifications</a>
             </li>
 
           </ul><!-- End Notification Dropdown Items --> 
@@ -138,7 +138,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{route('profileStuff.view')}}">
+              <a class="dropdown-item d-flex align-items-center" href="{{route('profilestaff.view')}}">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>

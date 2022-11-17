@@ -1,16 +1,16 @@
-@include('inc.stuff-header');
+@include('inc.staff-header');
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
-          <i class="bi bi-sign-stop"></i>
-          <span>Check Point</span>
+          <i class="bi bi-grid"></i>
+          <span>Reports</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
-    @include('inc.stuff-sidebar');
+    @include('inc.staff-sidebar');
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -18,47 +18,40 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <table id="example" class="table table-striped" style="width:100%">
+            <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Gender</th>
-                  <th>Phone</th>
-                  <th>Email</th>
-                  <th>Address</th>
-                  <th>Groups</th>
-                  <th>Ticket#</th>
-                  <th>View</th>
-                  <th>Delete</th>
-                  <th>Confirm</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Destination</th>
+                  <th scope="col">Book Number</th>
+                  <th scope="col">Groups</th>
+                  <th scope="col">Data & Time </th>
                 </tr>
               </thead>
-                <tbody id="check_point">
-
-                  @foreach($book_list as $list)
+                <tbody>
+                  @foreach($lists as $list)
                   <tr>
-                    <td>{{ $list->first_name }} {{ $list->last_name }}</th>
+                    <th scope="row">{{ $list->first_name }} {{ $list->last_name }}</th>
                     <td>{{ $list->gender }}</td>
                     <td>{{ $list->phone }}</td>
                     <td>{{ $list->email }}</td>
                     <td>{{ $list->address }}</td>
-                    <td>{{ $list->groups }}</td>
+                    <td>{{ $list->destination }}</td>
                     <td>{{ $list->book_number }}</td>
-                    <td>
-                    @if($list->groups != "solo")
-                    <a href="/stuff/book/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> 
-                    </td>
-                    @endif
-                    <td>
-                    <a href="/stuff/book/delete?id={{ $list->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></a> 
-                    </td>
-                    <td>
-                    <a href="/stuff/book/confirm?id={{ $list->id }}" id="approve" class="btn btn-success approve_btn"><i class="far fa-check-circle"></i></a> 
-                    </td>
+                    <td>{{ $list->groups }} 
+                      @if ($list->groups != "0")
+                      <a href="/staff/log/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> </td>
+                      @endif
+                      <td>{{ $list->approve_td }}</td>
                   </tr>
                   @endforeach
               </tbody>
             </table>
+            {{$lists->links()}}
           </div>
         </div>
       </div>
@@ -80,13 +73,10 @@
 
 {{-- jquery cdn --}}
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script src="/user/assets/js/stuff_send_notif.js"></script>
-<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-<script src="/user/assets/js/map.js"></script>
 {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
-<script src="/user/assets/js/all.js"></script>
-<script src="/user/assets/js/map.js"></script>
+<script src="/user/assets/js/fetch_bookrequest.js"></script>
+<script src="/user/assets/js/send_notification.js"></script>
+<script src="/user/assets/js/staff_send_notif.js"></script>
 
 <!-- Vendor JS Files -->
 <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -101,7 +91,7 @@
 <!-- Template Main JS File -->
 <script src="/user/assets/js/main.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
-<script>$('#example').DataTable();</script>
+<script src="/user/assets/js/map.js"></script>
 
 </body>
 

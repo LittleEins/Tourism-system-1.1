@@ -30,10 +30,10 @@ $(document).ready(function ()
                     <td>\
                     </td>\
                     <td>\
-                    <a href="/stuff/book/delete?id='+list.id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                    <a href="/staff/book/delete?id='+list.id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                     </td>\
                     <td>\
-                    <a href="/stuff/book/confirm?id='+list.id+'" class="btn btn-success approve_btn"><i class="far fa-check-circle"></i></a> \
+                    <a href="/staff/book/confirm?id='+list.id+'" class="btn btn-success approve_btn"><i class="far fa-check-circle"></i></a> \
                     </td>\
                   </tr>');
                   } 
@@ -48,13 +48,13 @@ $(document).ready(function ()
                     <td>'+list.groups+'</td>\
                     <td>'+list.book_number+'</td>\
                     <td>\
-                    <a href="/stuff/book/view/all?id='+list.book_number+'" class="btn btn-primary"><i class="far fa-eye"></i></a> \
+                    <a href="/staff/book/view/all?id='+list.book_number+'" class="btn btn-primary"><i class="far fa-eye"></i></a> \
                     </td>\
                     <td>\
-                    <a href="/stuff/book/delete?id='+list.id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                    <a href="/staff/book/delete?id='+list.id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                     </td>\
                     <td>\
-                    <a href="/stuff/book/confirm?id='+list.id+'" class="btn btn-success approve_btn"><i class="far fa-check-circle"></i></a> \
+                    <a href="/staff/book/confirm?id='+list.id+'" class="btn btn-success approve_btn"><i class="far fa-check-circle"></i></a> \
                     </td>\
                   </tr>');
 

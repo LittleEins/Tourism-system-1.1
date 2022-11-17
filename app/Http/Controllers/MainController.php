@@ -72,7 +72,7 @@ class MainController extends Controller
                 }
                 else if ($userInfo->role == '1')
                 {
-                    return redirect()->route('dashboardStuff.view');
+                    return redirect()->route('dashboardstaff.view');
                 }
                 else if ($userInfo->role == '2')
                 {

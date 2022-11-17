@@ -48,9 +48,9 @@
               <div class="mb-3">
                 <select id="sendto" class="admin_sendto form-select" aria-label="Default select example">
                   <option value="">Send to </option>
-                  <option value="all_stuffs">All (stuffs)</option>
+                  <option value="all_staffs">All (staffs)</option>
                   <option value="all_users">All (users)</option>
-                  @foreach ($stuff as $list)
+                  @foreach ($staff as $list)
                     <option value="{{$list->name}}">{{$list->name}}</option>
                   @endforeach
                 </select>
@@ -120,7 +120,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-  <script src="/user/assets/js/stuff_send_notif.js"></script>
+  <script src="/user/assets/js/staff_send_notif.js"></script>
 
   <!-- Vendor JS Files -->
   <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>

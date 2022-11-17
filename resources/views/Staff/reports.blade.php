@@ -1,4 +1,4 @@
-@include('inc.stuff-header');
+@include('inc.staff-header');
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -10,7 +10,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-    @include('inc.stuff-sidebar');
+    @include('inc.staff-sidebar');
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -26,32 +26,31 @@
                   <th scope="col">Phone</th>
                   <th scope="col">Email</th>
                   <th scope="col">Address</th>
-                  <th scope="col">Destination</th>
                   <th scope="col">Book Number</th>
                   <th scope="col">Groups</th>
                   <th scope="col">Data & Time </th>
                 </tr>
               </thead>
-                <tbody>
-                  @foreach($lists as $list)
+                <tbody id="check_point">
+                  @foreach($approve_list as $list)
                   <tr>
                     <th scope="row">{{ $list->first_name }} {{ $list->last_name }}</th>
                     <td>{{ $list->gender }}</td>
                     <td>{{ $list->phone }}</td>
                     <td>{{ $list->email }}</td>
                     <td>{{ $list->address }}</td>
-                    <td>{{ $list->destination }}</td>
                     <td>{{ $list->book_number }}</td>
-                    <td>{{ $list->groups }} 
-                      @if ($list->groups != "0")
-                      <a href="/stuff/log/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> </td>
-                      @endif
-                      <td>{{ $list->approve_td }}</td>
+                    <td>{{ $list->groups }}</td>
+                    <td>{{ $list->approve_td }}</td>
+                    <td>
+                    <a href="/staff/book/view/all?id={{ $list->id }}" class="btn btn-primary"><i class="far fa-eye"></i></a> 
+                    <a href="/staff/book/delete?id={{ $list->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></a> 
+                    <a href="/staff/book/confirm?id={{ $list->id }}" class="btn btn-success"><i class="far fa-check-circle"></i></a> 
+                    </td>
                   </tr>
                   @endforeach
               </tbody>
             </table>
-            {{$lists->links()}}
           </div>
         </div>
       </div>
@@ -75,8 +74,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
 <script src="/user/assets/js/fetch_bookrequest.js"></script>
-<script src="/user/assets/js/send_notification.js"></script>
-<script src="/user/assets/js/stuff_send_notif.js"></script>
+<script src="/user/assets/js/staff_send_notif.js"></script>
 
 <!-- Vendor JS Files -->
 <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>

@@ -1,4 +1,4 @@
-@include('inc.stuff-header');
+@include('inc.staff-header');
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -10,7 +10,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-    @include('inc.stuff-sidebar');
+    @include('inc.staff-sidebar');
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">

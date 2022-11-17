@@ -69,6 +69,6 @@ class Kernel extends HttpKernel
         // auth check
         'authCheck' => \App\Http\Middleware\AuthCheck::class,
         'isAdmin' => \App\Http\Middleware\AdminMiddleware::class,
-        'isStuff' => \App\Http\Middleware\StuffMiddleware::class,
+        'isstaff' => \App\Http\Middleware\staffMiddleware::class,
     ];
 }

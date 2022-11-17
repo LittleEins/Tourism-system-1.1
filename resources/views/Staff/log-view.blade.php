@@ -1,4 +1,4 @@
-@include('inc.stuff-header');
+@include('inc.staff-header');
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -10,7 +10,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-    @include('inc.stuff-sidebar');
+    @include('inc.staff-sidebar');
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -63,7 +63,7 @@
 {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
 <script src="/user/assets/js/fetch_bookrequest.js"></script>
 <script src="/user/assets/js/send_notification.js"></script>
-<script src="/user/assets/js/stuff_send_notif.js"></script>
+<script src="/user/assets/js/staff_send_notif.js"></script>
 
 <!-- Vendor JS Files -->
 <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>

@@ -49,7 +49,7 @@
                               <td>{{ $info->first_name }} {{ $info->last_name }}</td>
                               <td>{{ $info->email }}</td>
                               <td>{{ $info->location }}</td>
-                              <form action="{{ route('update_stuff_pass') }}" method="post">
+                              <form action="{{ route('update_staff_pass') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="id" value="{{$info->id}}">
                                 <td><input type="password" class="container" name="password" placeholder="New password"> <x-error_style/>@error('password') {{$message}} @enderror</p></td>

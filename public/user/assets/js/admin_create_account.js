@@ -71,7 +71,7 @@ $(document).ready(function ()
 
         $.ajax ({
             type: "POST",
-            url: "/create/stuff/account",
+            url: "/create/staff/account",
             data: data,
             dataType: "json",
             success: function (response) 
@@ -94,8 +94,8 @@ $(document).ready(function ()
                     $('#admin_add_success').html("");
                     $('#admin_add_success').addClass('alert alert-success');
                     $('#admin_add_success').text(response.success);
-                    $('#create_stuff').find('input').val("");
-                    $('#create_stuff').find('select').val("");
+                    $('#create_staff').find('input').val("");
+                    $('#create_staff').find('select').val("");
                     $('#admin_err_location').html("");
                     $('#admin_err_password').html("");
 

@@ -1,4 +1,4 @@
-@include('inc.stuff-header');
+@include('inc.user-header');
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -6,11 +6,11 @@
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
           <i class="bi bi-grid"></i>
-          <span>Reports</span>
+          <span>Booking</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
-    @include('inc.stuff-sidebar');
+    @include('inc.user-sidebar');
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -24,33 +24,21 @@
                   <th scope="col">Name</th>
                   <th scope="col">Gender</th>
                   <th scope="col">Phone</th>
-                  <th scope="col">Email</th>
                   <th scope="col">Address</th>
-                  <th scope="col">Book Number</th>
-                  <th scope="col">Groups</th>
-                  <th scope="col">Data & Time </th>
                 </tr>
               </thead>
-                <tbody id="check_point">
-                  @foreach($approve_list as $list)
+                <tbody>
+                  @foreach ($groups as $list)
                   <tr>
-                    <th scope="row">{{ $list->first_name }} {{ $list->last_name }}</th>
+                    <th>{{ $list->first_name }} {{ $list->last_name }}</th>
                     <td>{{ $list->gender }}</td>
                     <td>{{ $list->phone }}</td>
-                    <td>{{ $list->email }}</td>
                     <td>{{ $list->address }}</td>
-                    <td>{{ $list->book_number }}</td>
-                    <td>{{ $list->groups }}</td>
-                    <td>{{ $list->approve_td }}</td>
-                    <td>
-                    <a href="/stuff/book/view/all?id={{ $list->id }}" class="btn btn-primary"><i class="far fa-eye"></i></a> 
-                    <a href="/stuff/book/delete?id={{ $list->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></a> 
-                    <a href="/stuff/book/confirm?id={{ $list->id }}" class="btn btn-success"><i class="far fa-check-circle"></i></a> 
-                    </td>
                   </tr>
                   @endforeach
               </tbody>
             </table>
+            {{$groups->links()}}
           </div>
         </div>
       </div>
@@ -71,10 +59,11 @@
 
 
 {{-- jquery cdn --}}
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/home/vendors/jquery/jquery-3.2.1.min.js"></script>
 {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
 <script src="/user/assets/js/fetch_bookrequest.js"></script>
-<script src="/user/assets/js/stuff_send_notif.js"></script>
+<script src="/user/assets/js/send_notification.js"></script>
+<script src="/user/assets/js/staff_send_notif.js"></script>
 
 <!-- Vendor JS Files -->
 <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>

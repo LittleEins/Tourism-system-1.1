@@ -18,7 +18,7 @@
       <h1>Create Account</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active">Create Stuff Account</li>
+          <li class="breadcrumb-item active">Create staff Account</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -26,7 +26,7 @@
     <section class="section dashboard">
 
     <!-- Modal add location -->
-    <div class="modal fade" id="create_stuff" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="create_staff" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -69,7 +69,7 @@
           <div class="card">
 
             <div class="card-header">
-              <h4>Create Account <a href="#" class="btn btn-primary float-end" data-toggle="modal" data-target="#create_stuff">Create Account</a></h4>
+              <h4>Create Account <a href="#" class="btn btn-primary float-end" data-toggle="modal" data-target="#create_staff">Create Account</a></h4>
             </div>
 
             <div class="card-body">

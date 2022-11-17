@@ -9,12 +9,12 @@ use App\Models\Book_request;
 use App\Models\Approve;
 use App\Models\Weekly_count;
 use App\Models\Map_location;
-use App\Models\Stuff_notification;
+use App\Models\staff_notification;
 use App\Models\User_notification;
 use App\Models\Admin_notif;
 use App\Models\Group_approve;
 use App\Models\Reset_analytic;
-use App\Models\Stuff_alert;
+use App\Models\staff_alert;
 use Illuminate\Support\Facades\Hash;
 use DateTime;
 use Illuminate\Support\Facades\DB;
@@ -44,30 +44,30 @@ class AdminController extends Controller
         }
         else
         { 
-            if ($req->input('sendto') == "all_stuffs")
+            if ($req->input('sendto') == "all_staffs")
             {
               
                 $sender = User::where('id', session('LoggedUser'))->first();
 
-                $stuff_notif = new Stuff_alert;
-                $stuff_notif->sender = $sender->location;
-                $stuff_notif->message = $req->input('message');
-                $stuff_notif->type = $req->input('type');
-                $stuff_notif->time =  date('g:i:a');
-                $stuff_notif->date =  date('F j, Y');
-                $stuff_notif->status = "unread";
-                $stuff_notif->sendto = $req->input('sendto');
-                $stuff_notif->save();
+                $staff_notif = new staff_alert;
+                $staff_notif->sender = $sender->location;
+                $staff_notif->message = $req->input('message');
+                $staff_notif->type = $req->input('type');
+                $staff_notif->time =  date('g:i:a');
+                $staff_notif->date =  date('F j, Y');
+                $staff_notif->status = "unread";
+                $staff_notif->sendto = $req->input('sendto');
+                $staff_notif->save();
 
-                $stuff_notif = new Admin_notif;
-                $stuff_notif->sender = $sender->location;
-                $stuff_notif->message = $req->input('message');
-                $stuff_notif->type = $req->input('type');
-                $stuff_notif->time =  date('g:i:a');
-                $stuff_notif->date =  date('F j, Y');
-                $stuff_notif->status = "unread";
-                $stuff_notif->sendto = $req->input('sendto');
-                $stuff_notif->save();
+                $staff_notif = new Admin_notif;
+                $staff_notif->sender = $sender->location;
+                $staff_notif->message = $req->input('message');
+                $staff_notif->type = $req->input('type');
+                $staff_notif->time =  date('g:i:a');
+                $staff_notif->date =  date('F j, Y');
+                $staff_notif->status = "unread";
+                $staff_notif->sendto = $req->input('sendto');
+                $staff_notif->save();
 
 
                 return response()->json([
@@ -88,25 +88,25 @@ class AdminController extends Controller
                 $user_notification->status = "unread";
                 $user_notification->save();
 
-                $stuff_notif = new Stuff_alert;
-                $stuff_notif->sender = $sender->location;
-                $stuff_notif->message = $req->input('message');
-                $stuff_notif->type = $req->input('type');
-                $stuff_notif->time =  date('g:i:a');
-                $stuff_notif->date =  date('F j, Y');
-                $stuff_notif->status = "unread";
-                $stuff_notif->sendto = $req->input('sendto');
-                $stuff_notif->save();
+                $staff_notif = new staff_alert;
+                $staff_notif->sender = $sender->location;
+                $staff_notif->message = $req->input('message');
+                $staff_notif->type = $req->input('type');
+                $staff_notif->time =  date('g:i:a');
+                $staff_notif->date =  date('F j, Y');
+                $staff_notif->status = "unread";
+                $staff_notif->sendto = $req->input('sendto');
+                $staff_notif->save();
 
-                $stuff_notif = new Admin_notif;
-                $stuff_notif->sender = $sender->location;
-                $stuff_notif->message = $req->input('message');
-                $stuff_notif->type = $req->input('type');
-                $stuff_notif->time =  date('g:i:a');
-                $stuff_notif->date =  date('F j, Y');
-                $stuff_notif->status = "unread";
-                $stuff_notif->sendto = $req->input('sendto');
-                $stuff_notif->save();
+                $staff_notif = new Admin_notif;
+                $staff_notif->sender = $sender->location;
+                $staff_notif->message = $req->input('message');
+                $staff_notif->type = $req->input('type');
+                $staff_notif->time =  date('g:i:a');
+                $staff_notif->date =  date('F j, Y');
+                $staff_notif->status = "unread";
+                $staff_notif->sendto = $req->input('sendto');
+                $staff_notif->save();
 
 
 
@@ -119,25 +119,25 @@ class AdminController extends Controller
             {
                 $sender = User::where('id', session('LoggedUser'))->first();
 
-                $stuff_notif = new Stuff_alert;
-                $stuff_notif->sender = $sender->location;
-                $stuff_notif->message = $req->input('message');
-                $stuff_notif->type = $req->input('type');
-                $stuff_notif->time =  date('g:i:a');
-                $stuff_notif->date =  date('F j, Y');
-                $stuff_notif->status = "unread";
-                $stuff_notif->sendto = $req->input('sendto');
-                $stuff_notif->save();
+                $staff_notif = new staff_alert;
+                $staff_notif->sender = $sender->location;
+                $staff_notif->message = $req->input('message');
+                $staff_notif->type = $req->input('type');
+                $staff_notif->time =  date('g:i:a');
+                $staff_notif->date =  date('F j, Y');
+                $staff_notif->status = "unread";
+                $staff_notif->sendto = $req->input('sendto');
+                $staff_notif->save();
 
-                $stuff_notif = new Admin_notif;
-                $stuff_notif->sender = $sender->location;
-                $stuff_notif->message = $req->input('message');
-                $stuff_notif->type = $req->input('type');
-                $stuff_notif->time =  date('g:i:a');
-                $stuff_notif->date =  date('F j, Y');
-                $stuff_notif->status = "unread";
-                $stuff_notif->sendto = $req->input('sendto');
-                $stuff_notif->save();
+                $staff_notif = new Admin_notif;
+                $staff_notif->sender = $sender->location;
+                $staff_notif->message = $req->input('message');
+                $staff_notif->type = $req->input('type');
+                $staff_notif->time =  date('g:i:a');
+                $staff_notif->date =  date('F j, Y');
+                $staff_notif->status = "unread";
+                $staff_notif->sendto = $req->input('sendto');
+                $staff_notif->save();
 
 
                 return response()->json([
@@ -171,7 +171,7 @@ class AdminController extends Controller
     {
         DB::table('admin_notifs')->where('id',$req->id)->delete();
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['stuff'] = Map_location::get(['name']);
+        $data['staff'] = Map_location::get(['name']);
         
         return view('admin.alert', $data);
     }
@@ -209,7 +209,7 @@ class AdminController extends Controller
     function alert ()
     {
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['stuff'] = Map_location::get(['name']);
+        $data['staff'] = Map_location::get(['name']);
 
         
         return view('admin.alert', $data);
@@ -288,12 +288,12 @@ class AdminController extends Controller
         ]);
     }
 
-    function create_stuff ()
+    function create_staff ()
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
         $data['locations'] = Map_location::where('link',null)->get();
 
-        return view('admin.create_stuff', $data);
+        return view('admin.create_staff', $data);
     }
 
     function fetch_location_link ()
@@ -305,7 +305,7 @@ class AdminController extends Controller
         ]);
     }
 
-    function create_stuff_account (Request $req)
+    function create_staff_account (Request $req)
     {
         // validator
         $validate = \Validator::make($req->all(), [
@@ -359,7 +359,7 @@ class AdminController extends Controller
         }
     }
 
-    function edit_stuff_account (Request $req)
+    function edit_staff_account (Request $req)
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
         $data['info'] = User::where('id',$req->id)->first();
@@ -367,7 +367,7 @@ class AdminController extends Controller
         return view('admin.change_pass', $data);
     }
 
-    function delete_stuff_account (Request $req)
+    function delete_staff_account (Request $req)
     {
         $info = User::where('id',$req->id)->first();
 
@@ -393,7 +393,7 @@ class AdminController extends Controller
         return back();
     }
 
-    function stuff_update_pass (Request $req)
+    function staff_update_pass (Request $req)
     {
             // signup Validation
         $req->validate([

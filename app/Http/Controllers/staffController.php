@@ -9,23 +9,23 @@ use App\Models\Book_request;
 use App\Models\Approve;
 use App\Models\Weekly_count;
 use App\Models\Map_location;
-use App\Models\Stuff_notification;
+use App\Models\staff_notification;
 use App\Models\User_notification;
 use App\Models\Admin_notification;
 use App\Models\Group_approve;
 use App\Models\Reset_analytic;
-use App\Models\Stuff_alert;
+use App\Models\staff_alert;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
 use Illuminate\Support\Facades\Storage; // use this if you make delete on storage
 
-class StuffController extends Controller
+class staffController extends Controller
 {
     function get_notif ()
     {
-        $get_notif = Stuff_alert::where('status','=', 'unread')->paginate(3);
-        $all = Stuff_alert::where('status','=', 'unread')->get();
+        $get_notif = staff_alert::where('status','=', 'unread')->paginate(3);
+        $all = staff_alert::where('status','=', 'unread')->get();
 
         return response()->json([
             'get_notif' => $get_notif,
@@ -35,53 +35,53 @@ class StuffController extends Controller
 
     function view_notif (Request $req)
     {
-        DB::table('stuff_alerts')->where('id', $req->id)->update(['status' => 'seen']);
+        DB::table('staff_alerts')->where('id', $req->id)->update(['status' => 'seen']);
         $data = ['message'=> User::where('id','=', $req->id)->first()];
 
-        return back()->with('stuff_click',$req->id);
+        return back()->with('staff_click',$req->id);
     }
 
-    function stuff_notif_view(Request $req)
+    function staff_notif_view(Request $req)
     {
-        DB::table('stuff_alerts')->where('id', $req->id)->update(['status' => 'seen']);
+        DB::table('staff_alerts')->where('id', $req->id)->update(['status' => 'seen']);
         $data = ['message'=> User::where('id','=', $req->id)->first()];
 
-        return back()->with('stuff_click',$req->id);
+        return back()->with('staff_click',$req->id);
     }
 
-    function stuff_notif_log ()
+    function staff_notif_log ()
     {
         $acc = User::where('id','=', session('LoggedUser'))->first();
         //getting data by new insert
-        $data = Stuff_alert::orderBy('created_at','desc')->get();
+        $data = staff_alert::orderBy('created_at','desc')->get();
 
         return response()->json([
             'notification'=>$data,
         ]);
     }
 
-    function stuff_delete_notif (Request $req)
+    function staff_delete_notif (Request $req)
     {
-        DB::table('stuff_alerts')->where('id',$req->id)->delete();
+        DB::table('staff_alerts')->where('id',$req->id)->delete();
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
 
         
-        return view('stuff.notif', $data);
+        return view('staff.notif', $data);
     }
 
     function notifications ()
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
-        return view('stuff.notif', $data);
+        return view('staff.notif', $data);
     }
 
     function view_data (Request $req)
     {
-        $data = Stuff_alert::where('id','=', $req->input('view'))->first();
+        $data = staff_alert::where('id','=', $req->input('view'))->first();
 
         return response()->json([
-            'stuff_view_data' => $data,
+            'staff_view_data' => $data,
         ]);
     }
 
@@ -91,7 +91,7 @@ class StuffController extends Controller
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
-        return view('stuff.profile', $data);
+        return view('staff.profile', $data);
         
     }
 
@@ -124,7 +124,7 @@ class StuffController extends Controller
             $profile_update->img_size = $size;
             $profile_update->save();
 
-            return redirect()->route('profileStuff.view')->with('success','Update Successfully');
+            return redirect()->route('profilestaff.view')->with('success','Update Successfully');
  
         }
         else 
@@ -157,7 +157,7 @@ class StuffController extends Controller
                     $profile_update->img_size = $size;
                     $profile_update->save();
 
-                    return redirect()->route('profileStuff.view')->with('success','Update Successfully');
+                    return redirect()->route('profilestaff.view')->with('success','Update Successfully');
                 }
                 else
                 {
@@ -175,7 +175,7 @@ class StuffController extends Controller
                 $profile_update->img_size = $size;
                 $profile_update->save();
 
-                return redirect()->route('profileStuff.view')->with('success','Update Successfully');
+                return redirect()->route('profilestaff.view')->with('success','Update Successfully');
             }
         }
     }
@@ -193,14 +193,14 @@ class StuffController extends Controller
                 $profile_delete->img_name = 'default-profile.png';
                 $profile_delete->save();
 
-                return redirect()->route('profileStuff.view')->with('success','Profile Updated');
+                return redirect()->route('profilestaff.view')->with('success','Profile Updated');
             }
             else
             {
                 $profile_delete->img_name = 'default-profile.png';
                 $profile_delete->save();
 
-                return redirect()->route('profileStuff.view')->with('success','Profile Updated');
+                return redirect()->route('profilestaff.view')->with('success','Profile Updated');
             }
         }
         else
@@ -245,7 +245,7 @@ class StuffController extends Controller
         // for modification date
         // $end = strtotime("2022-11-01");
 
-        $check_date = Reset_analytic::where('stuff', session('LoggedUser'))->first();
+        $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
 
         if ($check_date != null)
         {
@@ -256,17 +256,17 @@ class StuffController extends Controller
                     //reset analytics
                     DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                     
-                    return view('stuff.dashboard', $data);
+                    return view('staff.dashboard', $data);
                 }
                 else
                 {
-                    return view('stuff.dashboard', $data);
+                    return view('staff.dashboard', $data);
                 }
             }
             else 
             {
                 //update start end date
-                $up_date = Reset_analytic::where('stuff', session('LoggedUser'))->first();
+                $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
                 $up_date->start = $start;
                 $up_date->end = $end;
                 $up_date->save();
@@ -274,18 +274,18 @@ class StuffController extends Controller
                 //reset analytics
                 DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                     
-                return view('stuff.dashboard', $data);
+                return view('staff.dashboard', $data);
             }
         }
         else
         {
             $td_start_end = new Reset_analytic;
-            $td_start_end->stuff = session('LoggedUser');
+            $td_start_end->staff = session('LoggedUser');
             $td_start_end->start = $start;
             $td_start_end->end = $end;
             $td_start_end->save();
 
-            $check_date = Reset_analytic::where('stuff', session('LoggedUser'))->first();
+            $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
         
             if (strtotime($check_date->start) == $start)
             {
@@ -294,17 +294,17 @@ class StuffController extends Controller
                     //reset analytics
                     DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                     
-                    return view('stuff.dashboard', $data);
+                    return view('staff.dashboard', $data);
                 }
                 else
                 {
-                    return view('stuff.dashboard', $data);
+                    return view('staff.dashboard', $data);
                 }
             }
             else 
             {
                   //update start end date
-                  $up_date = Reset_analytic::where('stuff', session('LoggedUser'))->first();
+                  $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
                   $up_date->start = $start;
                   $up_date->end = $end;
                   $up_date->save();
@@ -312,7 +312,7 @@ class StuffController extends Controller
                 //reset analytics
                 DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                     
-                return view('stuff.dashboard', $data);
+                return view('staff.dashboard', $data);
             }
         }
 
@@ -361,13 +361,13 @@ class StuffController extends Controller
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
 
         
-        return view('stuff.alert', $data);
+        return view('staff.alert', $data);
     }
 
     function notif_log ()
     {
         $acc = User::where('id','=', session('LoggedUser'))->first();
-        $data = Stuff_notification::where('creator_id','=', $acc->location)->get();
+        $data = staff_notification::where('creator_id','=', $acc->location)->get();
 
         return response()->json([
             'notification'=>$data,
@@ -376,11 +376,11 @@ class StuffController extends Controller
 
     function delete_notif (Request $req)
     {
-        DB::table('stuff_notifications')->where('id',$req->id)->delete();
+        DB::table('staff_notifications')->where('id',$req->id)->delete();
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
 
         
-        return view('stuff.alert', $data);
+        return view('staff.alert', $data);
     }
 
     function send_notification (Request $req)
@@ -415,7 +415,7 @@ class StuffController extends Controller
             $user_notification->save();
 
 
-            $notification = new Stuff_notification;
+            $notification = new staff_notification;
             $notification->creator_id = $sender->location;
             $notification->message = $req->input('message');
             $notification->type = $req->input('type');
@@ -442,7 +442,7 @@ class StuffController extends Controller
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
         $data['book_list'] =  DB::table('book_requests')->where('destination', '=', $acc_data->location )->where('status','=','pending')->get();
         
-        return view('stuff.check-point', $data);
+        return view('staff.check-point', $data);
 
     }
 
@@ -466,7 +466,7 @@ class StuffController extends Controller
 
         if ($data['groups'])
         {
-            return view('stuff.groups-view', $data);
+            return view('staff.groups-view', $data);
         }
         else
         {
@@ -498,7 +498,7 @@ class StuffController extends Controller
         $approve = new Approve;
         $approve->booker_id = $confirm->id;
         $approve->user_id = $confirm->user_id;
-        $approve->stuff_id = session('LoggedUser');
+        $approve->staff_id = session('LoggedUser');
         $approve->first_name = $confirm->first_name;
         $approve->last_name = $confirm->last_name;
         $approve->destination = $confirm->destination;
@@ -564,7 +564,7 @@ class StuffController extends Controller
             $status_update->status = "approve";
             $status_update->save();
 
-            return redirect('/stuff/check/point')->with('success','Approve Successfully');
+            return redirect('/staff/check/point')->with('success','Approve Successfully');
 
         }
         else
@@ -578,7 +578,7 @@ class StuffController extends Controller
             $status_update->status = "approve";
             $status_update->save();
 
-            return redirect('/stuff/check/point')->with('success','Approve Successfully');
+            return redirect('/staff/check/point')->with('success','Approve Successfully');
     
         }
     }
@@ -587,9 +587,9 @@ class StuffController extends Controller
     function logs ()
     {
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['lists'] = Approve::where('stuff_id',session('LoggedUser'))->paginate(10);
+        $data['lists'] = Approve::where('staff_id',session('LoggedUser'))->paginate(10);
 
-        return view('stuff.history', $data);
+        return view('staff.history', $data);
     }
 
     function records_group_view (Request $req)
@@ -600,7 +600,7 @@ class StuffController extends Controller
 
         if ($data['groups']->isNotEmpty())
         {
-            return view('stuff.log-view', $data);
+            return view('staff.log-view', $data);
         }
         else
         {

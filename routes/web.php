@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\StuffController;
+use App\Http\Controllers\staffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +18,12 @@ use App\Http\Controllers\StuffController;
 */
 
 
-Route::get('/alert/notification',[StuffController::class,'alert']);
+Route::get('/alert/notification',[staffController::class,'alert']);
 
 Route::get('/edit/location',[AdminController::class,'edit_location']);
 Route::get('/delete/location',[AdminController::class,'delete_location']); 
-Route::get('/edit/pass/account',[AdminController::class,'edit_stuff_account']); 
-Route::post('/update/password/stuff',[AdminController::class,'stuff_update_pass'])->name('update_stuff_pass');
+Route::get('/edit/pass/account',[AdminController::class,'edit_staff_account']); 
+Route::post('/update/password/staff',[AdminController::class,'staff_update_pass'])->name('update_staff_pass');
 
 
 // Home Route
@@ -46,27 +46,27 @@ Route::post('/update/password',[MainController::class,'update_password'])->name(
 Route::post('/resend/resetpassword',[MainController::class,'resend_resetpass'])->name('resend.passreset'); //resending reset email
 
 // ajax
-Route::get('/fetch-checkpoint',[StuffController::class,'fetch_checkpoint']);
+Route::get('/fetch-checkpoint',[staffController::class,'fetch_checkpoint']);
 Route::get('/visited',[UserController::class,'fetch_visit']);
 Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
 Route::get('/book2/count',[UserController::class,'book2_count']);
 Route::get('user/notific',[UserController::class,'get_notif']);
 Route::get('/view/data',[UserController::class,'view_data']);
-Route::get('/stuff/view/data',[StuffController::class,'view_data']);
-Route::get('/graph/data',[StuffController::class,'graph_data']);
-Route::get('/data',[StuffController::class,'weekly_data']);
-Route::post('/create/notification',[StuffController::class,'send_notification']);
+Route::get('/staff/view/data',[staffController::class,'view_data']);
+Route::get('/graph/data',[staffController::class,'graph_data']);
+Route::get('/data',[staffController::class,'weekly_data']);
+Route::post('/create/notification',[staffController::class,'send_notification']);
 Route::get('/view/notif',[UserController::class,'view_notif']);
 Route::get('/user/notif',[UserController::class,'user_notif_log']);
 Route::get('/user/view/notification',[UserController::class,'user_notif_view']);
-Route::get('/stuff/view/notification',[StuffController::class,'stuff_notif_view']);
-Route::get('/notif',[StuffController::class,'notif_log']);
-Route::get('/stuff/notific',[StuffController::class,'get_notif']);
-Route::get('/stuff/notif',[StuffController::class,'stuff_notif_log']);
-Route::get('/stuff/view/notif',[StuffController::class,'view_notif']);
-Route::get('delete/notif',[StuffController::class,'delete_notif']);
+Route::get('/staff/view/notification',[staffController::class,'staff_notif_view']);
+Route::get('/notif',[staffController::class,'notif_log']);
+Route::get('/staff/notific',[staffController::class,'get_notif']);
+Route::get('/staff/notif',[staffController::class,'staff_notif_log']);
+Route::get('/staff/view/notif',[staffController::class,'view_notif']);
+Route::get('delete/notif',[staffController::class,'delete_notif']);
 Route::get('/user/delete/notif',[UserController::class,'user_delete_notif']);
-Route::get('/stuff/delete/notif',[StuffController::class,'stuff_delete_notif']);
+Route::get('/staff/delete/notif',[staffController::class,'staff_delete_notif']);
 Route::get('/locations/map',[UserController::class,'map_locations']);
 Route::get('/maplocation',[AdminController::class,'map_location_fetch']);
 Route::post('/addlocation',[AdminController::class,'add_location']);
@@ -74,8 +74,8 @@ Route::post('/admin/create/notification',[AdminController::class,'send_notificat
 Route::get('/admin/notif',[AdminController::class,'notif_log']);
 Route::get('/admin/delete/notif',[AdminController::class,'delete_notif']);
 Route::get('/admin/fetch/account',[AdminController::class,'fetch_account']);
-Route::post('/create/stuff/account',[AdminController::class,'create_stuff_account']);
-Route::get('/delete/account',[AdminController::class,'delete_stuff_account']); 
+Route::post('/create/staff/account',[AdminController::class,'create_staff_account']);
+Route::get('/delete/account',[AdminController::class,'delete_staff_account']); 
 Route::get('/list/location/link',[AdminController::class,'fetch_location_link']);
 
 // Route Proccess
@@ -121,25 +121,25 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function ()
     Route::get('/map/locations',[AdminController::class,'add_map_location'])->name('admin.addmap');
     Route::get('/alert/notification',[AdminController::class,'alert']);
 
-    Route::get('/admin/create/stufs',[AdminController::class,'create_stuff'])->name('admin.createacc');
+    Route::get('/admin/create/stufs',[AdminController::class,'create_staff'])->name('admin.createacc');
 });
 
-// stuff route
-Route::prefix('stuff')->middleware(['isStuff'])->group(function () 
+// staff route
+Route::prefix('staff')->middleware(['isstaff'])->group(function () 
 {
-    Route::get('/dashboard',[StuffController::class,'dashboard'])->name('dashboardStuff.view');
-    Route::get('/profile',[StuffController::class,'profile'])->name('profileStuff.view');
-    Route::get('/profile/delete',[StuffController::class,'delete_profile'])->name('profileDelete.proccess');
+    Route::get('/dashboard',[staffController::class,'dashboard'])->name('dashboardstaff.view');
+    Route::get('/profile',[staffController::class,'profile'])->name('profilestaff.view');
+    Route::get('/profile/delete',[staffController::class,'delete_profile'])->name('profileDelete.proccess');
 
-    Route::post('/update',[StuffController::class,'profile_update'])->name('profile.process');
-    Route::get('/check/point',[StuffController::class,'check_point'])->name('checkpoint.view');
-    Route::get('/repors',[StuffController::class,'reports'])->name('report.view');
+    Route::post('/update',[staffController::class,'profile_update'])->name('profile.process');
+    Route::get('/check/point',[staffController::class,'check_point'])->name('checkpoint.view');
+    Route::get('/repors',[staffController::class,'reports'])->name('report.view');
 
-    Route::get('/stuff/book/view/all',[StuffController::class,'br_view']);
-    Route::get('/book/delete',[StuffController::class,'br_delete']);
-    Route::get('/book/confirm',[StuffController::class,'br_confirm']);
-    Route::get('/log',[StuffController::class,'logs']);
-    Route::get('/log/view/all',[StuffController::class,'records_group_view']);
-    Route::get('/alert/notifications',[StuffController::class,'alert']);
-    Route::get('/view/all',[StuffController::class,'notifications']);
+    Route::get('/staff/book/view/all',[staffController::class,'br_view']);
+    Route::get('/book/delete',[staffController::class,'br_delete']);
+    Route::get('/book/confirm',[staffController::class,'br_confirm']);
+    Route::get('/log',[staffController::class,'logs']);
+    Route::get('/log/view/all',[staffController::class,'records_group_view']);
+    Route::get('/alert/notifications',[staffController::class,'alert']);
+    Route::get('/view/all',[staffController::class,'notifications']);
 });
