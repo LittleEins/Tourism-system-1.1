@@ -15,6 +15,7 @@ use App\Models\Admin_notif;
 use App\Models\Group_approve;
 use App\Models\Reset_analytic;
 use App\Models\Stuff_alert;
+use Illuminate\Support\Facades\Hash;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
@@ -238,7 +239,7 @@ class AdminController extends Controller
 
         // validator
         $validate = \Validator::make($req->all(), [
-            'name' => 'required|max:255',
+            'name' => 'required|max:255 | unique:map_locations',
             'latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],    
             'longitude' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/']
         ]);
@@ -253,9 +254,10 @@ class AdminController extends Controller
         else
         {   
             $add_location = new Map_location;
-            $add_location->name = $req->input('name');
+            $add_location->name = ucfirst($req->input('name'));
             $add_location->latitude = $req->input('latitude');
             $add_location->longitude = $req->input('longitude');
+            $add_location->visit_count = "0";
             $add_location->save();
             
 
@@ -275,5 +277,133 @@ class AdminController extends Controller
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
         return view('admin.add_map_location', $data);
+    }
+
+    function fetch_account ()
+    {
+        $accounts = User::where('role','=','1')->get();
+
+        return response()->json([
+            'accounts' => $accounts,
+        ]);
+    }
+
+    function create_stuff ()
+    {
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['locations'] = Map_location::where('link',null)->get();
+
+        return view('admin.create_stuff', $data);
+    }
+
+    function fetch_location_link ()
+    {
+        $list = Map_location::where('link',null)->get();
+
+        return response()->json([
+            'list' => $list,
+        ]);
+    }
+
+    function create_stuff_account (Request $req)
+    {
+        // validator
+        $validate = \Validator::make($req->all(), [
+            'admin_type' => 'required',
+            'admin_password' => 'required | min: 8',
+        ]);
+
+        if ($validate->fails())
+        {
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validate->messages(),
+            ]);
+        }
+        else
+        { 
+            // Insert Data to DB
+            $data = new User;
+            $data->first_name = ucfirst($req->input('admin_type'));
+            $data->last_name = "CheckPoint";
+            $data->email = strtolower($req->input('admin_type')."@gmail.com");
+            $data->phone = "09913183407";
+            $data->img_name = "default-profile.png";
+            $data->otp = "515151";
+            $data->password = hash::make($req->password);
+            $data->verification_code = "5555";
+            $data->role = '1';
+            $data->location = strtolower($req->input('admin_type'));
+            $data->save();
+
+            $location = Map_location::get();
+            $count = Map_location::get()->count();
+            
+            for ($i = 0; $i < $count; $i++)
+            {
+                if (strtolower($req->input('admin_type')) == strtolower($location[$i]['name']))
+                {
+                    $update = Map_location::where('name','=',$req->input('admin_type'))->first();
+                    $update->link = "1";
+                    $update->save();
+
+                    break;
+                }
+            }
+
+            return response()->json([
+                'status'=>200,
+                'success'=>"Account has been created!",
+            ]);
+
+        }
+    }
+
+    function edit_stuff_account (Request $req)
+    {
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['info'] = User::where('id',$req->id)->first();
+
+        return view('admin.change_pass', $data);
+    }
+
+    function delete_stuff_account (Request $req)
+    {
+        $info = User::where('id',$req->id)->first();
+
+        $location = Map_location::get(['name']);
+        $count = Map_location::get()->count();
+        
+        for ($i = 0; $i < $count; $i++)
+        {
+            if (strtolower($info['location']) == strtolower($location[$i]['name']))
+            {
+                $update = Map_location::where('name',ucfirst($location[$i]['name']))->first();
+                $update->link = null;
+                $t = $update->save();
+
+                break;
+            }
+        }
+
+        $user = User::where('id',$req->id)->delete();
+
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+
+        return back();
+    }
+
+    function stuff_update_pass (Request $req)
+    {
+            // signup Validation
+        $req->validate([
+            'password' => 'required | min: 8',
+        ]);
+
+        $update_pass = User::where('id','=',$req->id)->first();
+        $update_pass->password = hash::make($req->password);
+        $update_pass->save();
+
+        return back()->with('success',"Update Password Successfully!");
     }
 }

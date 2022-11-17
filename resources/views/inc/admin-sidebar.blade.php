@@ -23,7 +23,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('admin.addmap') }}">
+        <a class="nav-link collapsed" href="{{ route('admin.createacc') }}">
           <i class="bi bi-card-checklist"></i>
           <span>Create Account</span>
         </a>

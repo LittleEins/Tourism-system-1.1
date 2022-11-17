@@ -21,7 +21,10 @@ use App\Http\Controllers\StuffController;
 Route::get('/alert/notification',[StuffController::class,'alert']);
 
 Route::get('/edit/location',[AdminController::class,'edit_location']);
-Route::get('/delete/location',[AdminController::class,'delete_location']);
+Route::get('/delete/location',[AdminController::class,'delete_location']); 
+Route::get('/edit/pass/account',[AdminController::class,'edit_stuff_account']); 
+Route::post('/update/password/stuff',[AdminController::class,'stuff_update_pass'])->name('update_stuff_pass');
+
 
 // Home Route
 Route::get('/',[MainController::class,'home']);
@@ -70,7 +73,10 @@ Route::post('/addlocation',[AdminController::class,'add_location']);
 Route::post('/admin/create/notification',[AdminController::class,'send_notification']);
 Route::get('/admin/notif',[AdminController::class,'notif_log']);
 Route::get('/admin/delete/notif',[AdminController::class,'delete_notif']);
-
+Route::get('/admin/fetch/account',[AdminController::class,'fetch_account']);
+Route::post('/create/stuff/account',[AdminController::class,'create_stuff_account']);
+Route::get('/delete/account',[AdminController::class,'delete_stuff_account']); 
+Route::get('/list/location/link',[AdminController::class,'fetch_location_link']);
 
 // Route Proccess
 Route::post('auth/login',[MainController::class,'login_check'])->name('authUser.login'); //login proccissing
@@ -114,6 +120,8 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function ()
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::get('/map/locations',[AdminController::class,'add_map_location'])->name('admin.addmap');
     Route::get('/alert/notification',[AdminController::class,'alert']);
+
+    Route::get('/admin/create/stufs',[AdminController::class,'create_stuff'])->name('admin.createacc');
 });
 
 // stuff route
