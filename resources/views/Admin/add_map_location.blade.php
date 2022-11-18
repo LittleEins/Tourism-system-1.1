@@ -5,8 +5,8 @@
 
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <i class="bi bi-pin-map-fill"></i>
+          <span>Add Map Location</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -15,11 +15,10 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>Add Pin</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">Location</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->

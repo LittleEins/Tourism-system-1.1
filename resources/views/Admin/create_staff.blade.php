@@ -5,7 +5,7 @@
 
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
-          <i class="bi bi-grid"></i>
+          <i class="bi bi-people"></i>
           <span>Create Account</span>
         </a>
       </li><!-- End Dashboard Nav -->
@@ -63,7 +63,7 @@
     </div>
     
 
-      <div class="container-fluid pt-4 px-4">
+      <div class="w-auto">
         <div class="row g-4">
 
           <div class="card">
@@ -71,7 +71,7 @@
             <div class="card-header">
               <h4>Create Account <a href="#" class="btn btn-primary float-end" data-toggle="modal" data-target="#create_staff">Create Account</a></h4>
             </div>
-
+            
             <div class="card-body">
               <table class="table table-bordered table-striped">
                 <thead>

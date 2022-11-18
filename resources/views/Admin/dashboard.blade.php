@@ -5,7 +5,7 @@
 
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
-          <i class="bi bi-pass-fill"></i>
+          <i class="bi bi-border-all"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
@@ -16,11 +16,6 @@
   <main id="main" class="main">
     <div class="pagetitle">
       <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-        </ol>
-      </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">

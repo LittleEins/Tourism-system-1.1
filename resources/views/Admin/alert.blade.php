@@ -5,7 +5,7 @@
 
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
-          <i class="bi bi-exclamation-diamond"></i>
+          <i class="bi bi-exclamation-circle"></i>
           <span>Alert</span>
         </a>
       </li><!-- End Dashboard Nav -->
