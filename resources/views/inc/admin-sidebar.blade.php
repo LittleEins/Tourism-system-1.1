@@ -37,7 +37,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('admin.addmap') }}">
+        <a class="nav-link collapsed" href="{{ route('admin.report') }}">
           <i class="bi bi-card-checklist"></i>
           <span>Reports</span>
         </a>

@@ -15,6 +15,7 @@ use App\Models\Admin_notif;
 use App\Models\Group_approve;
 use App\Models\Reset_analytic;
 use App\Models\staff_alert;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 use DateTime;
 use Illuminate\Support\Facades\DB;
@@ -406,4 +407,44 @@ class AdminController extends Controller
 
         return back()->with('success',"Update Password Successfully!");
     }
+
+    function report_gen ()
+    {
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['lists'] = Approve::paginate(10);
+
+        return view('admin.reports', $data);
+    }
+
+    function records_group_view (Request $req)
+    {
+        //getting all data with booker
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+        $data['groups'] = Group_approve::where('book_number', '=', $req->id)->paginate(10);
+
+        if ($data['groups']->isNotEmpty())
+        {
+            return view('admin.log-view', $data);
+        }
+        else
+        {
+            return back();
+        }
+
+    }
+
+    function search_report (Request $req)
+    {
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+
+        $startDate = $req->from;
+        $endDate = $req->end;
+
+        //sql raw command query
+        $data['lists'] =  DB::select("SELECT * FROM approves
+        WHERE ap_date >= ? AND ap_date <= ?",[$startDate,$endDate]);
+
+        return view('admin.reports', $data);
+    }
+
 }

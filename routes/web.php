@@ -119,9 +119,12 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function ()
 {
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::get('/map/locations',[AdminController::class,'add_map_location'])->name('admin.addmap');
+    Route::get('/report/generate',[AdminController::class,'report_gen'])->name('admin.report');
     Route::get('/alert/notification',[AdminController::class,'alert']);
 
     Route::get('/admin/create/stufs',[AdminController::class,'create_staff'])->name('admin.createacc');
+    Route::get('/log/view/all',[AdminController::class,'records_group_view']);
+    Route::post('/search/report',[AdminController::class,'search_report']);
 });
 
 // staff route

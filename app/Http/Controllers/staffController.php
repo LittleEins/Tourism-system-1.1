@@ -510,6 +510,7 @@ class staffController extends Controller
         $approve->groups = $groupCount;
         $approve->day = strtolower(date('l'));
         $approve->approve_td = $time_date;
+        $approve->ap_date = date("Y-m-d");
         $approve->save();
 
         $data = User::where('id','=', session('LoggedUser'))->first();
