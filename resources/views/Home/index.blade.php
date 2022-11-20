@@ -97,10 +97,9 @@
                 <img src="/home/img/home/testimonial1.png" alt="">
               </div>
               <div class="media-body">
-                <p>Incidunt deleniti blanditiis quas aperiam recusandae consillo ullam quibusdam cum libero illo repell endus!</p>
+                <p>!</p>
                 <div class="testi-carousel__intro">
                   <h3>Robert Mack</h3>
-                  <p>CEO & Founder</p>
                 </div>
               </div>
             </div>

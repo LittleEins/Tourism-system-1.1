@@ -10,6 +10,7 @@ $(document).ready(function ()
             dataType: "json",
             success: function (response) 
             {
+                console.log(response.locations);
                 $('#map_locations').html("");
                 $.each(response.locations, function (key, list)
                 {
@@ -37,6 +38,7 @@ $(document).ready(function ()
             'name': $('.name').val(),
             'latitude': $('.latitude').val(),
             'longitude': $('.longitude').val(),
+            'pin_type': $('#flexCheckDefault').is(':checked'),
         }
         
         $.ajaxSetup({

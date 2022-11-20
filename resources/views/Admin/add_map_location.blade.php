@@ -55,6 +55,10 @@
               <input type="text" class="longitude form-control">
               <x-error_style/><span id="err_longitude"></span></p>
             </div>
+            <div class="form-check">
+              <input class="pin_type form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault">Pin only</label>
+            </div>
           </div>
           <div class="modal-footer" id="modal_btn">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -253,19 +253,40 @@ class AdminController extends Controller
             ]);
         }
         else
-        {   
-            $add_location = new Map_location;
-            $add_location->name = ucfirst($req->input('name'));
-            $add_location->latitude = $req->input('latitude');
-            $add_location->longitude = $req->input('longitude');
-            $add_location->visit_count = "0";
-            $add_location->save();
-            
-
-            return response()->json([
-                'status'=>200,
-                'success'=>'Location added successfully',
-            ]);
+        { 
+            if ($req->input('pin_type') == 'true')
+            {
+                $add_location = new Map_location;
+                $add_location->name = ucfirst($req->input('name'));
+                $add_location->latitude = $req->input('latitude');
+                $add_location->longitude = $req->input('longitude');
+                $add_location->visit_count = "0";
+                $add_location->link = "1";
+                $add_location->type = 0;
+                $add_location->save();
+                
+    
+                return response()->json([
+                    'status'=>200,
+                    'success'=>'Location added successfully',
+                ]);
+            }
+            else
+            {
+                $add_location = new Map_location;
+                $add_location->name = ucfirst($req->input('name'));
+                $add_location->latitude = $req->input('latitude');
+                $add_location->longitude = $req->input('longitude');
+                $add_location->visit_count = "0";
+                $add_location->type = 1;
+                $add_location->save();
+                
+    
+                return response()->json([
+                    'status'=>200,
+                    'success'=>'Location added successfully',
+                ]);
+            }
         }
 
       
@@ -292,14 +313,14 @@ class AdminController extends Controller
     function create_staff ()
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-        $data['locations'] = Map_location::where('link',null)->get();
+        $data['locations'] = Map_location::where('link', null)->where('type',1)->get();
 
         return view('admin.create_staff', $data);
     }
 
     function fetch_location_link ()
     {
-        $list = Map_location::where('link',null)->get();
+        // $list = Map_location::where('type',)->get();
 
         return response()->json([
             'list' => $list,

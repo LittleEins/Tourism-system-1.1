@@ -78,11 +78,11 @@
                                   </div>
                                   <div class="row">
                                     <div class="col-md-4 mb-3">
-                                      <input type="text" name="emailUser" class="form-control" placeholder="Email" minlength="3" required>
+                                      <input type="email" name="emailUser" class="form-control" placeholder="Email" minlength="3" required>
                                     
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                      <input type="text" name="phoneUser" class="form-control" placeholder="Phone Number" minlength="3" required>
+                                      <input type="number" name="phoneUser" class="form-control" placeholder="Phone" maxlength="12">
                                     
                                     </div><div class="col-md-4 mb-3">
                                       <input type="text" name="addressUser" class="form-control" placeholder="Address" minlength="3" required>

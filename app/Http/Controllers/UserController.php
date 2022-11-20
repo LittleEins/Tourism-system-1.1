@@ -193,6 +193,7 @@ class UserController extends Controller
             if ((strtolower($date) != strtolower($location[$i]->date)) && (strtolower($location[$i]->date != null)))
             {   
                 DB::table('map_locations')->update(['visit_count'=>'0']);
+                DB::table('book_requests')->delete();
             }   
         }
 
