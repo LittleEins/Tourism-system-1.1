@@ -17,6 +17,11 @@
     <div class="container">
       <div class="container">
         <div class="row">
+          <div class="col-12 mb-3">
+            <a href="/staff/add/entery" class="btn btn-primary">Add</a>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-12">
             <table id="example" class="table table-striped" style="width:100%">
               <thead>

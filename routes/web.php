@@ -145,4 +145,6 @@ Route::prefix('staff')->middleware(['isstaff'])->group(function ()
     Route::get('/log/view/all',[staffController::class,'records_group_view']);
     Route::get('/alert/notifications',[staffController::class,'alert']);
     Route::get('/view/all',[staffController::class,'notifications']);
+    Route::get('/add/entery',[staffController::class,'book2'])->name('staff.book2');//book2 section
+    Route::post('/booking/submit',[staffController::class,'book_data'])->name('staff.book.data');//booking insert data
 });

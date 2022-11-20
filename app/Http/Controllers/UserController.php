@@ -389,14 +389,11 @@ class UserController extends Controller
 
     function book2_count ()
     {
-        $falls = Approve::where('destination','=', 'falls')->get();
-        $fallsGroup = Book_data::where('destination','=', 'falls')->get();
-        $tundol = Approve::where('destination','=', 'tundol')->get();
-        $tundolGroup = Book_data::where('destination','=', 'tundol')->get();
+        $location = Map_location::get();
 
         return response()->json([
-            'falls'=> $falls->count() + $fallsGroup->count(),
-            'tundol'=> $tundol->count() + $tundolGroup->count(),
+            'locations'=> $location,
+           
         ]);
     }
 

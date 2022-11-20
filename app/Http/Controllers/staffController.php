@@ -221,14 +221,13 @@ class staffController extends Controller
         $location = Map_location::get(['name','visit_count','date']);
         $count = Map_location::get(['name','visit_count'])->count();
 
-    
         // resetting count 
         for ($i = 0; $i < $count; $i++)
         {
             if ((strtolower($date) != strtolower($location[$i]->date)) && (strtolower($location[$i]->date != null)))
             {   
                 DB::table('map_locations')->update(['visit_count'=>'0']);
-
+                DB::table('book_requests')->delete();
             }   
         }
 
@@ -433,6 +432,186 @@ class staffController extends Controller
 
       
     }
+
+    function book2 (Request $req)
+    {
+        // get data and goto book2 view
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+
+        $data['locations'] = Map_location::get();
+
+        return view('staff.booking2', $data);
+       
+    }
+
+     // insert booker data
+     function book_data (Request $req)
+     {
+                   
+         date_default_timezone_set('Asia/Manila');
+         $time_date  = date('F j, Y g:i:a  ');
+ 
+         if ($req->group_book != null)
+         {
+
+             $book_number = random_int(100000, 999999);
+ 
+             $req->session()->put('book_number', $book_number);
+
+             
+             if ($req->phone == null)
+            {
+                $user_id = User::where('id','=', session('LoggedUser'))->first();
+
+                 $first_name = $req->first_name;
+                 $last_name = $req->last_name;
+                 $gender = $req->gender;
+                 $destination = $req->destination;
+                 $phone = $req->contact;
+                 $address = $req->address;
+ 
+                 for ($i=0; $i < count($first_name); $i++)
+                 {
+                     $datasave = [
+                         'booker_id'   =>$user_id->id,
+                         'first_name' =>$first_name[$i],
+                         'last_name' =>$last_name[$i],
+                         'gender' =>$gender[$i],
+                         'destination' =>$destination,
+                         'address' =>$address[$i],
+                         'book_number'=>$book_number,
+                         'time_date' =>$time_date,
+                     ];
+ 
+                     DB::table('group_approves')->insert($datasave);
+             
+                }
+
+            $count_groups = Group_approve::where('book_number',$book_number)->count();
+ 
+            $insert_request = new Approve;
+            $insert_request->booker_id = $user_id->id;//
+            $insert_request->staff_id = $user_id->id;///
+            $insert_request->user_id = $user_id->id;//
+            $insert_request->first_name = $req->first_nameUser;//
+            $insert_request->last_name = $req->last_nameUser;//
+            $insert_request->phone = $req->phoneUser;//
+            $insert_request->email = $req->emailUser;//
+            $insert_request->gender = $req->genderUser;//
+            $insert_request->address = $req->addressUser;//
+            $insert_request->destination = $req->destination;
+            $insert_request->book_number = $book_number;//
+            $insert_request->groups = $count_groups;
+            $insert_request->book_number = $book_number;//
+            $insert_request->day = strtolower(date('l'));
+            $insert_request->approve_td = $time_date;
+            $insert_request->ap_date = date("Y-m-d");
+            $insert_request->ap_type = "manual";//
+            $insert_request->save();
+ 
+ 
+            
+             $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+             return view('staff.book_result', $data,['book_number'=>$book_number])->with('success','Book Successfully.');
+             }
+             else 
+             {
+        
+                 $first_name = $req->first_name;
+                 $last_name = $req->last_name;
+                 $gender = $req->gender;
+                 $destination = $req->destination;
+                 $phone = $req->contact;
+                 $address = $req->address;
+
+                 $user_id = User::where('id','=', session('LoggedUser'))->first();
+ 
+                 for ($i=0; $i < count($first_name); $i++)
+                 {
+                     $datasave = [
+                         'booker_id'   =>$user_id->id,
+                         'first_name' =>$first_name[$i],
+                         'last_name' =>$last_name[$i],
+                         'gender' =>$gender[$i],
+                         'destination' =>$destination,
+                         'phone' =>$phone[$i],
+                         'address' =>$address[$i],
+                         'book_number'=>$book_number,
+                         'time_date' =>$time_date,
+                     ];
+ 
+                     DB::table('group_approves')->insert($datasave);
+             
+                 }
+
+                 
+            $count_groups = Group_approve::where('book_number',$book_number)->count();
+ 
+            $time_date  = date('F j, Y g:i:a  ');
+
+            $insert_request = new Approve;
+            $insert_request->booker_id = $user_id->id;//
+            $insert_request->staff_id = $user_id->id;///
+            $insert_request->user_id = $user_id->id;//
+            $insert_request->first_name = $req->first_nameUser;//
+            $insert_request->last_name = $req->last_nameUser;//
+            $insert_request->phone = $req->phoneUser;//
+            $insert_request->email = $req->emailUser;//
+            $insert_request->gender = $req->genderUser;//
+            $insert_request->address = $req->addressUser;//
+            $insert_request->destination = $req->destination;//
+            $insert_request->book_number = $book_number;//
+            $insert_request->groups = $count_groups;
+            $insert_request->book_number = $book_number;//
+            $insert_request->day = strtolower(date('l'));
+            $insert_request->approve_td = $time_date;
+            $insert_request->ap_date = date("Y-m-d");
+            $insert_request->ap_type = "manual";//
+            $insert_request->save();
+ 
+             $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+             return view('staff.book_result', $data,['book_number'=>$book_number])->with('success','Book Successfully.');
+             }
+ 
+             
+         }
+         else
+         {
+             $book_number = random_int(100000, 999999);
+ 
+             $req->session()->put('book_number', $book_number);
+             
+            $count_groups = Group_approve::where('book_number',$book_number)->count();
+ 
+            $time_date  = date('F j, Y g:i:a  ');
+
+             $data = User::where('id','=', session('LoggedUser'))->first();
+             $insert_request = new Approve;
+             $insert_request->booker_id = $data->id;//
+             $insert_request->staff_id = $data->id;///
+             $insert_request->user_id = $data->id;//
+             $insert_request->first_name = $req->first_nameUser;//
+             $insert_request->last_name = $req->last_nameUser;//
+             $insert_request->phone = $req->phoneUser;//
+             $insert_request->email = $req->emailUser;//
+             $insert_request->gender = $req->genderUser;//
+             $insert_request->address = $req->addressUser;//
+             $insert_request->destination = $req->destination;//
+             $insert_request->book_number = $book_number;//
+             $insert_request->groups = 'solo';
+             $insert_request->book_number = $book_number;//
+             $insert_request->day = strtolower(date('l'));
+             $insert_request->approve_td = $time_date;
+             $insert_request->ap_date = date("Y-m-d");
+             $insert_request->ap_type = "manual";//
+             $insert_request->save();
+ 
+             $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+             return view('staff.book_result', $data,['book_number'=>$book_number])->with('success','Book Successfully.');
+         }
+ 
+     }
+ 
 
 
     function check_point ()

@@ -44,11 +44,11 @@ $(document).ready(function ()
             success: function (response) 
             {
                 $('#locations').html(" ");
-                $('#locations').append('<option value="">Destination</option>\
-                <option value="falls">Falls ('+response.falls+')</option>\
-                <option value="light house">Light House ('+response.tundol+')</option>\
-                <option value="tupa">Tupa ('+response.falls+')</option>\
-                <option value="patar">Patar ('+response.tundol+')</option>');
+                $('#locations').append('<option value="">Destination</option>');
+                $.each(response.locations, function (key, list)
+                {
+                    $('#locations').append('<option value="'+list.name+'">'+list.name+' ('+list.visit_count+')</option>');
+                });
 
             }
  

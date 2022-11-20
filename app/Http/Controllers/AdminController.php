@@ -412,6 +412,7 @@ class AdminController extends Controller
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
         $data['lists'] = Approve::paginate(10);
+        $data['locations'] = Map_location::get();
 
         return view('admin.reports', $data);
     }
@@ -435,16 +436,35 @@ class AdminController extends Controller
 
     function search_report (Request $req)
     {
-        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
-        $startDate = $req->from;
-        $endDate = $req->end;
+        if (strtolower($req->locations) == "all")
+        {
+            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+            $data['locations'] = Map_location::get();
 
-        //sql raw command query
-        $data['lists'] =  DB::select("SELECT * FROM approves
-        WHERE ap_date >= ? AND ap_date <= ?",[$startDate,$endDate]);
+            $startDate = $req->from;
+            $endDate = $req->end;
+    
+            //sql raw command query
+            $data['lists'] =  DB::select("SELECT * FROM approves
+            WHERE ap_date >= ? AND ap_date <= ?",[$startDate,$endDate]);
+    
+            return view('admin.reports', $data);
+        }
+       else
+       {
+            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+            $data['locations'] = Map_location::get();
 
-        return view('admin.reports', $data);
+            $startDate = $req->from;
+            $endDate = $req->end;
+            $location = strtolower($req->locations);
+
+            //sql raw command query
+            $data['lists'] =  DB::select('SELECT * FROM approves WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$location,$startDate,$endDate]);
+       
+            return view('admin.reports', $data);
+        }
     }
 
 }

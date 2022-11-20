@@ -33,6 +33,14 @@
               <div class="row">
                 <div class="container-flued">
                   <div class="d-flex">
+                    <div class="col-sm-3">
+                      <select name="locations" id="location" class="form-control input-sm">
+                        <option value="all">All</option>
+                        @foreach($locations as $list)
+                        <option value="{{ $list->name }}">{{ $list->name }}</option>
+                        @endforeach
+                      </select>
+                    </div>
                     <div class="form-group row">
                       <label for="col-form-label col-sm-2">Start</label>
                     </div>
