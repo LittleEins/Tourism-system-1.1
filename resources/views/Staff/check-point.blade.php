@@ -14,6 +14,15 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Entries</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><a href="/staff/check/point">Request Entry</a></li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
     <div class="container">
       <div class="container">
         <div class="row">

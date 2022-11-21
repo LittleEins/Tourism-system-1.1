@@ -32,9 +32,9 @@
               <div class="card mb-3" style="border-radius: .5rem;">
                 <div class="row g-0">
                   <div class="col-md-40 gradient-custom text-center text-white"
-                    style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                      alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                    style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;"> 
+                    <img src="{{ asset('storage/img/'. $user_data['img_name']) }}"
+                      alt="Avatar" class="rounded-circle img-fluid my-5" style="width: 80px;" />
                     <i class="far fa-edit mb-5"></i>
                   </div>
                   <div class="col-md-40">

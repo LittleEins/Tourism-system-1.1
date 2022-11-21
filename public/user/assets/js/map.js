@@ -55,7 +55,7 @@ $(document).ready(function ()
             dataType: "json",
             success: function (response) 
             {
-                console.log('ddd');
+                
     
                 let l = response.locations.length;
                 for (let i = 0; i < l; i++)
@@ -90,10 +90,20 @@ $(document).ready(function ()
     
                     // pop up message on map
                    
-                    name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                    <div style='font-size: 10px;'>"+names+" Visited</div>\
-                    <div>"+count_visit+"\
-                    </div>");
+                    if (response.locations[i].type == '1')
+                    {
+                        name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
+                        <div style='font-size: 10px;'>"+names+" Visited</div>\
+                        <div>"+response.locations[i].visit_count+"\
+                        </div>");
+                    }
+                    else
+                    {
+                        name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
+                        <div style='font-size: 10px;'>"+names+" Visited</div>\
+                        <div>\
+                        </div>");
+                    }
                 }
             }
         });

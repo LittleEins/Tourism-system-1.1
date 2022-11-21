@@ -138,7 +138,7 @@ Route::prefix('staff')->middleware(['isstaff'])->group(function ()
     Route::get('/check/point',[staffController::class,'check_point'])->name('checkpoint.view');
     Route::get('/repors',[staffController::class,'reports'])->name('report.view');
 
-    Route::get('/staff/book/view/all',[staffController::class,'br_view']);
+    Route::get('/book/view/all',[staffController::class,'br_view']);
     Route::get('/book/delete',[staffController::class,'br_delete']);
     Route::get('/book/confirm',[staffController::class,'br_confirm']);
     Route::get('/log',[staffController::class,'logs']);

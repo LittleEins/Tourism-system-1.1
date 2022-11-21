@@ -66,7 +66,7 @@
                                   </div>
                                 </div>
                                 <div>
-                                  <input type="submit" value="Book" class="btn btn-primary w-25 request_book" id="add_btn">
+                                  <input type="submit" value="Request" class="btn btn-primary w-25 request_book" id="add_btn">
                                 </div>
                               </form>
                             </div>

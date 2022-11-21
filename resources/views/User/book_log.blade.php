@@ -14,6 +14,15 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Request Entry</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><a href="{{ route('book_log') }}">Log request</a></li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
     <div class="container">
       <div class="container">
         <div class="row">
@@ -57,7 +66,12 @@
                     <td>{{ $list->book_number }}</td>
                     <td>{{ $list->status }}</td>
                     <td>
-                    <a href="/user/book/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> 
+                      @if ($list->groups == "solo")
+                      
+                      @endif
+                      @if ($list->groups != "solo")
+                      <a href="/user/book/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> 
+                      @endif
                     </td>
                         @if ($list->status == "pending")
                         <td>

@@ -228,7 +228,7 @@ class AdminController extends Controller
 
     function map_location_fetch ()
     {
-        $data = Map_location::get(['id','name', 'latitude','longitude']);
+        $data = Map_location::get(['id','name', 'latitude','longitude','type']);
 
         return response()->json([
             'locations' => $data,

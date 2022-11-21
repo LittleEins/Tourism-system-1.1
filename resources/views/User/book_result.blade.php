@@ -19,8 +19,9 @@
       <h1>Booking</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">User Info</li>
+          <li class="breadcrumb-item"><a href="{{route('book.view')}}">User Information</a></li>
+          <li class="breadcrumb-item"><a href="{{route('book2.view')}}">Additional Information</a></li>
+          <li class="breadcrumb-item active">Request result</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -32,9 +33,9 @@
               <div class="card mb-3" style="border-radius: .5rem;">
                 <div class="row g-0">
                   <div class="col-md-40 gradient-custom text-center text-white"
-                    style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                      alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                    style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;"> 
+                    <img src="{{ asset('storage/img/'. $user_data['img_name']) }}"
+                      alt="Avatar" class="rounded-circle img-fluid my-5" style="width: 80px;" />
                     <i class="far fa-edit mb-5"></i>
                   </div>
                   <div class="col-md-40">
@@ -42,7 +43,7 @@
                       <div class="container height-100 d-flex justify-content-center align-items-center" >
                         <div class="text-center">
                           <x-flash-message/>
-                          <p>Please bring this book ticket # to location your are  going..</p>
+                          <p>Please bring this ticket # to location your are  going..</p>
                           <div class="panel-body d-flex justify-content-center">
                               <div class="form-group">
                                 <div class="row">

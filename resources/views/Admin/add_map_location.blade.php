@@ -85,6 +85,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Latitude</th>
                     <th scope="col">Longitude</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>

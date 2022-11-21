@@ -12,18 +12,19 @@ $(document).ready(function ()
             {
                 console.log(response.locations);
                 $('#map_locations').html("");
+                
                 $.each(response.locations, function (key, list)
                 {
                     $('#map_locations').append(' <tr>\
                     <td>'+list.name+'</th>\
                     <td>'+list.latitude+'</td>\
                     <td>'+list.longitude+'</td>\
+                    <td>'+( list.type == "1" ? 'Check point': 'Pin only')+'</td>\
                     <td class="pr-4 pb-2">\
                     <a href="/delete/location?id='+list.id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                     </td>\
                   </tr>')
                 });
-
                 
             }
 

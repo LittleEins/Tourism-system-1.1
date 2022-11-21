@@ -18,7 +18,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{route('book.view')}}">
           <i class="bi bi-car-front-fill"></i>
-          <span>Book</span>
+          <span>Request Entry</span>
         </a>
       </li><!-- Booking Nav -->
 

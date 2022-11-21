@@ -299,7 +299,7 @@ class UserController extends Controller
 
     function map_locations ()
     {
-        $locations = Map_location::get(['id','name', 'latitude','longitude','visit_count']);
+        $locations = Map_location::get(['id','name', 'latitude','longitude','visit_count','type']);
 
         return response()->json([
             'locations' => $locations,
@@ -346,11 +346,11 @@ class UserController extends Controller
             {
                 if ($book_exist->status == "pending")
                 {
-                    return back()->with('fails','You have already booked');
+                    return back()->with('fails','Already have a request!');
                 }
                 else if ($book_exist->status == "approve")
                 {
-                    return back()->with('fails','You are already in');
+                    return back()->with('fails','You are on location!');
                 }
                 else 
                 {
