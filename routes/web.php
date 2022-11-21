@@ -5,6 +5,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\staffController;
+use App\Http\Controllers\SuperAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,8 @@ use App\Http\Controllers\staffController;
 Route::get('/alert/notification',[staffController::class,'alert']);
 
 Route::get('/edit/location',[AdminController::class,'edit_location']);
-Route::get('/delete/location',[AdminController::class,'delete_location']); 
+
 Route::get('/edit/pass/account',[AdminController::class,'edit_staff_account']); 
-Route::post('/update/password/staff',[AdminController::class,'staff_update_pass'])->name('update_staff_pass');
 
 
 // Home Route
@@ -77,6 +77,10 @@ Route::get('/admin/fetch/account',[AdminController::class,'fetch_account']);
 Route::post('/create/staff/account',[AdminController::class,'create_staff_account']);
 Route::get('/delete/account',[AdminController::class,'delete_staff_account']); 
 Route::get('/list/location/link',[AdminController::class,'fetch_location_link']);
+Route::post('/supAdmin/addlocation',[SuperAdminController::class,'add_location']);
+Route::get('/supAdmin/fetch/account',[SuperAdminController::class,'fetch_account']);
+Route::get('/supAdmin/location/link',[SuperAdminController::class,'fetch_location_link']);
+Route::post('/supAdmin/create/staff/account',[SuperAdminController::class,'create_staff_account']);
 
 // Route Proccess
 Route::post('auth/login',[MainController::class,'login_check'])->name('authUser.login'); //login proccissing
@@ -114,19 +118,6 @@ Route::prefix('user')->middleware(['authCheck'])->group(function ()
     Route::get('/records',[UserController::class,'records'])->name('history');
 });
 
-// admin route
-Route::prefix('admin')->middleware(['isAdmin'])->group(function () 
-{
-    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
-    Route::get('/map/locations',[AdminController::class,'add_map_location'])->name('admin.addmap');
-    Route::get('/report/generate',[AdminController::class,'report_gen'])->name('admin.report');
-    Route::get('/alert/notification',[AdminController::class,'alert']);
-
-    Route::get('/admin/create/stufs',[AdminController::class,'create_staff'])->name('admin.createacc');
-    Route::get('/log/view/all',[AdminController::class,'records_group_view']);
-    Route::post('/search/report',[AdminController::class,'search_report']);
-});
-
 // staff route
 Route::prefix('staff')->middleware(['isstaff'])->group(function () 
 {
@@ -147,4 +138,33 @@ Route::prefix('staff')->middleware(['isstaff'])->group(function ()
     Route::get('/view/all',[staffController::class,'notifications']);
     Route::get('/add/entery',[staffController::class,'book2'])->name('staff.book2');//book2 section
     Route::post('/booking/submit',[staffController::class,'book_data'])->name('staff.book.data');//booking insert data
+});
+
+// admin route
+Route::prefix('admin')->middleware(['isAdmin'])->group(function () 
+{
+    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('/map/locations',[AdminController::class,'add_map_location'])->name('admin.addmap');
+    Route::get('/report/generate',[AdminController::class,'report_gen'])->name('admin.report');
+    Route::get('/alert/notification',[AdminController::class,'alert']);
+
+    Route::get('/admin/create/stufs',[AdminController::class,'create_staff'])->name('admin.createacc');
+    Route::get('/log/view/all',[AdminController::class,'records_group_view']);
+    Route::post('/search/report',[AdminController::class,'search_report']);
+    Route::get('/delete/location',[AdminController::class,'delete_location']); 
+    Route::post('/update/password/staff',[AdminController::class,'staff_update_pass'])->name('update_staff_pass');
+});
+
+// admin route
+Route::prefix('supAdmin')->middleware(['isSupadmin'])->group(function () 
+{
+    Route::get('/dashboard',[SuperAdminController::class,'dashboard'])->name('supAdmin.dashboard');
+    Route::get('/map/locations',[SuperAdminController::class,'add_map_location'])->name('supAdmin.addmap');
+    Route::get('/create/stufs',[SuperAdminController::class,'create_staff'])->name('supAdmin.createacc');
+    Route::get('/account/manage',[SuperAdminController::class,'acc_manage'])->name('supAdmin.manageacc');
+    Route::get('/delete/location',[SuperAdminController::class,'delete_location']); 
+    Route::get('/edit/pass/account',[SuperAdminController::class,'edit_staff_account']); 
+    Route::post('/update/password/staff',[AdminController::class,'staff_update_pass'])->name('sup_update_staff_pass');
+    Route::get('/account/delete',[SuperAdminController::class,'manage_del_acc']); 
+    Route::get('/delete/account',[AdminController::class,'delete_staff_account']); 
 });

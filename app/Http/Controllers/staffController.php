@@ -234,8 +234,8 @@ class staffController extends Controller
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
-                $data['location'] = Map_location::get(['name','visit_count']);
-                $data['count'] = Map_location::get(['name','visit_count'])->count();
+                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
 
                 // analytics resets
                 $dateTime = new DateTime('now');
@@ -331,9 +331,10 @@ class staffController extends Controller
                 $reset->tomorrow = date("Y-m-d", strtotime("tomorrow"));
                 $reset->save();
 
-                $data['location'] = Map_location::get(['name','visit_count']);
-                $data['count'] = Map_location::get(['name','visit_count'])->count();
+                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
 
+                return $data['location'];
                 // analytics resets
                 $dateTime = new DateTime('now');
                 $monday = clone $dateTime->modify(('Sunday' == $dateTime->format('l')) ? 'Monday last week' : 'Monday this week');
@@ -425,8 +426,8 @@ class staffController extends Controller
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
-                $data['location'] = Map_location::get(['name','visit_count']);
-                $data['count'] = Map_location::get(['name','visit_count'])->count();
+                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
 
                 // analytics resets
                 $dateTime = new DateTime('now');
@@ -522,8 +523,8 @@ class staffController extends Controller
                 $reset->tomorrow = date("Y-m-d", strtotime("tomorrow"));
                 $reset->save();
 
-                $data['location'] = Map_location::get(['name','visit_count']);
-                $data['count'] = Map_location::get(['name','visit_count'])->count();
+                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();
 
                 // analytics resets
                 $dateTime = new DateTime('now');
@@ -612,14 +613,9 @@ class staffController extends Controller
 
     function dashboard_fetch ()
     {
-
-        date_default_timezone_set('Asia/Manila');
-        $end = "18";
-        $now = date('H');
-        $day = date('l');
-
-        $data = Map_location::get(['name','visit_count']);
-        $count = Map_location::get(['name','visit_count'])->count();
+    
+        $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+        $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
 
         return response()->json([
             'data' => $data,
@@ -627,7 +623,7 @@ class staffController extends Controller
         ]);
 
     }
-
+    
     function graph_data ()
     {
 

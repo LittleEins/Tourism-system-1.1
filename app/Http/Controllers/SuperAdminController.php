@@ -22,161 +22,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
 use Illuminate\Support\Facades\Storage; // use this if you make delete on storage
 
-class AdminController extends Controller
+class SuperAdminController extends Controller
 {
-    
-    function send_notification (Request $req)
-    {
-        date_default_timezone_set('Asia/Manila');
-
-        // validator
-        $validate = \Validator::make($req->all(), [
-            'type' => 'required',
-            'sendto' => 'required',
-            'message' => 'required|max:500',
-        ]);
-
-        if ($validate->fails())
-        {
-            return response()->json([
-                'status'=>400,
-                'errors'=>$validate->messages(),
-            ]);
-        }
-        else
-        { 
-            if ($req->input('sendto') == "all_staffs")
-            {
-              
-                $sender = User::where('id', session('LoggedUser'))->first();
-
-                $staff_notif = new staff_alert;
-                $staff_notif->sender = $sender->location;
-                $staff_notif->message = $req->input('message');
-                $staff_notif->type = $req->input('type');
-                $staff_notif->time =  date('g:i:a');
-                $staff_notif->date =  date('F j, Y');
-                $staff_notif->status = "unread";
-                $staff_notif->sendto = $req->input('sendto');
-                $staff_notif->save();
-
-                $staff_notif = new Admin_notif;
-                $staff_notif->sender = $sender->location;
-                $staff_notif->message = $req->input('message');
-                $staff_notif->type = $req->input('type');
-                $staff_notif->time =  date('g:i:a');
-                $staff_notif->date =  date('F j, Y');
-                $staff_notif->status = "unread";
-                $staff_notif->sendto = $req->input('sendto');
-                $staff_notif->save();
-
-
-                return response()->json([
-                    'status'=>200,
-                    'success'=>'Notification sent',
-                ]);
-            }
-            else if ($req->input('sendto') == "all_users")
-            {
-                $sender = User::where('id', session('LoggedUser'))->first();
-
-                $user_notification = new User_notification;
-                $user_notification->creator_id = $sender->location;
-                $user_notification->message = $req->input('message');
-                $user_notification->type = $req->input('type');
-                $user_notification->time =  date('g:i:a');
-                $user_notification->date =  date('F j, Y');
-                $user_notification->status = "unread";
-                $user_notification->save();
-
-                $staff_notif = new staff_alert;
-                $staff_notif->sender = $sender->location;
-                $staff_notif->message = $req->input('message');
-                $staff_notif->type = $req->input('type');
-                $staff_notif->time =  date('g:i:a');
-                $staff_notif->date =  date('F j, Y');
-                $staff_notif->status = "unread";
-                $staff_notif->sendto = $req->input('sendto');
-                $staff_notif->save();
-
-                $staff_notif = new Admin_notif;
-                $staff_notif->sender = $sender->location;
-                $staff_notif->message = $req->input('message');
-                $staff_notif->type = $req->input('type');
-                $staff_notif->time =  date('g:i:a');
-                $staff_notif->date =  date('F j, Y');
-                $staff_notif->status = "unread";
-                $staff_notif->sendto = $req->input('sendto');
-                $staff_notif->save();
-
-
-
-                return response()->json([
-                    'status'=>200,
-                    'success'=>'Notification sent',
-                ]);
-            }
-            else
-            {
-                $sender = User::where('id', session('LoggedUser'))->first();
-
-                $staff_notif = new staff_alert;
-                $staff_notif->sender = $sender->location;
-                $staff_notif->message = $req->input('message');
-                $staff_notif->type = $req->input('type');
-                $staff_notif->time =  date('g:i:a');
-                $staff_notif->date =  date('F j, Y');
-                $staff_notif->status = "unread";
-                $staff_notif->sendto = $req->input('sendto');
-                $staff_notif->save();
-
-                $staff_notif = new Admin_notif;
-                $staff_notif->sender = $sender->location;
-                $staff_notif->message = $req->input('message');
-                $staff_notif->type = $req->input('type');
-                $staff_notif->time =  date('g:i:a');
-                $staff_notif->date =  date('F j, Y');
-                $staff_notif->status = "unread";
-                $staff_notif->sendto = $req->input('sendto');
-                $staff_notif->save();
-
-
-                return response()->json([
-                    'status'=>200,
-                    'success'=>'Notification sent',
-                ]);
-            }
-        }
-
-      
-    }
-
-    function notif_log ()
-    {
-        $acc = User::where('id','=', session('LoggedUser'))->first();
-        $admin   = Admin_notif::get();
-
-        return response()->json([
-            'notification'=>$admin,
-        ]);
-    }
-
-    function notifications ()
-    {
-        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-
-        return view('user.alert', $data);
-    }
-
-    function delete_notif (Request $req)
-    {
-        DB::table('admin_notifs')->where('id',$req->id)->delete();
-        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['staff'] = Map_location::get(['name']);
-        
-        return view('admin.alert', $data);
-    }
-
     function dashboard ()
     {
         date_default_timezone_set('Asia/Manila');
@@ -225,11 +72,11 @@ class AdminController extends Controller
                             //reset analytics
                             DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                         else
                         {
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                     }
                     else 
@@ -243,7 +90,7 @@ class AdminController extends Controller
                         //reset analytics
                         DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                        return view('admin.dashboard', $data);
+                        return view('super_admin.dashboard', $data);
                     }
                 }
                 else
@@ -263,11 +110,11 @@ class AdminController extends Controller
                             //reset analytics
                             DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                         else
                         {
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                     }
                     else 
@@ -281,7 +128,7 @@ class AdminController extends Controller
                         //reset analytics
                         DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                        return view('admin.dashboard', $data);
+                        return view('super_admin.dashboard', $data);
                     }
         }
 
@@ -323,11 +170,11 @@ class AdminController extends Controller
                             //reset analytics
                             DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                         else
                         {
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                     }
                     else 
@@ -341,7 +188,7 @@ class AdminController extends Controller
                         //reset analytics
                         DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                        return view('admin.dashboard', $data);
+                        return view('super_admin.dashboard', $data);
                     }
                 }
                 else
@@ -361,11 +208,11 @@ class AdminController extends Controller
                             //reset analytics
                             DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                         else
                         {
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                     }
                     else 
@@ -379,7 +226,7 @@ class AdminController extends Controller
                         //reset analytics
                         DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                        return view('admin.dashboard', $data);
+                        return view('super_admin.dashboard', $data);
                     }
                 }
             }
@@ -417,11 +264,11 @@ class AdminController extends Controller
                             //reset analytics
                             DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                         else
                         {
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                     }
                     else 
@@ -435,7 +282,7 @@ class AdminController extends Controller
                         //reset analytics
                         DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                        return view('admin.dashboard', $data);
+                        return view('super_admin.dashboard', $data);
                     }
                 }
                 else
@@ -455,11 +302,11 @@ class AdminController extends Controller
                             //reset analytics
                             DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                         else
                         {
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                     }
                     else 
@@ -473,7 +320,7 @@ class AdminController extends Controller
                         //reset analytics
                         DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                        return view('admin.dashboard', $data);
+                        return view('super_admin.dashboard', $data);
                     }
         }
 
@@ -514,11 +361,11 @@ class AdminController extends Controller
                             //reset analytics
                             DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                         else
                         {
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                     }
                     else 
@@ -532,7 +379,7 @@ class AdminController extends Controller
                         //reset analytics
                         DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                        return view('admin.dashboard', $data);
+                        return view('super_admin.dashboard', $data);
                     }
                 }
                 else
@@ -552,11 +399,11 @@ class AdminController extends Controller
                             //reset analytics
                             DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                         else
                         {
-                            return view('admin.dashboard', $data);
+                            return view('super_admin.dashboard', $data);
                         }
                     }
                     else 
@@ -570,7 +417,7 @@ class AdminController extends Controller
                         //reset analytics
                         DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
                             
-                        return view('admin.dashboard', $data);
+                        return view('super_admin.dashboard', $data);
                     }
         }
 
@@ -578,32 +425,29 @@ class AdminController extends Controller
         }
     }
 
-    function alert ()
-    {
-        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['staff'] = Map_location::get(['name']);
-
-        
-        return view('admin.alert', $data);
-    }
-
-
     function add_map_location ()
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
         
         $data['map_data'] = Map_location::get(['id','name', 'latitude','longitude']);
 
-        return view('admin.add_map_location', $data);
+        return view('super_admin.add_map_location', $data);
     }
 
-    function map_location_fetch ()
+    function create_staff ()
     {
-        $data = Map_location::get(['id','name', 'latitude','longitude','type']);
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['locations'] = Map_location::where('link', null)->where('type',1)->get();
 
-        return response()->json([
-            'locations' => $data,
-        ]); 
+        return view('super_admin.create_staff', $data);
+    }
+
+    function delete_location (Request $req)
+    {
+        $delete = Map_location::where('id','=', $req->id)->delete();
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+
+        return view('super_admin.add_map_location', $data);
     }
 
     function add_location (Request $req)
@@ -659,17 +503,6 @@ class AdminController extends Controller
                 ]);
             }
         }
-
-      
-    }
-
-
-    function delete_location (Request $req)
-    {
-        $delete = Map_location::where('id','=', $req->id)->delete();
-        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-
-        return view('admin.add_map_location', $data);
     }
 
     function fetch_account ()
@@ -679,14 +512,6 @@ class AdminController extends Controller
         return response()->json([
             'accounts' => $accounts,
         ]);
-    }
-
-    function create_staff ()
-    {
-        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-        $data['locations'] = Map_location::where('link', null)->where('type',1)->get();
-
-        return view('admin.create_staff', $data);
     }
 
     function fetch_location_link ()
@@ -728,7 +553,7 @@ class AdminController extends Controller
             $data->verification_code = "5555";
             $data->role = '1';
             $data->location = strtolower($req->input('admin_type'));
-            $data->save();
+            $res = $data->save();
 
             $location = Map_location::get();
             $count = Map_location::get()->count();
@@ -747,7 +572,7 @@ class AdminController extends Controller
 
             return response()->json([
                 'status'=>200,
-                'success'=>"Account has been created!",
+                'success'=>$res,
             ]);
 
         }
@@ -758,7 +583,21 @@ class AdminController extends Controller
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
         $data['info'] = User::where('id',$req->id)->first();
 
-        return view('admin.change_pass', $data);
+        return view('super_admin.change_pass', $data);
+    }
+
+    function staff_update_pass (Request $req)
+    {
+            // signup Validation
+        $req->validate([
+            'password' => 'required | min: 8',
+        ]);
+
+        $update_pass = User::where('id','=',$req->id)->first();
+        $update_pass->password = hash::make($req->password);
+        $update_pass->save();
+
+        return back()->with('success',"Update Password Successfully!");
     }
 
     function delete_staff_account (Request $req)
@@ -787,77 +626,64 @@ class AdminController extends Controller
         return back();
     }
 
-    function staff_update_pass (Request $req)
-    {
-            // signup Validation
-        $req->validate([
-            'password' => 'required | min: 8',
-        ]);
 
-        $update_pass = User::where('id','=',$req->id)->first();
-        $update_pass->password = hash::make($req->password);
-        $update_pass->save();
-
-        return back()->with('success',"Update Password Successfully!");
-    }
-
-    function report_gen ()
+    function acc_manage ()
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-        $data['lists'] = Approve::paginate(10);
-        $data['locations'] = Map_location::get();
+        $data['accounts'] = User::query()->where('role','!=','3')->get();
 
-        return view('admin.reports', $data);
+        return view('super_admin.account_mange', $data);
     }
 
-    function records_group_view (Request $req)
-    {
-        //getting all data with booker
-        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['groups'] = Group_approve::where('book_number', '=', $req->id)->paginate(10);
-
-        if ($data['groups']->isNotEmpty())
-        {
-            return view('admin.log-view', $data);
-        }
-        else
-        {
-            return back();
-        }
-
-    }
-
-    function search_report (Request $req)
+    function manage_del_acc (Request $req)
     {
 
-        if (strtolower($req->locations) == "all")
+        $info = User::where('id',$req->id)->first();
+
+        if ($info->role = '1')
+        {
+            $location = Map_location::get(['name']);
+            $count = Map_location::get()->count();
+            
+            for ($i = 0; $i < $count; $i++)
+            {
+                if (strtolower($info['location']) == strtolower($location[$i]['name']))
+                {
+                    $update = Map_location::where('name',ucfirst($location[$i]['name']))->first();
+                    $update->link = null;
+                    $t = $update->save();
+    
+                    break;
+                }
+            }
+
+            $data['accounts'] = User::query()->where('role','!=','3')->get();
+    
+            $user = User::where('id',$req->id)->delete();
+    
+            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+    
+             return view('super_admin.account_mange', $data);
+    
+        }
+        else if ($info->role = '0')
         {
             $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-            $data['locations'] = Map_location::get();
+            $data['accounts'] = User::query()->where('role','!=','3')->get();
 
-            $startDate = $req->from;
-            $endDate = $req->end;
-    
-            //sql raw command query
-            $data['lists'] =  DB::select("SELECT * FROM approves
-            WHERE ap_date >= ? AND ap_date <= ?",[$startDate,$endDate]);
-    
-            return view('admin.reports', $data);
+            $user = User::where('id',$req->id)->delete();
+
+            return view('super_admin.account_mange', $data);
         }
-       else
-       {
+        else if ($info->role = '2')
+        {
             $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-            $data['locations'] = Map_location::get();
+            $data['accounts'] = User::query()->where('role','!=','3')->get();
 
-            $startDate = $req->from;
-            $endDate = $req->end;
-            $location = strtolower($req->locations);
+            $user = User::where('id',$req->id)->delete();
 
-            //sql raw command query
-            $data['lists'] =  DB::select('SELECT * FROM approves WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$location,$startDate,$endDate]);
-       
-            return view('admin.reports', $data);
+            return view('super_admin.account_mange', $data);
+
         }
     }
-
 }

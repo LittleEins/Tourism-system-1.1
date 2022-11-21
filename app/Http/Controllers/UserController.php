@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// Import User Model
-use App\Models\Approve;
 use App\Models\User;
-use App\Models\Book_request;
 use App\Models\Book_data;
-use App\Models\Group_approve;
+use App\Models\Book_request;
+use App\Models\Approve;
+use App\Models\Weekly_count;
 use App\Models\Map_location;
+use App\Models\staff_notification;
 use App\Models\User_notification;
+use App\Models\Admin_notification;
+use App\Models\Group_approve;
+use App\Models\Reset_analytic;
+use App\Models\staff_alert;
+use App\Models\Daily_reset;
+use DateTime;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File; // udr if you deleting on public 
 use Illuminate\Support\Facades\Storage; // use this if you make delete on storage
 
 class UserController extends Controller
@@ -182,32 +189,404 @@ class UserController extends Controller
         $day = date('l');
         $date  = date('F j, Y');
 
-        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-        $location = Map_location::get(['name','visit_count','date']);
-        $count = Map_location::get(['name','visit_count'])->count();
+        $dd = Daily_reset::where('user_id', session('LoggedUser'))->count();
 
-    
-        // resetting count 
-        for ($i = 0; $i < $count; $i++)
+        if ($dd == 0)
         {
-            if ((strtolower($date) != strtolower($location[$i]->date)) && (strtolower($location[$i]->date != null)))
-            {   
-                DB::table('map_locations')->update(['visit_count'=>'0']);
-                DB::table('book_requests')->delete();
-            }   
+            $reset = new Daily_reset;
+            $reset->user_id = session('LoggedUser');
+            $reset->today = date("Y-m-d", strtotime("today"));
+            $reset->tomorrow = date("Y-m-d", strtotime("tomorrow"));
+            $reset->save();
+
+            $check_date = Daily_reset::where('user_id',session('LoggedUser'))->first();
+
+            if (($check_date->today == date("Y-m-d", strtotime("today"))) && ($check_date->tomorrow == date("Y-m-d", strtotime("tomorrow"))))
+            {
+                $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+
+                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
+
+                // analytics resets
+                $dateTime = new DateTime('now');
+                $monday = clone $dateTime->modify(('Sunday' == $dateTime->format('l')) ? 'Monday last week' : 'Monday this week');
+                $sunday = clone $dateTime->modify('Sunday this week');
+                $now = date('Y-m-d');
+                $start = $monday->format('Y-m-d');
+                $end = $sunday->format('Y-m-d');
+                // for modification date
+                // $end = strtotime("2022-11-01");
+
+                $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+
+                if ($check_date != null)
+                {
+                    if (strtotime($check_date->start) == strtotime($start))
+                    {
+                        if (strtotime($now) > strtotime($check_date->end))
+                        {
+                            //reset analytics
+                            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                            return view('user.dashboard', $data);
+                        }
+                        else
+                        {
+                            return view('user.dashboard', $data);
+                        }
+                    }
+                    else 
+                    {
+                        //update start end date
+                        $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                        $up_date->start = $start;
+                        $up_date->end = $end;
+                        $up_date->save();
+
+                        //reset analytics
+                        DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                        return view('user.dashboard', $data);
+                    }
+                }
+                else
+                {
+                    $td_start_end = new Reset_analytic;
+                    $td_start_end->staff = session('LoggedUser');
+                    $td_start_end->start = $start;
+                    $td_start_end->end = $end;
+                    $td_start_end->save();
+
+                    $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                
+                    if (strtotime($check_date->start) == $start)
+                    {
+                        if (strtotime($now) > strtotime($check_date->end))
+                        {
+                            //reset analytics
+                            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                            return view('user.dashboard', $data);
+                        }
+                        else
+                        {
+                            return view('user.dashboard', $data);
+                        }
+                    }
+                    else 
+                    {
+                        //update start end date
+                        $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                        $up_date->start = $start;
+                        $up_date->end = $end;
+                        $up_date->save();
+
+                        //reset analytics
+                        DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                        return view('user.dashboard', $data);
+                    }
         }
 
-        $data['location'] = Map_location::get(['name','visit_count']);
-        $data['count'] = Map_location::get(['name','visit_count'])->count();
-        
-        return view('user.dashboard', $data);
+            }
+            else 
+            {
+                $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+                // resetting count
+                DB::table('map_locations')->update(['visit_count'=>'0']);
+                DB::table('book_requests')->delete();
+    
+                $reset = Daily_reset::where('user_id',session('LoggedUser'))->first();
+                $reset->today = date("Y-m-d", strtotime("today"));
+                $reset->tomorrow = date("Y-m-d", strtotime("tomorrow"));
+                $reset->save();
+
+                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
+
+                return $data['location'];
+                // analytics resets
+                $dateTime = new DateTime('now');
+                $monday = clone $dateTime->modify(('Sunday' == $dateTime->format('l')) ? 'Monday last week' : 'Monday this week');
+                $sunday = clone $dateTime->modify('Sunday this week');
+                $now = date('Y-m-d');
+                $start = $monday->format('Y-m-d');
+                $end = $sunday->format('Y-m-d');
+                // for modification date
+                // $end = strtotime("2022-11-01");
+
+                $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+
+                if ($check_date != null)
+                {
+                    if (strtotime($check_date->start) == strtotime($start))
+                    {
+                        if (strtotime($now) > strtotime($check_date->end))
+                        {
+                            //reset analytics
+                            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                            return view('user.dashboard', $data);
+                        }
+                        else
+                        {
+                            return view('user.dashboard', $data);
+                        }
+                    }
+                    else 
+                    {
+                        //update start end date
+                        $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                        $up_date->start = $start;
+                        $up_date->end = $end;
+                        $up_date->save();
+
+                        //reset analytics
+                        DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                        return view('user.dashboard', $data);
+                    }
+                }
+                else
+                {
+                    $td_start_end = new Reset_analytic;
+                    $td_start_end->staff = session('LoggedUser');
+                    $td_start_end->start = $start;
+                    $td_start_end->end = $end;
+                    $td_start_end->save();
+
+                    $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                
+                    if (strtotime($check_date->start) == $start)
+                    {
+                        if (strtotime($now) > strtotime($check_date->end))
+                        {
+                            //reset analytics
+                            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                            return view('user.dashboard', $data);
+                        }
+                        else
+                        {
+                            return view('user.dashboard', $data);
+                        }
+                    }
+                    else 
+                    {
+                        //update start end date
+                        $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                        $up_date->start = $start;
+                        $up_date->end = $end;
+                        $up_date->save();
+
+                        //reset analytics
+                        DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                        return view('user.dashboard', $data);
+                    }
+                }
+            }
+        }
+        else 
+        {
+            
+            $check_date = Daily_reset::where('user_id',session('LoggedUser'))->first();
+
+            if (($check_date->today == date("Y-m-d", strtotime("today"))) && ($check_date->tomorrow == date("Y-m-d", strtotime("tomorrow"))))
+            {
+                $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+
+                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
+
+                // analytics resets
+                $dateTime = new DateTime('now');
+                $monday = clone $dateTime->modify(('Sunday' == $dateTime->format('l')) ? 'Monday last week' : 'Monday this week');
+                $sunday = clone $dateTime->modify('Sunday this week');
+                $now = date('Y-m-d');
+                $start = $monday->format('Y-m-d');
+                $end = $sunday->format('Y-m-d');
+                // for modification date
+                // $end = strtotime("2022-11-01");
+
+                $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+
+                if ($check_date != null)
+                {
+                    if (strtotime($check_date->start) == strtotime($start))
+                    {
+                        if (strtotime($now) > strtotime($check_date->end))
+                        {
+                            //reset analytics
+                            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                            return view('user.dashboard', $data);
+                        }
+                        else
+                        {
+                            return view('user.dashboard', $data);
+                        }
+                    }
+                    else 
+                    {
+                        //update start end date
+                        $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                        $up_date->start = $start;
+                        $up_date->end = $end;
+                        $up_date->save();
+
+                        //reset analytics
+                        DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                        return view('user.dashboard', $data);
+                    }
+                }
+                else
+                {
+                    $td_start_end = new Reset_analytic;
+                    $td_start_end->staff = session('LoggedUser');
+                    $td_start_end->start = $start;
+                    $td_start_end->end = $end;
+                    $td_start_end->save();
+
+                    $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                
+                    if (strtotime($check_date->start) == $start)
+                    {
+                        if (strtotime($now) > strtotime($check_date->end))
+                        {
+                            //reset analytics
+                            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                            return view('user.dashboard', $data);
+                        }
+                        else
+                        {
+                            return view('user.dashboard', $data);
+                        }
+                    }
+                    else 
+                    {
+                        //update start end date
+                        $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                        $up_date->start = $start;
+                        $up_date->end = $end;
+                        $up_date->save();
+
+                        //reset analytics
+                        DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                        return view('user.dashboard', $data);
+                    }
+        }
+
+            }
+            else 
+            {
+                $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+                // resetting count
+                DB::table('map_locations')->update(['visit_count'=>'0']);
+                DB::table('book_requests')->delete();
+    
+                $reset = Daily_reset::where('user_id',session('LoggedUser'))->first();
+                $reset->today = date("Y-m-d", strtotime("today"));
+                $reset->tomorrow = date("Y-m-d", strtotime("tomorrow"));
+                $reset->save();
+
+                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();
+
+                // analytics resets
+                $dateTime = new DateTime('now');
+                $monday = clone $dateTime->modify(('Sunday' == $dateTime->format('l')) ? 'Monday last week' : 'Monday this week');
+                $sunday = clone $dateTime->modify('Sunday this week');
+                $now = date('Y-m-d');
+                $start = $monday->format('Y-m-d');
+                $end = $sunday->format('Y-m-d');
+                // for modification date
+                // $end = strtotime("2022-11-01");
+
+                $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+
+                if ($check_date != null)
+                {
+                    if (strtotime($check_date->start) == strtotime($start))
+                    {
+                        if (strtotime($now) > strtotime($check_date->end))
+                        {
+                            //reset analytics
+                            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                            return view('user.dashboard', $data);
+                        }
+                        else
+                        {
+                            return view('user.dashboard', $data);
+                        }
+                    }
+                    else 
+                    {
+                        //update start end date
+                        $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                        $up_date->start = $start;
+                        $up_date->end = $end;
+                        $up_date->save();
+
+                        //reset analytics
+                        DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                        return view('user.dashboard', $data);
+                    }
+                }
+                else
+                {
+                    $td_start_end = new Reset_analytic;
+                    $td_start_end->staff = session('LoggedUser');
+                    $td_start_end->start = $start;
+                    $td_start_end->end = $end;
+                    $td_start_end->save();
+
+                    $check_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                
+                    if (strtotime($check_date->start) == $start)
+                    {
+                        if (strtotime($now) > strtotime($check_date->end))
+                        {
+                            //reset analytics
+                            DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                            return view('user.dashboard', $data);
+                        }
+                        else
+                        {
+                            return view('user.dashboard', $data);
+                        }
+                    }
+                    else 
+                    {
+                        //update start end date
+                        $up_date = Reset_analytic::where('staff', session('LoggedUser'))->first();
+                        $up_date->start = $start;
+                        $up_date->end = $end;
+                        $up_date->save();
+
+                        //reset analytics
+                        DB::table('weekly_counts')->update(['Monday'=>null,'Tuesday'=>null,'Wednesday'=>null,'Thursday'=>null,'Friday'=>null,'Saturday'=>null,'Sunday'=>null]);
+                            
+                        return view('user.dashboard', $data);
+                    }
+        }
+
+            }
+        }
     }
 
     function dashboard_fetch ()
     {
     
-        $data = Map_location::get(['name','visit_count']);
-        $count = Map_location::get(['name','visit_count'])->count();
+        $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+        $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
 
         return response()->json([
             'data' => $data,

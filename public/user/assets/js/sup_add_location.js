@@ -11,17 +11,17 @@ $(document).ready(function ()
             success: function (response) 
             {
                 console.log(response.locations);
-                $('#map_locations').html("");
+                $('#sup_map_locations').html("");
                 
                 $.each(response.locations, function (key, list)
                 {
-                    $('#map_locations').append(' <tr>\
+                    $('#sup_map_locations').append(' <tr>\
                     <td>'+list.name+'</th>\
                     <td>'+list.latitude+'</td>\
                     <td>'+list.longitude+'</td>\
                     <td>'+( list.type == "1" ? 'Check point': 'Pin only')+'</td>\
                     <td class="pr-4 pb-2">\
-                    <a href="/admin/delete/location?id='+list.id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                    <a href="/supAdmin/delete/location?id='+list.id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                     </td>\
                   </tr>')
                 });
@@ -31,14 +31,14 @@ $(document).ready(function ()
         });
     }
 
-    $(document).on('click','.add_location', function (e)
+    $(document).on('click','.sup_add_location', function (e)
     {
         e.preventDefault();
 
         var data = {
-            'name': $('.name').val(),
-            'latitude': $('.latitude').val(),
-            'longitude': $('.longitude').val(),
+            'name': $('.sup_name').val(),
+            'latitude': $('.sup_latitude').val(),
+            'longitude': $('.sup_longitude').val(),
             'pin_type': $('#flexCheckDefault').is(':checked'),
         }
         
@@ -50,7 +50,7 @@ $(document).ready(function ()
 
         $.ajax ({
             type: "POST",
-            url: "/addlocation",
+            url: "/supAdmin/addlocation",
             data: data,
             dataType: "json",
             success: function (response) 
@@ -59,14 +59,13 @@ $(document).ready(function ()
                 //get response
                 if (response.status == 400)
                 {
-                    console.log('error');
-                    $('#err_name').html("");
-                    $('#err_latitude').html("");
-                    $('#err_longitude').html("");
+                    $('#sup_err_name').html("");
+                    $('#sup_err_latitude').html("");
+                    $('#sup_err_longitude').html("");
 
-                    $('#err_name').append(response.errors.name);
-                    $('#err_latitude').append(response.errors.latitude);
-                    $('#err_longitude').append(response.errors.longitude);
+                    $('#sup_err_name').append(response.errors.name);
+                    $('#sup_err_latitude').append(response.errors.latitude);
+                    $('#sup_err_longitude').append(response.errors.longitude);
 
           
                 }
@@ -77,9 +76,9 @@ $(document).ready(function ()
                     $('#add_success').addClass('alert alert-success');
                     $('#add_success').text(response.success);
                     $('#supadminaddlocationModal').find('input').val("");
-                    $('#err_name').html("");
-                    $('#err_latitude').html("");
-                    $('#err_longitude').html("");
+                    $('#sup_err_name').html("");
+                    $('#sup_err_latitude').html("");
+                    $('#sup_err_longitude').html("");
                 }
 
                 map_locations();

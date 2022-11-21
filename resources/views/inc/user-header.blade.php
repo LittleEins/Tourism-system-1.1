@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <x-header data="Dashboard | Tourism "/>
-  <title>dddfdsf</title>
+  <title>Tourism Office | Welcome to Bolinao Tourism Monetoring System</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 

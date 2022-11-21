@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'authCheck' => \App\Http\Middleware\AuthCheck::class,
         'isAdmin' => \App\Http\Middleware\AdminMiddleware::class,
         'isstaff' => \App\Http\Middleware\staffMiddleware::class,
+        'isSupadmin' => \App\Http\Middleware\SupAdmin::class,
     ];
 }
