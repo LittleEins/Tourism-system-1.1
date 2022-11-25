@@ -61,7 +61,7 @@
               </div>
             </form>
 
-            <table id="exampletable" class="table table-striped" style="width:100%">
+            <table id="exampletable" class="table table-striped" style="width:100%;white-space: nowrap">
               <thead>
                 <tr>
                   <th scope="col">Name</th>

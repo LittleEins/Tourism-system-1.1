@@ -35,7 +35,7 @@
           </div>
           @endfor
         </div>
-        <div class="row g-4" id="dahboard">
+        <div class="row g-4" id="dahboard2">
           <h4>Total Visit</h4>
           @for($i=0;$i < $count; $i++)
           <div class="col-sm-6 col-xl-3">

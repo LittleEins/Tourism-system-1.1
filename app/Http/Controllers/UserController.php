@@ -585,7 +585,7 @@ class UserController extends Controller
     function dashboard_fetch ()
     {
     
-        $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+        $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count','total_visit']);
         $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
 
         return response()->json([

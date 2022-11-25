@@ -28,7 +28,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="white-space: nowrap">
               <thead>
                 <tr>
                   <th scope="col">Name</th>

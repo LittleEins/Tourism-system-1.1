@@ -73,7 +73,7 @@
             </div>
             
             <div class="card-body">
-              <table class="table table-bordered table-striped">
+              <table class="table table-bordered table-striped" style="white-space: nowrap">
                 <thead>
                   <tr>
                     <th scope="col">Name</th>

@@ -97,11 +97,11 @@
             </div>
 
             <div class="card-body">
-              <table class="table table-bordered">
+              <table class="table table-bordered" style="white-space: nowrap">
                 <thead>
                   <tr>
                     <th class="col-2">Notification</th>
-                    <th scope="col">Message</th>
+                    <th class="col">From</th>
                     <th scope="col">Time</th>
                     <th scope="col">Date</th>
                     <th scope="col">View</th>

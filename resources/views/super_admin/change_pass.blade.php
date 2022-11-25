@@ -35,7 +35,7 @@
                       <div class="container">
                         <x-flash-message/>
                       </div>
-                      <table id="example" class="table table-striped" style="width:100%">
+                      <table id="example" class="table table-striped" style="width:100% white-space: nowrap">
                         <thead>
                           <tr>
                             <th scope="col">Name</th>

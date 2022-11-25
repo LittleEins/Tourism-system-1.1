@@ -32,7 +32,7 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="example" class="table table-striped" style="width:100%; white-space: nowrap">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -47,7 +47,7 @@
                   <th>Confirm</th>
                 </tr>
               </thead>
-                <tbody id="check_point">
+                <tbody id="check_point" >
 
                   @foreach($book_list as $list)
                   <tr>

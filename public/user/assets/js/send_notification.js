@@ -61,7 +61,7 @@ $(document).ready(function ()
                         {
                             $('#user_notif').append('<tr class="alert alert-primary">\
                             <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
+                            <td>'+response.notification[i].creator_id+'</td>\
                             <td>'+response.notification[i].time+'</td>\
                             <td>'+response.notification[i].date+'</td>\
                              <td>\
@@ -76,7 +76,7 @@ $(document).ready(function ()
                         {
                             $('#user_notif').append('<tr class="">\
                             <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
+                            <td>'+response.notification[i].creator_id+'</td>\
                             <td>'+response.notification[i].time+'</td>\
                             <td>'+response.notification[i].date+'</td>\
                              <td>\
@@ -94,7 +94,7 @@ $(document).ready(function ()
                         {
                             $('#user_notif').append(' <tr class="alert alert-warning">\
                             <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
+                            <td>'+response.notification[i].creator_id+'</td>\
                             <td>'+response.notification[i].time+'</td>\
                             <td>'+response.notification[i].date+'</td>\
                              <td>\
@@ -109,7 +109,7 @@ $(document).ready(function ()
                         {
                             $('#user_notif').append(' <tr class="">\
                             <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
+                            <td>'+response.notification[i].creator_id+'</td>\
                             <td>'+response.notification[i].time+'</td>\
                             <td>'+response.notification[i].date+'</td>\
                              <td>\
@@ -128,7 +128,7 @@ $(document).ready(function ()
                         {
                             $('#user_notif').append(' <tr class="alert alert-danger">\
                             <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
+                            <td>'+response.notification[i].creator_id+'</td>\
                             <td>'+response.notification[i].time+'</td>\
                             <td>'+response.notification[i].date+'</td>\
                              <td>\
@@ -143,7 +143,7 @@ $(document).ready(function ()
                         {
                             $('#user_notif').append(' <tr class="">\
                             <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
+                            <td>'+response.notification[i].creator_id+'</td>\
                             <td>'+response.notification[i].time+'</td>\
                             <td>'+response.notification[i].date+'</td>\
                              <td>\
@@ -182,7 +182,7 @@ $(document).ready(function ()
                     {
                     $('#notifications').append(' <tr class="alert alert-primary">\
                     <td>'+response.notification[i].type+'</th>\
-                    <td>'+response.notification[i].message+'</td>\
+                    <td>'+response.notification[i].creator_id+'</td>\
                     <td>'+response.notification[i].time+'</td>\
                     <td>'+response.notification[i].date+'</td>\
                     <td>\
@@ -194,7 +194,7 @@ $(document).ready(function ()
                     {
                     $('#notifications').append(' <tr class="alert alert-warning">\
                     <td>'+response.notification[i].type+'</th>\
-                    <td>'+response.notification[i].message+'</td>\
+                    <td>'+response.notification[i].creator_id+'</td>\
                     <td>'+response.notification[i].time+'</td>\
                     <td>'+response.notification[i].date+'</td>\
                     <td>\
@@ -206,7 +206,7 @@ $(document).ready(function ()
                     {
                     $('#notifications').append(' <tr class="alert alert-danger">\
                     <td>'+response.notification[i].type+'</th>\
-                    <td>'+response.notification[i].message+'</td>\
+                    <td>'+response.notification[i].creator_id+'</td>\
                     <td>'+response.notification[i].time+'</td>\
                     <td>'+response.notification[i].date+'</td>\
                     <td>\
@@ -310,7 +310,7 @@ $(document).ready(function ()
                             <i class="bi bi-exclamation"></i>\
                             <div>\
                               <h4>'+response.get_notif.data[i].type+'</h4>\
-                              <p>'+response.get_notif.data[i].message+'</p>\
+                              <p>From: '+response.get_notif.data[i].creator_id+'</p>\
                               <p>'+response.get_notif.data[i].time+'</p>\
                             </div>\
                             </li> </a>');
@@ -321,6 +321,7 @@ $(document).ready(function ()
                           <i class="bi bi-exclamation"></i>\
                           <div>\
                             <h4>'+response.get_notif.data[i].type+'</h4>\
+                            <p>From: '+response.get_notif.data[i].creator_id+'</p>\
                             <p>'+response.get_notif.data[i].message+'</p>\
                             <p>'+response.get_notif.data[i].time+'</p>\
                           </div>\
@@ -335,7 +336,7 @@ $(document).ready(function ()
                             <i class="bi bi-exclamation-circle text-warning"></i>\
                             <div>\
                               <h4>'+response.get_notif.data[i].type+'</h4>\
-                              <p>'+response.get_notif.data[i].message+'</p>\
+                              <p>From: '+response.get_notif.data[i].creator_id+'</p>\
                               <p>'+response.get_notif.data[i].time+'</p>\
                             </div>\
                             </li> </a>');
@@ -347,6 +348,7 @@ $(document).ready(function ()
                           <i class="bi bi-exclamation-circle text-warning"></i>\
                           <div>\
                             <h4>'+response.get_notif.data[i].type+'</h4>\
+                            <p>From: '+response.get_notif.data[i].creator_id+'</p>\
                             <p>'+response.get_notif.data[i].message+'</p>\
                             <p>'+response.get_notif.data[i].time+'</p>\
                           </div>\
@@ -363,7 +365,7 @@ $(document).ready(function ()
                             <i class="bi bi-exclamation-triangle-fill"></i>\
                             <div>\
                               <h4>'+response.get_notif.data[i].type+'</h4>\
-                              <p>'+response.get_notif.data[i].message+'</p>\
+                              <p>From: '+response.get_notif.data[i].creator_id+'</p>\
                               <p>'+response.get_notif.data[i].time+'</p>\
                             </div>\
                           </li> </a>');
@@ -374,7 +376,7 @@ $(document).ready(function ()
                             <i class="bi bi-exclamation-triangle-fill"></i>\
                             <div>\
                               <h4>'+response.get_notif.data[i].type+'</h4>\
-                              <p>'+response.get_notif.data[i].message+'</p>\
+                              <p>From: '+response.get_notif.data[i].creator_id+'</p>\
                               <p>'+response.get_notif.data[i].time+'</p>\
                             </div>\
                             </li> </a>');
