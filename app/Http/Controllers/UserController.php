@@ -294,7 +294,7 @@ class UserController extends Controller
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
                 // resetting count
-                DB::table('map_locations')->update(['visit_count'=>'0']);
+                DB::table('map_locations')->update(['visit_count'=>'0','total_visit'=>'0']);
                 DB::table('book_requests')->delete();
     
                 $reset = Daily_reset::where('user_id',session('LoggedUser'))->first();
@@ -486,7 +486,7 @@ class UserController extends Controller
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
                 // resetting count
-                DB::table('map_locations')->update(['visit_count'=>'0']);
+                DB::table('map_locations')->update(['visit_count'=>'0','total_visit'=>'0']);
                 DB::table('book_requests')->delete();
     
                 $reset = Daily_reset::where('user_id',session('LoggedUser'))->first();
@@ -576,7 +576,7 @@ class UserController extends Controller
                             
                         return view('user.dashboard', $data);
                     }
-        }
+                }
 
             }
         }
@@ -769,7 +769,7 @@ class UserController extends Controller
 
     function book2_count ()
     {
-        $location = Map_location::get();
+        $location = Map_location::where('type','=',"1")->get();
 
         return response()->json([
             'locations'=> $location,

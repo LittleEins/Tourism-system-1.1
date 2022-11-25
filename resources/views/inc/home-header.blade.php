@@ -27,7 +27,7 @@
         <div class="d-flex align-items-center">
           <div id="logo" class="d-flex align-items-center">
             <a href="index.html"><img style="width:50px; height:50px" src="/home/img/logo_icon.png" alt="" title="" /></a>
-            <h3 class="ml-2">Bolinao Tourism</h3>
+            <h3 class="ml-2">Tourism Monitoring System for Bolinao</h3>
           </div>
           <div class="ml-auto d-none d-md-block d-md-flex">
             <div class="media header-top-info">
@@ -54,7 +54,7 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav">
-              <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="#about-section">About</a></li>
               <li class="nav-item"><a class="nav-link" href="#map-section">Map</a></li>
               <li class="nav-item"><a class="nav-link" href="#contact-section">Contact</a></li>
@@ -74,4 +74,4 @@
       </nav>
     </div>
 	</header>
-	<!-- ================ header section end ================= -->	
+

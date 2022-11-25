@@ -2,21 +2,20 @@
   <main class="site-main">
     
 
-    <!-- ================ start banner area ================= --> 
+    {{-- HOME --}}
     <section class="home-banner-area" id="home">
       <div class="container h-100">
         <div class="home-banner">
           <div class="text-center">
-            <h4>Stop stressing your self</h4>
-            <h1>Bolinao <em></em> Tourism</h1>
+            <h4>BOLINAO</h4>
+            <h1>YOUR JOURNEY IS OUR <em></em>STORY</h1>
             <a class="button home-banner-btn" href="signup">Create Account</a>
           </div>
         </div>
       </div>
     </section>
-    <!-- ================ end banner area ================= -->
 
-    <!-- ================ welcome section start ================= --> 
+    {{-- COVER --}}
     <section class="welcome" id="about-section">
       <div class="container">
         <div class="row align-items-center">
@@ -42,33 +41,15 @@
           <div class="col-lg-7">
             <div class="welcome-content">
               <h2 class="mb-4"><span class="d-block">Welcome</span> to bolinao</h2>
-              <p>Bolinao is a town on the west coast of Luzon Island, in the northern Philippines. The Spanish colonial St. James the Great Parish Church dates from the 1600s, and has an exterior made of black coral stones. </p>
-              <p>The University of the Philippines' Bolinao Marine Laboratory supports the conservation of giant clams and other sea life. Atop Punta Piedra Point, the 1903 Cape Bolinao Lighthouse overlooks white-sand Patar Beach.</p>
-              <a class="button button--active home-banner-btn mt-4" href="#">Learn More</a>
+              <p>Bolinao is well known for its fantastic variety of hotels, B&Bs & Restaurant options.</p>
+              <p>You’ll find luxury resorts to budget friendly inns. Whether you want a quick weekend getaway in the bustling city or a summer holiday by the sea with panoramic west Philippine sea views, you'll find somewhere to stay in Bolinao that's perfect for you.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- ================ welcome section end ================= --> 
 
 
-    
-    <!-- ================ video section start ================= --> 
-    <section class="video-area">
-      <div class="container">
-        <div class="row justify-content-center align-items-center flex-column text-center">
-          <video style="width: 100%; height: 400px;" controls>
-            <source src="/home/videos/home-video.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <h3>Bolinao?</h3>
-          <p>What should i see on bolinao..</p>
-          
-        </div>
-      </div>  
-    </section>
-    <!-- ================ video section end ================= --> 
 
     <section class="map-area" id="map-section">
       <div class="container">
@@ -80,105 +61,6 @@
       </div>  
     </section>
   
-   
-    <!-- ================ carousel section start ================= -->
-    <section class="section-margin">
-      <div class="container">
-        <div class="section-intro text-center pb-20px">
-          <div class="section-intro__style">
-            <img src="/home/img/home/bed-icon.png" alt="">
-          </div>
-          <h2>Our Guest Love Us</h2>
-        </div>
-        <div class="owl-carousel owl-theme testi-carousel">
-          <div class="testi-carousel__item">
-            <div class="media">
-              <div class="testi-carousel__img">
-                <img src="/home/img/home/testimonial1.png" alt="">
-              </div>
-              <div class="media-body">
-                <p>I am very happy tha i visit this location..</p>
-                <div class="testi-carousel__intro">
-                  <h3>Robert Mack</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testi-carousel__item">
-            <div class="media">
-              <div class="testi-carousel__img">
-                <img src="/home/img/home/testimonial2.png" alt="">
-              </div>
-              <div class="media-body">
-                <p>Hope i can visit again.!</p>
-                <div class="testi-carousel__intro">
-                  <h3>David Alone</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testi-carousel__item">
-            <div class="media">
-              <div class="testi-carousel__img">
-                <img src="/home/img/home/testimonial3.png" alt="">
-              </div>
-              <div class="media-body">
-                <p>Ang ganda ng falls, good sa mga bata at matatanda.!</p>
-                <div class="testi-carousel__intro">
-                  <h3>Adam Pallin</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testi-carousel__item">
-            <div class="media">
-              <div class="testi-carousel__img">
-                <img src="/home/img/home/testimonial1.png" alt="">
-              </div>
-              <div class="media-body">
-                <p>Maganda ang patar, white sand sya at malinis ang tubig</p>
-                <div class="testi-carousel__intro">
-                  <h3>Robert Mack</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testi-carousel__item">
-            <div class="media">
-              <div class="testi-carousel__img">
-                <img src="/home/img/home/testimonial2.png" alt="">
-              </div>
-              <div class="media-body">
-                <p>Sana ma ulit pa namin pumunta dyan at makapag relax ulit.</p>
-                <div class="testi-carousel__intro">
-                  <h3>David Alone</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testi-carousel__item">
-            <div class="media">
-              <div class="testi-carousel__img">
-                <img src="/home/img/home/testimonial3.png" alt="">
-              </div>
-              <div class="media-body">
-                <p>I like the system it's easy to use..!</p>
-                <div class="testi-carousel__intro">
-                  <h3>Adam Pallin</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ================ carousel section end ================= -->
-
   </main>
 
 
@@ -186,17 +68,21 @@
   <!-- ================ start footer Area ================= -->
   <footer class="footer-area section-gap" id="contact-section">
 		<div class="container">
-			<div class="footer-bottom row align-items-center text-center text-lg-left">
-				<p class="footer-text m-0 col-lg-8 col-md-12">
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://www.bolinaotourism.com/" target="_blank">Bolinao Tourism</a>
-</p>
-				<div class="col-lg-4 col-md-12 text-center text-lg-right footer-social">
-					<a href="#"><i class="fab fa-facebook-f"></i></a>
-					<a href="#"><i class="fab fa-twitter"></i></a>
-					<a href="#"><i class="fab fa-dribbble"></i></a>
-					<a href="#"><i class="fab fa-behance"></i></a>
-				</div>
-			</div>
+			<div class="row footer_bolinao">
+				<span>CONTACT US:</span>
+        <div>
+          <span>075.523.5564 / 09121138008</span>
+        </div>
+        <div>
+          <span>bolinao.tourism@yahoo.com</span>
+        </div>
+        <div>
+          <span>Bolinao Pangasinan, Philippines</span>
+        </div>
+        <div>
+          <span>© 2019 by Bolinao Tourism</span>
+        </div>
+      </div>
 		</div>
 	</footer>
   <!-- ================ End footer Area ================= -->

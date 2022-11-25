@@ -201,7 +201,7 @@ class AdminController extends Controller
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
-                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['location'] = Map_location::where('type','=',"1")->get();
                 $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
 
                 // analytics resets
@@ -283,14 +283,14 @@ class AdminController extends Controller
                             
                         return view('admin.dashboard', $data);
                     }
-        }
+                }
 
             }
             else 
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
                 // resetting count
-                DB::table('map_locations')->update(['visit_count'=>'0']);
+                DB::table('map_locations')->update(['visit_count'=>'0','total_visit'=>'0']);
                 DB::table('book_requests')->delete();
     
                 $reset = Daily_reset::where('user_id',session('LoggedUser'))->first();
@@ -298,7 +298,7 @@ class AdminController extends Controller
                 $reset->tomorrow = date("Y-m-d", strtotime("tomorrow"));
                 $reset->save();
 
-                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['location'] = Map_location::where('type','=',"1")->get();
                 $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
 
                 return $data['location'];
@@ -393,7 +393,7 @@ class AdminController extends Controller
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
-                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['location'] = Map_location::where('type','=',"1")->get();
                 $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();;
 
                 // analytics resets
@@ -475,14 +475,14 @@ class AdminController extends Controller
                             
                         return view('admin.dashboard', $data);
                     }
-        }
+                }
 
             }
             else 
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
                 // resetting count
-                DB::table('map_locations')->update(['visit_count'=>'0']);
+                DB::table('map_locations')->update(['visit_count'=>'0','total_visit'=>'0']);
                 DB::table('book_requests')->delete();
     
                 $reset = Daily_reset::where('user_id',session('LoggedUser'))->first();
@@ -490,7 +490,7 @@ class AdminController extends Controller
                 $reset->tomorrow = date("Y-m-d", strtotime("tomorrow"));
                 $reset->save();
 
-                $data['location'] = Map_location::where('type','=',"1")->get(['name','visit_count']);
+                $data['location'] = Map_location::where('type','=',"1")->get();
                 $data['count'] = Map_location::where('type','=',"1")->get(['name','visit_count'])->count();
 
                 // analytics resets
@@ -572,7 +572,7 @@ class AdminController extends Controller
                             
                         return view('admin.dashboard', $data);
                     }
-        }
+                }
 
             }
         }

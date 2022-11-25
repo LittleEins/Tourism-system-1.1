@@ -316,14 +316,14 @@ class staffController extends Controller
                             
                         return view('staff.dashboard', $data);
                     }
-        }
+                }
 
             }
             else 
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
                 // resetting count
-                DB::table('map_locations')->update(['visit_count'=>'0']);
+                DB::table('map_locations')->update(['visit_count'=>'0','total_visit'=>'0']);
                 DB::table('book_requests')->delete();
     
                 $reset = Daily_reset::where('user_id',session('LoggedUser'))->first();
@@ -508,14 +508,14 @@ class staffController extends Controller
                             
                         return view('staff.dashboard', $data);
                     }
-        }
+                }
 
             }
             else 
             {
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
                 // resetting count
-                DB::table('map_locations')->update(['visit_count'=>'0']);
+                DB::table('map_locations')->update(['visit_count'=>'0','total_visit'=>'0']);
                 DB::table('book_requests')->delete();
     
                 $reset = Daily_reset::where('user_id',session('LoggedUser'))->first();
@@ -1001,7 +1001,7 @@ class staffController extends Controller
                 $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
                 $count = $total + (int)$map_count->visit_count;
                 
-                $result = DB::table('map_locations')->where('name','=', strtolower($data2[$i]->name))->update(['visit_count'=>$count]);
+                $result = DB::table('map_locations')->where('name','=', strtolower($data2[$i]->name))->update(['visit_count'=>$count,'total_visit'=>$count]);
                
                 break;
             }
