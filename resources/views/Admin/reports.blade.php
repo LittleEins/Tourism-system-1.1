@@ -56,6 +56,9 @@
                     <div class="col-sm-2">
                       <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
                     </div>
+                    <div class="col-sm-3">
+                      <a href="/admin/reports/export?start={{ Session::get('start') }}&end={{ Session::get('end') }}&location={{ Session::get('location') }}" class="btn btn-primary">Export as excel</a>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -17,6 +17,9 @@ use App\Models\Reset_analytic;
 use App\Models\staff_alert;
 use App\Models\Daily_reset;
 use Illuminate\Support\Facades\Hash;
+use App\Exports\ReportExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
@@ -810,6 +813,22 @@ class AdminController extends Controller
         return view('admin.reports', $data);
     }
 
+    // download report
+    public function export(Request $req) 
+    {
+        $location = $req->location;
+        $start = $req->start;
+        $end = $req->end;
+        if (($req->start == null) && ($req->end == null))
+        {
+            return Excel::download(new ReportExport($location,$start,$end), 'reports.xlsx');
+        }
+        else 
+        {
+            return Excel::download(new ReportExport($location,$start,$end), 'reports.xlsx');
+        }
+    }
+
     function records_group_view (Request $req)
     {
         //getting all data with booker
@@ -837,10 +856,15 @@ class AdminController extends Controller
 
             $startDate = $req->from;
             $endDate = $req->end;
+            $location = strtolower($req->locations);
     
             //sql raw command query
             $data['lists'] =  DB::select("SELECT * FROM approves
             WHERE ap_date >= ? AND ap_date <= ?",[$startDate,$endDate]);
+
+            Session::flash('start', $startDate);
+            Session::flash('end', $endDate);
+            Session::flash('location', $location);
     
             return view('admin.reports', $data);
         }
@@ -856,7 +880,13 @@ class AdminController extends Controller
             //sql raw command query
             $data['lists'] =  DB::select('SELECT * FROM approves WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$location,$startDate,$endDate]);
        
-            return view('admin.reports', $data);
+            $data['date_range'] = ['start'=>$startDate,'end'=>$endDate];
+
+            Session::flash('start', $startDate);
+            Session::flash('end', $endDate);
+            Session::flash('location', $location);
+
+            return view('admin.reports', $data)->with('success','Book Successfully.');
         }
     }
 

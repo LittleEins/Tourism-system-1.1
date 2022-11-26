@@ -153,6 +153,8 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function ()
     Route::post('/search/report',[AdminController::class,'search_report']);
     Route::get('/delete/location',[AdminController::class,'delete_location']); 
     Route::post('/update/password/staff',[AdminController::class,'staff_update_pass'])->name('update_staff_pass');
+    // export
+    Route::get('/reports/export', [AdminController::class, 'export']);
 });
 
 // admin route
