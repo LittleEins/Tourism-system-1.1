@@ -17,7 +17,7 @@
                         <x-flash-message/>
                         <h6>Please enter the one time password or click verify on email verification <br> to verify your account</h6>
                         <div> 
-                          <span>A code has been sent to</span> <small>jerhome85@gmail.com</small>
+                          <span>A code has been sent to</span> <small>{{ Session::get('email') }}</small>
                         </div>
                         <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2"> 
                           <input type="hidden" name="id" value="{{ Session::get('id')}}" >
@@ -28,7 +28,7 @@
                           <button type="submit" class="btn btn-danger px-4 validate">Verify</button> 
                         </div>
                         <div class="mt-4 mb-2">
-                          <p>Receive email verification? <a href="http://127.0.0.1:8000/user/resend/emailverification?id={{ Session::get('id')}}">re-send</a></p>
+                          <p>Receive email verification? <a href="http://127.0.0.1:8000/resend/emailverification?id={{ Session::get('id')}}">re-send</a></p>
                         </div>
                       </div>
                     </div>

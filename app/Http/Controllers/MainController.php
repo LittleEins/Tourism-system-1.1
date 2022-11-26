@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 // Import this is you are using mailer
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 // Import Mail class
 use App\Mail\MailNotification;
 use App\Mail\ResetPassNotification;
@@ -146,10 +147,12 @@ class MainController extends Controller
             $data = [
                 'id' => $user_data->id,
                 'name' => $user_data->first_name,
+                'email' => $user_data->email,
                 'otp' => $user_data->otp, 
                 'verification_code' => $data->verification_code,
             ];
     
+            Session::flash('email', $user_data->email);
 
             $user_id = $user_data->id;
             // mailer send the email
@@ -227,8 +230,8 @@ class MainController extends Controller
         // getting data from url
         $email_id = \Illuminate\Support\Facades\Request::get('id');
 
-        // $resend_email = User::where('id',"=", $email_id)->first();
-        dd($email_id);
+        $resend_email = User::where('id',"=", $email_id)->first();
+        
         // If we got dat from that id
         if ($resend_email != null)
         {
@@ -236,15 +239,17 @@ class MainController extends Controller
             $data = [
                 'id' => $resend_email->id,
                 'name' => $resend_email->first_name,
+                'email' => $resend_email->email,
                 'otp' => $resend_email->otp, 
                 'verification_code' => $resend_email->verification_code,
             ];
     
+            Session::flash('email', $resend_email->email);
 
             $user_id = $resend_email->id;
             // mailer send the email
             Mail::to($resend_email->email)->send(new MailNotification($data));
-            return redirect()->route('verification.view')->with(['success' => 'Email verification has been sent.', 'id' => $user_id ]);
+            return redirect()->route('verificationUser.view')->with(['success' => 'Email verification has been sent.', 'id' => $user_id ]);
         }
         else
         {

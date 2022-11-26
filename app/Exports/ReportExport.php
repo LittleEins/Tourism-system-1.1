@@ -30,24 +30,32 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     public function collection()
     {
         
+
+        $res = collect(Approve::with('groups')->get());
+
+        return $res;
         // fetch data on db  to export on excell
-        if ($this->location == null)
-        {
-            return Approve::all();
-        }
-        else if ($this->location == "all")
-        {
-            return Approve::all();
-        }
-        else 
-        {
-            return collect(DB::select('SELECT * FROM approves WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$this->location,$this->start,$this->end]));
-        }
+        // if ($this->location == null)
+        // {
+        //     return Approve::with('book_number')->get();
+        //     // return Approve::all();
+        // }
+        // else if ($this->location == "all")
+        // {
+        //     return Approve::with('book_number')->get();
+        //     // return Approve::all();
+        // }
+        // else 
+        // {
+        //     return Approve::with('book_number')->get();
+        //     // return collect(DB::select('SELECT * FROM approves WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$this->location,$this->start,$this->end]));
+        // }
        
     }
 
     public function map($approve): array
     {
+
         return [
             $approve->id,
             $approve->last_name,
@@ -58,7 +66,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
             $approve->address,
             $approve->destination,
             $approve->book_number,
-            $approve->groups,
+            $approve->groups->groups->first_name,
             $approve->approve_td,
 
         ];
