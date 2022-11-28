@@ -75,7 +75,7 @@
                   <th scope="col">Destination</th>
                   <th scope="col">Book Number</th>
                   <th scope="col">Groups</th>
-                  <th scope="col">Date & Time</th>
+                  <th scope="col">Data & Time </th>
                 </tr>
               </thead>
                 <tbody>
