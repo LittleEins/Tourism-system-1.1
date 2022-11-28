@@ -6,7 +6,7 @@
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
           <i class="bi bi-grid"></i>
-          <span>Check Point</span>
+          <span>Manage Request</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -15,10 +15,10 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Request Entry</h1>
+      <h1>Request Status</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active"><a href="{{ route('book_log') }}">Log request</a></li>
+          <li class="breadcrumb-item active"><a href="{{ route('book_log') }}">Manage Request</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->

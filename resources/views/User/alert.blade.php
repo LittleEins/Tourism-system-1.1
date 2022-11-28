@@ -65,7 +65,7 @@
             <form>
               <div class="mb-3">
                 <select id="type" class="type form-select" aria-label="Default select example">
-                  <option value="">Notification type</option>
+                  <option value="">Notification Type</option>
                   <option value="normal">Normal</option>
                   <option value="alert">Alert</option>
                   <option value="danger">Danger</option>
