@@ -18,7 +18,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     public $end;
     public $sheetCount;
 
-    public function __construct(string $location = null,string $start = null,string $end = null, int $sheetCount = null)
+    public function __construct(string $location = null,string $start = null,string $end = null, int $sheetCount)
     {
         $this->location = $location;
         $this->start = $start;
