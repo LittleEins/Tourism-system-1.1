@@ -39,7 +39,7 @@
                         <div class="col-lg-20 mx-auto">
                           <div class="card">
                             <div class="card-header">
-                              <h4>Groups</h4>
+                              <h4>Choose Destination</h4>
                             </div>
                             <div class="card-body p-4">
                               <form action="{{ route('book.data') }}" method="post" id="add_form">
@@ -66,7 +66,7 @@
                                   </div>
                                 </div>
                                 <div>
-                                  <input type="submit" value="Request" class="btn btn-primary w-25 request_book" id="add_btn">
+                                  <input type="submit" value="Request Entry" class="btn btn-primary w-25 request_book" id="add_btn">
                                 </div>
                               </form>
                             </div>
