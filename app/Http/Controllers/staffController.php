@@ -981,6 +981,8 @@ class staffController extends Controller
         $approve->ap_date = date("Y-m-d");
         $approve->save();
 
+        DB::table('group_approves')->where('book_number',$confirm->book_number)->update(['ap_date'=>date("Y-m-d")]);
+
         $data = User::where('id','=', session('LoggedUser'))->first();
 
         $visit_count = Approve::where('book_number','=', $confirm->book_number)->where('destination','=', strtolower($data->location))->get();

@@ -819,9 +819,11 @@ class AdminController extends Controller
         $location = $req->location;
         $start = $req->start;
         $end = $req->end;
-        if (($req->start == null) && ($req->end == null))
+
+       
+        if (($req->start == "null") && ($req->end == "null"))
         {
-            return Excel::download(new ReportExport($location,$start,$end), 'reports.xlsx');
+            return Excel::download(new ReportExport(), 'reports.xlsx');
         }
         else 
         {

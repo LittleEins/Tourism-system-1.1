@@ -10,8 +10,8 @@ class Approve extends Model
 {
     use HasFactory;
 
-    public function groups ()
+    public function ap_group ()
     {
-        return $this->belongsTo(Group_approve::class, 'book_number','book_number');
+        return $this->hasMany(Group_approve::class, 'book_number','book_number');
     }
 }
