@@ -11,7 +11,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="/staff/alert/notifications">
           <i class="bi bi-exclamation-diamond"></i>
-          <span>Alert</span>
+          <span>Manage Notification</span>
         </a>
       </li><!-- Map Page Nav -->
 
@@ -19,7 +19,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="/staff/check/point">
           <i class="bi bi-sign-stop"></i>
-          <span>Check Point</span>
+          <span>Manage Entry</span>
         </a>
       </li><!-- check_point -->
 
@@ -27,7 +27,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="/staff/log">
           <i class="bi bi-sign-stop"></i>
-          <span>Log</span>
+          <span>Request Log</span>
         </a>
       </li>
 
