@@ -25,7 +25,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('book_log') }}">
           <i class="bi bi-bookmarks-fill"></i>
-          <span>Request</span>
+          <span>Manage Request</span>
         </a>
       </li><!-- Booking Nav -->
 
