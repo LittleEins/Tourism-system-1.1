@@ -16,12 +16,14 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     private $location;
     public $start;
     public $end;
+    public $sheetCount;
 
-    public function __construct(string $location = null,string $start = null,string $end = null)
+    public function __construct(string $location = null,string $start = null,string $end = null, int $sheetCount)
     {
         $this->location = $location;
         $this->start = $start;
         $this->end = $end;
+        $this->sheetCount = $sheetCount;
     }
 
     /**
@@ -34,7 +36,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
   
        
     // return  Approve::join('group_approves', 'approves.book_number', '=', 'group_approves.book_number')->get();
-    if ($this->month == "0")
+    if ($this->sheetCount == "0")
     {
         return $res = Approve::with('ap_group')->get();
     }

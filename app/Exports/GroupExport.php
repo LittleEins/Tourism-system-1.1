@@ -9,11 +9,15 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class GroupExport implements WithMultipleSheets
 {
-    private $year;
+    private $location;
+    private $start;
+    private $end;
 
-    public function __construct (string $year)
+    public function __construct (string $location, string $start, string $end)
     {
-        $this->year = $year;
+        $this->location = $location;
+        $this->start = $start;
+        $this->end = $end;
     }
 
     public function sheets(): array
@@ -21,9 +25,9 @@ class GroupExport implements WithMultipleSheets
         
         $sheets = [];
 
-        for ($month = 0; $month <= 1; $month++)
+        for ($sheetCount = 0; $sheetCount <= 1; $sheetCount++)
         {
-            $sheets[] = new ReportExport($this->year, $month);
+            $sheets[] = new ReportExport($this->location,$this->start,$this->end, $sheetCount);
         }
 
         return $sheets;
