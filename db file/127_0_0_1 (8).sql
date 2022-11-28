@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2022 at 03:11 PM
+-- Generation Time: Nov 28, 2022 at 02:45 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -75,12 +75,12 @@ CREATE TABLE `approves` (
 --
 
 INSERT INTO `approves` (`id`, `booker_id`, `user_id`, `staff_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `email`, `address`, `book_number`, `groups`, `ap_type`, `day`, `approve_td`, `ap_date`, `created_at`, `updated_at`) VALUES
-(152, '216', '9', '23', 'Jerhome', 'Reantaso', 'Falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'Samang Norte', '644142', '0', NULL, 'monday', 'November 21, 2022 7:46:am  ', '2022-11-21', '2022-11-20 23:46:45', '2022-11-20 23:46:45'),
-(153, '217', '9', '23', 'Jerhome', 'Reantaso', 'Falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'Samang Norte', '297603', '2', NULL, 'monday', 'November 21, 2022 7:52:am  ', '2022-11-21', '2022-11-20 23:52:41', '2022-11-20 23:52:41'),
-(154, '219', '9', '23', 'Jerhome', 'Reantaso', 'Falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'Samang Norte', '319223', '1', NULL, 'tuesday', 'November 22, 2022 8:36:am  ', '2022-11-22', '2022-11-22 00:36:59', '2022-11-22 00:36:59'),
-(155, '220', '9', '23', 'Jerhome', 'Reantaso', 'Falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'Samang Norte', '103486', '0', NULL, 'friday', 'November 25, 2022 8:07:pm  ', '2022-11-25', '2022-11-25 12:07:02', '2022-11-25 12:07:02'),
-(156, '220', '9', '23', 'Jerhome', 'Reantaso', 'Falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'Samang Norte', '103486', '0', NULL, 'friday', 'November 25, 2022 8:08:pm  ', '2022-11-25', '2022-11-25 12:08:26', '2022-11-25 12:08:26'),
-(157, '221', '9', '23', 'Jerhome', 'Reantaso', 'Falls', 'male', '09187705134', 'jerhomereantaso85@gmail.com', 'Samang Norte', '481611', '0', NULL, 'friday', 'November 25, 2022 8:51:pm  ', '2022-11-25', '2022-11-25 12:51:06', '2022-11-25 12:51:06');
+(162, '227', '31', '23', 'Juan', 'Dela Cruz', 'Falls', 'male', '09198805134', 'jerhomereantaso8@gmail.com', 'Samang Norte', '414872', '2', NULL, 'monday', 'November 28, 2022 12:17:am  ', '2022-11-28', '2022-11-27 16:17:14', '2022-11-27 16:17:14'),
+(163, '228', '31', '23', 'Juan', 'Dela Cruz', 'Falls', 'male', '09198805134', 'jerhomereantaso8@gmail.com', 'Samang Norte', '401593', '2', NULL, 'monday', 'November 28, 2022 7:16:am  ', '2022-11-28', '2022-11-27 23:16:08', '2022-11-27 23:16:08'),
+(164, '32', '32', '32', 'Moymoy', 'Palaboy', 'Falls', 'male', '09123456789', 'moymoy@gmail.com', 'Purok 6, Arnedo , Bolinao Pangasina', '784880', '1', 'manual', 'monday', 'November 28, 2022 2:22:pm  ', '2022-11-28', '2022-11-28 06:22:21', '2022-11-28 06:22:21'),
+(165, '229', '35', '23', 'Jester Einstein', 'Ibasan', 'Falls', 'male', '09667263323', 'jezteribasan@gmail.com', 'Purok 6, Arnedo , Bolinao Pangasina', '128632', '0', NULL, 'monday', 'November 28, 2022 2:29:pm  ', '2022-11-28', '2022-11-28 06:29:44', '2022-11-28 06:29:44'),
+(166, '230', '33', '23', 'Jasmine', 'zinampan', 'Falls', 'female', '09770988356', 'jasminezinampan30@gmail.com', 'Mabini , Pangasinan', '264408', '4', NULL, 'monday', 'November 28, 2022 2:31:pm  ', '2022-11-28', '2022-11-28 06:31:09', '2022-11-28 06:31:09'),
+(167, '231', '31', '32', 'Juan', 'Dela Cruz', 'Patar', 'male', '09198805134', 'jerhomereantaso8@gmail.com', 'Samang Norte', '236813', '4', NULL, 'monday', 'November 28, 2022 2:41:pm  ', '2022-11-28', '2022-11-28 06:41:10', '2022-11-28 06:41:10');
 
 -- --------------------------------------------------------
 
@@ -109,7 +109,19 @@ CREATE TABLE `book_datas` (
 --
 
 INSERT INTO `book_datas` (`id`, `booker_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `address`, `book_number`, `time_date`, `created_at`, `updated_at`, `day`) VALUES
-(115, '218', 'fgdfgdfgdf', 'fgvgdfgdfgdfg', 'Falls', 'male', NULL, 'gdfgfdgdgdfd', '767372', 'November 22, 2022 8:31:am  ', NULL, NULL, NULL);
+(121, '225', 'eeeeeeeeeeeeeee', 'eeeeeeeeeeeeee', 'Falls', 'male', NULL, 'eeeeeeeeeeeeee', '255769', 'November 27, 2022 3:13:pm  ', NULL, NULL, NULL),
+(122, '225', 'lllllllllllllllllllllllllllllllllllllllll', 'lllllllllllllllllllll', 'Falls', 'male', NULL, 'lllllllllllllllllllll', '255769', 'November 27, 2022 3:13:pm  ', NULL, NULL, NULL),
+(123, '225', 'jjjjjj', 'jjjjjjj', 'Falls', 'male', NULL, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', '255769', 'November 27, 2022 3:13:pm  ', NULL, NULL, NULL),
+(124, '226', 'jella', 'cruz', 'Falls', 'female', NULL, 'Anda', '845513', 'November 28, 2022 12:10:am  ', NULL, NULL, NULL),
+(125, '226', 'jake', 'cruz', 'Falls', 'male', NULL, 'bolinao', '845513', 'November 28, 2022 12:10:am  ', NULL, NULL, NULL),
+(126, '227', 'ally', 'rose', 'Falls', 'female', NULL, 'anda', '414872', 'November 28, 2022 12:15:am  ', NULL, NULL, NULL),
+(127, '227', 'james', 'ruz', 'Falls', 'male', NULL, 'bolinao', '414872', 'November 28, 2022 12:15:am  ', NULL, NULL, NULL),
+(128, '228', 'Kuro', 'came', 'Falls', 'male', NULL, 'Alaminos', '401593', 'November 28, 2022 7:14:am  ', NULL, NULL, NULL),
+(129, '228', 'jamesdd', 'Jake', 'Falls', 'male', NULL, 'bolinao', '401593', 'November 28, 2022 7:14:am  ', NULL, NULL, NULL),
+(130, '230', 'Jay', 'Cruz', 'Falls', 'male', NULL, 'Mabini, Pangasinan', '264408', 'November 28, 2022 2:30:pm  ', NULL, NULL, NULL),
+(131, '230', 'Elaisha', 'Cruz', 'Falls', 'male', NULL, 'QC Manila', '264408', 'November 28, 2022 2:30:pm  ', NULL, NULL, NULL),
+(132, '230', 'Girlie', 'monte', 'Falls', 'female', NULL, 'Mabini, Pangasinan', '264408', 'November 28, 2022 2:30:pm  ', NULL, NULL, NULL),
+(133, '230', 'Mercy', 'monte', 'Falls', 'female', NULL, 'Mabini, Pangasinan', '264408', 'November 28, 2022 2:30:pm  ', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -135,6 +147,14 @@ CREATE TABLE `book_requests` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `book_requests`
+--
+
+INSERT INTO `book_requests` (`id`, `user_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `email`, `address`, `groups`, `book_number`, `status`, `time_date`, `created_at`, `updated_at`) VALUES
+(229, '35', 'Jester Einstein', 'Ibasan', 'Falls', 'male', '09667263323', 'jezteribasan@gmail.com', 'Purok 6, Arnedo , Bolinao Pangasina', 'solo', '128632', 'approve', 'November 28, 2022 2:28:pm  ', '2022-11-28 06:28:42', '2022-11-28 06:29:44'),
+(230, '33', 'Jasmine', 'zinampan', 'Falls', 'female', '09770988356', 'jasminezinampan30@gmail.com', 'Mabini , Pangasinan', '4', '264408', 'approve', 'November 28, 2022 2:30:pm  ', '2022-11-28 06:30:48', '2022-11-28 06:31:09');
+
 -- --------------------------------------------------------
 
 --
@@ -155,10 +175,13 @@ CREATE TABLE `daily_resets` (
 --
 
 INSERT INTO `daily_resets` (`id`, `user_id`, `today`, `tomorrow`, `created_at`, `updated_at`) VALUES
-(8, '23', '2022-11-25', '2022-11-26', '2022-11-20 23:25:52', '2022-11-25 11:18:36'),
-(9, '9', '2022-11-25', '2022-11-26', '2022-11-21 00:57:34', '2022-11-25 12:40:56'),
-(10, '3', '2022-11-25', '2022-11-26', '2022-11-21 01:31:12', '2022-11-25 11:22:15'),
-(11, '25', '2022-11-22', '2022-11-23', '2022-11-21 05:59:24', '2022-11-21 22:33:51');
+(12, '31', '2022-11-28', '2022-11-29', '2022-11-26 14:16:41', '2022-11-27 16:09:07'),
+(13, '23', '2022-11-28', '2022-11-29', '2022-11-27 05:40:32', '2022-11-27 16:11:28'),
+(14, '25', '2022-11-27', '2022-11-28', '2022-11-27 05:46:16', '2022-11-27 05:46:16'),
+(15, '3', '2022-11-28', '2022-11-29', '2022-11-27 05:47:05', '2022-11-27 16:17:39'),
+(16, '32', '2022-11-28', '2022-11-29', '2022-11-27 05:50:06', '2022-11-28 06:20:29'),
+(17, '33', '2022-11-28', '2022-11-29', '2022-11-28 06:23:41', '2022-11-28 06:23:41'),
+(18, '35', '2022-11-28', '2022-11-29', '2022-11-28 06:27:11', '2022-11-28 06:27:11');
 
 -- --------------------------------------------------------
 
@@ -193,6 +216,7 @@ CREATE TABLE `group_approves` (
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `book_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `time_date` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ap_date` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -201,11 +225,22 @@ CREATE TABLE `group_approves` (
 -- Dumping data for table `group_approves`
 --
 
-INSERT INTO `group_approves` (`id`, `booker_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `address`, `book_number`, `time_date`, `created_at`, `updated_at`) VALUES
-(53, '217', 'fgdfg', 'fgdfgfdg', 'Falls', 'female', NULL, 'fgdgdgdg', '297603', 'November 21, 2022 7:51:am  ', NULL, NULL),
-(54, '217', 'dfdssddfs', 'cxdfsdfsd', 'Falls', 'male', NULL, 'dfsdfs', '297603', 'November 21, 2022 7:51:am  ', NULL, NULL),
-(55, '218', 'fgdfgdfgdf', 'fgvgdfgdfgdfg', 'Falls', 'male', NULL, 'gdfgfdgdgdfd', '767372', 'November 22, 2022 8:31:am  ', NULL, NULL),
-(56, '219', 'vcfgbcbgbfghg', 'fgfgdfgd', 'Falls', 'male', NULL, 'fgfgrgertert', '319223', 'November 22, 2022 8:36:am  ', NULL, NULL);
+INSERT INTO `group_approves` (`id`, `booker_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `address`, `book_number`, `time_date`, `ap_date`, `created_at`, `updated_at`) VALUES
+(64, '226', 'jella', 'cruz', 'Falls', 'female', NULL, 'Anda', '845513', 'November 28, 2022 12:10:am  ', NULL, NULL, NULL),
+(65, '226', 'jake', 'cruz', 'Falls', 'male', NULL, 'bolinao', '845513', 'November 28, 2022 12:10:am  ', NULL, NULL, NULL),
+(66, '227', 'ally', 'rose', 'Falls', 'female', NULL, 'anda', '414872', 'November 28, 2022 12:15:am  ', '2022-11-28', NULL, NULL),
+(67, '227', 'james', 'ruz', 'Falls', 'male', NULL, 'bolinao', '414872', 'November 28, 2022 12:15:am  ', '2022-11-28', NULL, NULL),
+(68, '228', 'Kuro', 'came', 'Falls', 'male', NULL, 'Alaminos', '401593', 'November 28, 2022 7:14:am  ', '2022-11-28', NULL, NULL),
+(69, '228', 'jamesdd', 'Jake', 'Falls', 'male', NULL, 'bolinao', '401593', 'November 28, 2022 7:14:am  ', '2022-11-28', NULL, NULL),
+(70, '32', 'Maymay', 'Pasaway', 'Falls', 'female', NULL, 'Purok 6, Arnedo , Bolinao Pangasina', '784880', 'November 28, 2022 2:22:pm  ', NULL, NULL, NULL),
+(71, '230', 'Jay', 'Cruz', 'Falls', 'male', NULL, 'Mabini, Pangasinan', '264408', 'November 28, 2022 2:30:pm  ', '2022-11-28', NULL, NULL),
+(72, '230', 'Elaisha', 'Cruz', 'Falls', 'male', NULL, 'QC Manila', '264408', 'November 28, 2022 2:30:pm  ', '2022-11-28', NULL, NULL),
+(73, '230', 'Girlie', 'monte', 'Falls', 'female', NULL, 'Mabini, Pangasinan', '264408', 'November 28, 2022 2:30:pm  ', '2022-11-28', NULL, NULL),
+(74, '230', 'Mercy', 'monte', 'Falls', 'female', NULL, 'Mabini, Pangasinan', '264408', 'November 28, 2022 2:30:pm  ', '2022-11-28', NULL, NULL),
+(75, '231', 'Jay', 'Cruz', 'Patar', 'male', NULL, 'QC Manila', '236813', 'November 28, 2022 2:39:pm  ', '2022-11-28', NULL, NULL),
+(76, '231', 'Elaisha', 'monte', 'Patar', 'female', NULL, 'QC Manila', '236813', 'November 28, 2022 2:39:pm  ', '2022-11-28', NULL, NULL),
+(77, '231', 'danlo', 'love', 'Patar', 'female', NULL, 'QC Manila', '236813', 'November 28, 2022 2:39:pm  ', '2022-11-28', NULL, NULL),
+(78, '231', 'teacher', 'love', 'Patar', 'female', NULL, 'QC Manila', '236813', 'November 28, 2022 2:39:pm  ', '2022-11-28', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -232,8 +267,8 @@ CREATE TABLE `map_locations` (
 --
 
 INSERT INTO `map_locations` (`id`, `latitude`, `longitude`, `name`, `visit_count`, `total_visit`, `link`, `type`, `date`, `created_at`, `updated_at`) VALUES
-(18, '16.306320255841662', '119.85669989483964', 'Falls', '0', '1', '1', 1, 'November 21, 2022', '2022-11-16 23:00:53', '2022-11-25 04:56:30'),
-(19, '16.304605989070428', '119.78084923772767', 'Patar', '0', '0', NULL, 1, 'November 19, 2022', '2022-11-19 05:46:10', '2022-11-21 15:06:45'),
+(18, '16.306320255841662', '119.85669989483964', 'Falls', '6', '6', '1', 1, 'November 21, 2022', '2022-11-16 23:00:53', '2022-11-26 23:12:05'),
+(19, '16.304605989070428', '119.78084923772767', 'Patar', '0', '5', '1', 1, 'November 19, 2022', '2022-11-19 05:46:10', '2022-11-27 22:42:51'),
 (21, '16.385095850998464', '119.89099412374158', 'Bolinao Seafood Grill', '0', '0', '1', 0, NULL, '2022-11-20 23:06:54', '2022-11-20 23:06:54');
 
 -- --------------------------------------------------------
@@ -351,11 +386,15 @@ CREATE TABLE `reset_analytics` (
 
 INSERT INTO `reset_analytics` (`id`, `staff`, `start`, `end`, `created_at`, `updated_at`) VALUES
 (1, '2', '2022-11-14', '2022-11-20', '2022-11-14 00:11:27', '2022-11-14 00:55:33'),
-(2, '3', '2022-11-21', '2022-11-27', '2022-11-14 01:12:29', '2022-11-21 01:31:12'),
-(3, '23', '2022-11-21', '2022-11-27', '2022-11-17 07:11:02', '2022-11-20 20:45:04'),
+(2, '3', '2022-11-28', '2022-12-04', '2022-11-14 01:12:29', '2022-11-27 16:17:39'),
+(3, '23', '2022-11-28', '2022-12-04', '2022-11-17 07:11:02', '2022-11-27 16:11:28'),
 (4, '24', '2022-11-14', '2022-11-20', '2022-11-19 14:01:50', '2022-11-19 14:01:50'),
 (5, '9', '2022-11-21', '2022-11-27', '2022-11-21 00:58:49', '2022-11-21 00:58:49'),
-(6, '25', '2022-11-21', '2022-11-27', '2022-11-21 05:59:25', '2022-11-21 05:59:25');
+(6, '25', '2022-11-14', '2022-11-20', '2022-11-21 05:59:25', '2022-11-27 05:46:16'),
+(7, '31', '2022-11-28', '2022-12-04', '2022-11-26 14:16:41', '2022-11-27 16:09:08'),
+(8, '32', '2022-11-28', '2022-12-04', '2022-11-27 05:50:06', '2022-11-28 06:20:29'),
+(9, '33', '2022-11-28', '2022-12-04', '2022-11-28 06:23:41', '2022-11-28 06:23:41'),
+(10, '35', '2022-11-28', '2022-12-04', '2022-11-28 06:27:12', '2022-11-28 06:27:12');
 
 -- --------------------------------------------------------
 
@@ -399,7 +438,7 @@ CREATE TABLE `staff_notifications` (
 --
 
 INSERT INTO `staff_notifications` (`id`, `creator_id`, `type`, `message`, `status`, `time`, `date`, `created_at`, `updated_at`) VALUES
-(18, 'falls', 'normal', 'Falls is close', 'unread', '7:19:pm', 'November 25, 2022', '2022-11-25 11:19:19', '2022-11-25 11:19:19');
+(19, 'falls', 'normal', 'Falls is close', 'unread', '3:52:pm', 'November 28, 2022', '2022-11-28 07:52:33', '2022-11-28 07:52:33');
 
 -- --------------------------------------------------------
 
@@ -435,10 +474,14 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `phone`, `otp`, `email`, `gender`, `address`, `img_name`, `img_size`, `verification_code`, `is_verified`, `password`, `role`, `book_number`, `location`, `remember_token`, `created_at`, `updated_at`) VALUES
 (3, 'Tourism', 'Office', '09187705134', '247844', 'bolinaotourism@gmail.com', '', NULL, 'default-profile.png', NULL, 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '2', NULL, 'Tourism Office', NULL, '2022-10-17 06:53:09', '2022-10-17 06:53:36'),
-(8, 'James', 'Batalla', '09187705133', '931406', 'jerhomereantaso8@gmail.com', 'female', 'Anda', 'default-img', NULL, 'a707572d6f0e8e4ef64aeb26f27dd3fab6df3fec', 1, '$2y$10$HkFSs1B289EHVUn5sWsmiOwBqSCLpumHma8kplj0.yg4T8LghDRaW', '0', NULL, NULL, NULL, '2022-10-17 13:54:20', '2022-10-19 12:52:58'),
-(9, 'Jerhome', 'Reantaso', '09187705134', '998186', 'jerhomereantaso85@gmail.com', 'male', 'Samang Norte', 'bootstrap-admin-template-free.jpg', '80928', 'fa0921298659294fd9ddad8e6d895b5e5b4d43c4', 1, '$2y$10$SdaWteBKGdBy7DwPLP5um.TokMplgoOF0gS/eVgvOlTb0WuLbycWC', '0', '189086', NULL, NULL, '2022-10-17 13:58:05', '2022-11-09 17:41:15'),
 (23, 'Falls', 'CheckPoint', '09913183407', '515151', 'falls@gmail.com', NULL, NULL, 'color 2.PNG', '171', '5555', 0, '$2y$10$EsPiGHtXkbZXR1N3gyEG..wEBNb8SFceOzZNVEVWk0vt.79HCbWmi', '1', NULL, 'falls', NULL, '2022-11-16 23:07:28', '2022-11-25 03:20:17'),
-(25, 'Admin', 'Access', '09187705134', '247844', 'admin@gmail.com', '', NULL, 'default-profile.png', NULL, 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '3', NULL, 'Supper Admin', NULL, '2022-10-17 06:53:09', '2022-10-17 06:53:36');
+(25, 'Admin', 'Access', '09187705134', '247844', 'admin@gmail.com', '', NULL, 'default-profile.png', NULL, 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '3', NULL, 'Supper Admin', NULL, '2022-10-17 06:53:09', '2022-10-17 06:53:36'),
+(31, 'Juan', 'Dela Cruz', '09198805134', '213994', 'jerhomereantaso8@gmail.com', 'male', 'Samang Norte', 'default-profile.png', NULL, '294cb7ed71d595977af6a21706f692526b83983e', 1, '$2y$10$VXrhYW5yFwmHOYPr0FNkrer8WPSTOro6Lh45885SyAx4fSjQVAiwW', '0', NULL, NULL, NULL, '2022-11-26 05:54:27', '2022-11-26 14:58:56'),
+(32, 'Patar', 'CheckPoint', '09913183407', '515151', 'patar@gmail.com', NULL, NULL, 'default-profile.png', NULL, '5555', 0, '$2y$10$7QeQg3bruf1SYmqF.el6qeq5l3YU2XBiYvYgxkZi/MHvn4UVM6sVK', '1', NULL, 'patar', NULL, '2022-11-26 21:47:39', '2022-11-26 21:49:29'),
+(33, 'Jasmine', 'zinampan', '09770988356', '791817', 'jasminezinampan30@gmail.com', 'female', 'Mabini , Pangasinan', 'default-profile.png', NULL, 'f6e735b9833aa08ab5574f109376f257af64455b', 1, '$2y$10$H0wg7dBKW4k1oSALMmsN3ekvxs1yJUMGGGwzw9JsABY9.oUkloavy', '0', NULL, NULL, NULL, '2022-11-27 22:21:38', '2022-11-27 22:27:52'),
+(34, 'Marcos', 'Hayway', '09123456789', '638734', 'marcos@gmail.com', NULL, NULL, 'default-profile.png', NULL, '0bcf3bf528566b3a36cc4d8bd459a904d889c829', 0, '$2y$10$g/QpL8K6uw5JE67n4DobBOADDXdKtqTp6b.aN2O022RkV4FjyQyzW', '0', NULL, NULL, NULL, '2022-11-27 22:24:25', '2022-11-27 22:24:25'),
+(35, 'Jester Einstein', 'Ibasan', '09667263323', '931420', 'jezteribasan@gmail.com', 'male', 'Purok 6, Arnedo , Bolinao Pangasina', 'default-profile.png', NULL, 'e4f042a89ab31d20daa5f7878dd27b6edf8cf23d', 0, '$2y$10$8wuFaRho1lmJaOLQGnLsDOK0kuNNAgeKEJQUDhwptAseZHqunrgvS', '0', NULL, NULL, NULL, '2022-11-27 22:25:52', '2022-11-27 22:27:38'),
+(36, 'dan', 'ganda', '09770988356', '425958', 'danilynbanogon@gmail.com', NULL, NULL, 'default-profile.png', NULL, '0531eb71b24f0bce9fbf5654587543f601fa0cce', 0, '$2y$10$jK7wzyNK1AR/bhcVtkYSXOM28l8TaiP1XlAYnIlOYTRgvxgm0u08a', '0', NULL, NULL, NULL, '2022-11-27 22:33:09', '2022-11-27 22:33:09');
 
 -- --------------------------------------------------------
 
@@ -463,7 +506,7 @@ CREATE TABLE `user_notifications` (
 --
 
 INSERT INTO `user_notifications` (`id`, `creator_id`, `type`, `message`, `status`, `time`, `date`, `created_at`, `updated_at`) VALUES
-(38, 'falls', 'normal', 'Falls is close', 'seen', '7:19:pm', 'November 25, 2022', '2022-11-25 11:19:19', '2022-11-25 11:19:19');
+(39, 'falls', 'normal', 'Falls is close', 'seen', '3:52:pm', 'November 28, 2022', '2022-11-28 07:52:33', '2022-11-28 07:52:33');
 
 -- --------------------------------------------------------
 
@@ -495,8 +538,9 @@ CREATE TABLE `weekly_counts` (
 INSERT INTO `weekly_counts` (`id`, `user_id`, `location`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`, `date`, `remember_token`, `created_at`, `updated_at`) VALUES
 (41, 2, 'falls', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-07 06:46:31', '2022-11-14 00:53:16'),
 (42, 10, 'patar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-11 12:28:48', '2022-11-12 13:51:52'),
-(43, 23, 'falls', NULL, '2', NULL, NULL, '3', NULL, NULL, NULL, NULL, '2022-11-17 15:11:23', '2022-11-25 12:51:07'),
-(44, 24, 'patar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-19 14:02:11', '2022-11-19 14:02:11');
+(43, 23, 'falls', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-17 15:11:23', '2022-11-28 06:31:09'),
+(44, 24, 'patar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-19 14:02:11', '2022-11-19 14:02:11'),
+(45, 32, 'patar', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-27 05:50:24', '2022-11-28 06:41:10');
 
 --
 -- Indexes for dumped tables
@@ -628,25 +672,25 @@ ALTER TABLE `admin_notifs`
 -- AUTO_INCREMENT for table `approves`
 --
 ALTER TABLE `approves`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
 
 --
 -- AUTO_INCREMENT for table `book_datas`
 --
 ALTER TABLE `book_datas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `book_requests`
 --
 ALTER TABLE `book_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- AUTO_INCREMENT for table `daily_resets`
 --
 ALTER TABLE `daily_resets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -658,7 +702,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `group_approves`
 --
 ALTER TABLE `group_approves`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `map_locations`
@@ -688,7 +732,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `reset_analytics`
 --
 ALTER TABLE `reset_analytics`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `staff_alerts`
@@ -700,25 +744,25 @@ ALTER TABLE `staff_alerts`
 -- AUTO_INCREMENT for table `staff_notifications`
 --
 ALTER TABLE `staff_notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `user_notifications`
 --
 ALTER TABLE `user_notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `weekly_counts`
 --
 ALTER TABLE `weekly_counts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
