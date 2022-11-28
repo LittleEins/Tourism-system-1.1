@@ -29,11 +29,49 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     */
     public function collection()
     {
+        // $res = collect(DB::select('SELECT * FROM approves JOIN group_approves ON approves.book_number = group_approves.book_number WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$this->location,$this->start,$this->end]));
+    //    $res = collect(DB::select('SELECT * FROM approves INNER JOIN group_approves ON approves.book_number = group_approves.book_number'));
+  
+       
+    // return  Approve::join('group_approves', 'approves.book_number', '=', 'group_approves.book_number')->get();
+    if ($this->month == "0")
+    {
+        return $res = Approve::with('ap_group')->get();
+    }
+    else
+    {
+
+        return $res2 = Group_approve::get();
+        // $res = Approve::with('ap_group')->get();
+        // $count3 = Approve::with('ap_group')->count();
+       
+        // for ($y = 0; $y<=1;$y++)
+        // {
+        //     $count2 = $res[$y]->ap_group->count();
+        //     for ($i=0; $i<=1; $i++)
+        //     {
+        //         for ($z = 0; $z <= 1; $z++)
+        //         {
+                
+        //             // $arr = array();
+        //             // array_push($arr, $res[$i]->ap_group[$z]);
+        //             echo($res[$i]->ap_group[$z]);
+        //             break;
+        //         }
+                
+        //     }
+        // }
+    
+        // return collect($arr);
+        // dd($arr);
+    }
         
-
-        $res = collect(Approve::with('groups')->get());
-
-        return $res;
+   
+//         SELECT table1.column1, table2.column2...
+// FROM table1
+// FULL JOIN table2
+// ON table1.common_field = table2.common_field
+      
         // fetch data on db  to export on excell
         // if ($this->location == null)
         // {
@@ -55,7 +93,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
 
     public function map($approve): array
     {
-
+     
         return [
             $approve->id,
             $approve->last_name,
@@ -66,7 +104,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
             $approve->address,
             $approve->destination,
             $approve->book_number,
-            $approve->groups->groups->first_name,
+            $approve->groups,
             $approve->approve_td,
 
         ];
@@ -75,7 +113,6 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     public function headings(): array
     {
         return [
-            'ID',
             'LAST NAME',
             'FIRST NAME',
             'GENDER',
@@ -84,8 +121,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
             'ADDRESS',
             'DESTINATION',
             'BOOK NUMBER',
-            'GROUPS',
-            'APPROVE DATE TIME',
+            'Date of Arrival',
         ];
     }
 

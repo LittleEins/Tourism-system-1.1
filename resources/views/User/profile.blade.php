@@ -73,9 +73,21 @@
                       </div>
                   <div class="row mt-md-3">
                     <div class="col-md-12"><label class="labels">Gender</label><select name="gender" class="form-select" aria-label="Default select example" required>
-                      <option value="">select</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      @if ($user_data['gender'] == "male")
+                        <option value="{{ $user_data['gender'] }}">{{ $user_data['gender'] }} </option>
+                        <option value="">select</option>
+                        <option value="female">Female</option>
+                      @endif 
+                      @if ($user_data['gender'] == "female")
+                        <option value="{{ $user_data['gender'] }}">{{ $user_data['gender'] }} </option>
+                        <option value="">select</option>
+                        <option value="female">Female</option>
+                      @endif
+                      @if ($user_data['gender'] == null)
+                        <option value="">select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      @endif
                     </select> 
                     </div>
                     <x-error_style/>@error('gender') {{$message}} @enderror</p>
