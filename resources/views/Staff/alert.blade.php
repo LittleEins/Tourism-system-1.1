@@ -15,7 +15,7 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Alert</h1>
+      <h1>Manage Notification</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Notification</a></li>
