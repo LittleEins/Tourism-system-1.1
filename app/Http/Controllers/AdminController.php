@@ -18,6 +18,7 @@ use App\Models\Group_manual_approve;
 use App\Models\Reset_analytic;
 use App\Models\staff_alert;
 use App\Models\Daily_reset;
+use App\Models\Admin_notif;
 use Illuminate\Support\Facades\Hash;
 use App\Exports\ReportExport;
 use App\Exports\GroupExport;
@@ -31,6 +32,14 @@ use Illuminate\Support\Facades\Storage; // use this if you make delete on storag
 
 class AdminController extends Controller
 {
+    function get_notif_list ()
+    {
+        $notif = Admin_notif::get();
+
+        return response()->json([
+            'list' => $notif,
+        ]);
+    }
     
     function send_notification (Request $req)
     {
@@ -67,15 +76,15 @@ class AdminController extends Controller
                 $staff_notif->sendto = $req->input('sendto');
                 $staff_notif->save();
 
-                $staff_notif = new Admin_notif;
-                $staff_notif->sender = $sender->location;
-                $staff_notif->message = $req->input('message');
-                $staff_notif->type = $req->input('type');
-                $staff_notif->time =  date('g:i:a');
-                $staff_notif->date =  date('F j, Y');
-                $staff_notif->status = "unread";
-                $staff_notif->sendto = $req->input('sendto');
-                $staff_notif->save();
+                $admin = new Admin_notif;
+                $admin->sender = $sender->location;
+                $admin->message = $req->input('message');
+                $admin->type = $req->input('type');
+                $admin->time =  date('g:i:a');
+                $admin->date =  date('F j, Y');
+                $admin->status = "unread";
+                $admin->sendto = $req->input('sendto');
+                $admin->save();
 
 
                 return response()->json([
@@ -106,15 +115,15 @@ class AdminController extends Controller
                 $staff_notif->sendto = $req->input('sendto');
                 $staff_notif->save();
 
-                $staff_notif = new Admin_notif;
-                $staff_notif->sender = $sender->location;
-                $staff_notif->message = $req->input('message');
-                $staff_notif->type = $req->input('type');
-                $staff_notif->time =  date('g:i:a');
-                $staff_notif->date =  date('F j, Y');
-                $staff_notif->status = "unread";
-                $staff_notif->sendto = $req->input('sendto');
-                $staff_notif->save();
+                $admin_notif = new Admin_notif;
+                $admin_notif->sender = $sender->location;
+                $admin_notif->message = $req->input('message');
+                $admin_notif->type = $req->input('type');
+                $admin_notif->time =  date('g:i:a');
+                $admin_notif->date =  date('F j, Y');
+                $admin_notif->status = "unread";
+                $admin_notif->sendto = $req->input('sendto');
+                $admin_notif->save();
 
 
 
@@ -125,6 +134,7 @@ class AdminController extends Controller
             }
             else
             {
+    
                 $sender = User::where('id', session('LoggedUser'))->first();
 
                 $staff_notif = new staff_alert;
@@ -137,15 +147,15 @@ class AdminController extends Controller
                 $staff_notif->sendto = $req->input('sendto');
                 $staff_notif->save();
 
-                $staff_notif = new Admin_notif;
-                $staff_notif->sender = $sender->location;
-                $staff_notif->message = $req->input('message');
-                $staff_notif->type = $req->input('type');
-                $staff_notif->time =  date('g:i:a');
-                $staff_notif->date =  date('F j, Y');
-                $staff_notif->status = "unread";
-                $staff_notif->sendto = $req->input('sendto');
-                $staff_notif->save();
+                $admin_notif = new Admin_notif;
+                $admin_notif->sender = $sender->location;
+                $admin_notif->message = $req->input('message');
+                $admin_notif->type = $req->input('type');
+                $admin_notif->time =  date('g:i:a');
+                $admin_notif->date =  date('F j, Y');
+                $admin_notif->status = "unread";
+                $admin_notif->sendto = $req->input('sendto');
+                $admin_notif->save();
 
 
                 return response()->json([
@@ -588,7 +598,7 @@ class AdminController extends Controller
     function alert ()
     {
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['staff'] = Map_location::get(['name']);
+        $data['staff'] = Map_location::where('type',1)->get(['name']);
 
         
         return view('admin.alert', $data);
@@ -830,14 +840,15 @@ class AdminController extends Controller
         $start = $req->start;
         $end = $req->end;
 
-  
-       
-        if (($req->start === null) && ($req->end == null))
+
+        if (($req->start === null) && ($req->end == null) && ($location == null) || ($location == "all"))
         {
+            dd("all or null");
             return Excel::download(new GroupExport(), 'reports.xlsx');
         }
         else 
         {
+            dd("with range ");
             return Excel::download(new GroupExport($location,$start,$end), 'reports.xlsx');
         }
     }
@@ -908,24 +919,56 @@ class AdminController extends Controller
         }
        else
        {
-        dd("selecte location");
-            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-            $data['locations'] = Map_location::get();
-
-            $startDate = $req->from;
-            $endDate = $req->end;
-            $location = strtolower($req->locations);
-
-            //sql raw command query
-            $data['lists'] =  DB::select('SELECT * FROM approves WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$location,$startDate,$endDate]);
-       
-            $data['date_range'] = ['start'=>$startDate,'end'=>$endDate];
-
-            Session::flash('start', $startDate);
-            Session::flash('end', $endDate);
-            Session::flash('location', $location);
-
-            return view('admin.reports', $data)->with('success','Book Successfully.');
+            if (($req->from === null) && ($req->end === null))
+            {
+                $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()]; 
+                $data['locations'] = Map_location::where('type',1)->get();
+    
+                $startDate = $req->from;
+                $endDate = $req->end;
+                $location = strtolower($req->locations);
+    
+                //get all data
+                $ap = Approve::where('destination',ucfirst($location))->get();
+                $m_ap = Approves_manual::where('destination',ucfirst($location))->get();
+    
+                // merging object
+                $data['lists'] = $ap->merge($m_ap);
+               
+           
+                $data['date_range'] = ['start'=>$startDate,'end'=>$endDate];
+    
+                Session::flash('start', $startDate);
+                Session::flash('end', $endDate);
+                Session::flash('location', $location);
+    
+                return view('admin.reports', $data)->with('success','Book Successfully.');
+            }
+            else 
+            {
+                $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()]; 
+                $data['locations'] = Map_location::where('type',1)->get();
+    
+                $startDate = $req->from;
+                $endDate = $req->end;
+                $location = strtolower($req->locations);
+    
+                //get all data
+                $ap = Approve::where('destination',ucfirst($location))->whereBetween('ap_date',[$startDate,$endDate])->get();
+                $m_ap = Approves_manual::where('destination',ucfirst($location))->whereBetween('ap_date',[$startDate,$endDate])->get();
+    
+                // merging object
+                $data['lists'] = $ap->merge($m_ap);
+               
+           
+                $data['date_range'] = ['start'=>$startDate,'end'=>$endDate];
+    
+                Session::flash('start', $startDate);
+                Session::flash('end', $endDate);
+                Session::flash('location', $location);
+    
+                return view('admin.reports', $data)->with('success','Book Successfully.');
+            }
         }
     }
 

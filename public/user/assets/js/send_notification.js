@@ -60,14 +60,14 @@ $(document).ready(function ()
                         if (response.notification[i].status == "unread")
                         {
                             $('#user_notif').append('<tr class="alert alert-primary">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].creator_id+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
+                            <td data-title="Notification">'+response.notification[i].type+'</th>\
+                            <td data-title="From">'+response.notification[i].creator_id+'</td>\
+                            <td data-title="Time">'+response.notification[i].time+'</td>\
+                            <td data-title="Date">'+response.notification[i].date+'</td>\
+                             <td data-title="View">\
                             <a href="/user/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
                             </td>\
-                            <td>\
+                            <td data-title="Delete">\
                             <a href="/user/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                             </td>\
                             </tr>');
@@ -75,14 +75,14 @@ $(document).ready(function ()
                         else
                         {
                             $('#user_notif').append('<tr class="">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].creator_id+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
+                            <td data-title="Notification">'+response.notification[i].type+'</th>\
+                            <td data-title="From">'+response.notification[i].creator_id+'</td>\
+                            <td data-title="Time">'+response.notification[i].time+'</td>\
+                            <td data-title="Date">'+response.notification[i].date+'</td>\
+                             <td data-title="View">\
                             <a href="/user/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
                             </td>\
-                            <td>\
+                            <td data-title="Delete">\
                             <a href="/user/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                             </td>\
                             </tr>');
@@ -93,14 +93,14 @@ $(document).ready(function ()
                         if (response.notification[i].status == "unread")
                         {
                             $('#user_notif').append(' <tr class="alert alert-warning">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].creator_id+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
+                            <td data-title="Notification">'+response.notification[i].type+'</th>\
+                            <td data-title="From">'+response.notification[i].creator_id+'</td>\
+                            <td data-title="Time">'+response.notification[i].time+'</td>\
+                            <td data-title="Date">'+response.notification[i].date+'</td>\
+                             <td data-title="View">\
                             <a href="/user/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
                             </td>\
-                            <td>\
+                            <td data-title="Delete">\
                             <a href="/user/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                             </td>\
                             </tr>');
@@ -108,14 +108,14 @@ $(document).ready(function ()
                         else
                         {
                             $('#user_notif').append(' <tr class="">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].creator_id+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
+                            <td data-title="Notification">'+response.notification[i].type+'</th>\
+                            <td data-title="From">'+response.notification[i].creator_id+'</td>\
+                            <td data-title="Time">'+response.notification[i].time+'</td>\
+                            <td data-title="Date">'+response.notification[i].date+'</td>\
+                             <td data-title="View">\
                             <a href="/user/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
                             </td>\
-                            <td>\
+                            <td data-title="Delete">\
                             <a href="/user/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                             </td>\
                             </tr>');
@@ -127,14 +127,14 @@ $(document).ready(function ()
                         if (response.notification[i].status == "unread")
                         {
                             $('#user_notif').append(' <tr class="alert alert-danger">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].creator_id+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
+                            <td data-title="Notification">'+response.notification[i].type+'</th>\
+                            <td data-title="From">'+response.notification[i].creator_id+'</td>\
+                            <td data-title="Time">'+response.notification[i].time+'</td>\
+                            <td data-title="Date">'+response.notification[i].date+'</td>\
+                             <td data-title="View">\
                             <a href="/user/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
                             </td>\
-                            <td>\
+                            <td data-title="Delete">\
                             <a href="/user/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                             </td>\
                             </tr>');
@@ -142,14 +142,14 @@ $(document).ready(function ()
                         else 
                         {
                             $('#user_notif').append(' <tr class="">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].creator_id+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
+                            <td data-title="Notification">'+response.notification[i].type+'</th>\
+                            <td data-title="From">'+response.notification[i].creator_id+'</td>\
+                            <td data-title="Time">'+response.notification[i].time+'</td>\
+                            <td data-title="Date">'+response.notification[i].date+'</td>\
+                             <td data-title="View">\
                             <a href="/user/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
                             </td>\
-                            <td>\
+                            <td data-title="Delete">\
                             <a href="/user/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
                             </td>\
                             </tr>');
@@ -181,7 +181,7 @@ $(document).ready(function ()
                     if (response.notification[i].type == 'normal')
                     {
                     $('#notifications').append(' <tr class="alert alert-primary">\
-                    <td>'+response.notification[i].type+'</th>\
+                    <td data-title="">'+response.notification[i].type+'</th>\
                     <td>'+response.notification[i].creator_id+'</td>\
                     <td>'+response.notification[i].time+'</td>\
                     <td>'+response.notification[i].date+'</td>\
@@ -227,6 +227,8 @@ $(document).ready(function ()
     {
         e.preventDefault();
 
+        alert("click");
+
         var data = {
             // yong name ay class 
             'type': $('.type').val(),
@@ -262,21 +264,23 @@ $(document).ready(function ()
                 else
                 {
                     
-                    $('#add_success').html("");
-                    $('#add_success').addClass('alert alert-success');
-                    $('#add_success').text(response.success);
+                    $('#admin_add_success').html("");
+                    $('#admin_add_success').addClass('alert alert-success');
+                    $('#admin_add_success').text(response.success);
                     $('#createNotification').find('textarea').val("");
                     $('#createNotification').find('select').val("");
                     $('#err_type').html("");
                     $('#err_message').html("");
                 }
 
+                admin_notif();
                 messages();
                 get_notif();
             }
 
         });
     });
+
 
 
     function get_notif()

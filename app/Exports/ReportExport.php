@@ -32,76 +32,15 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     // Quering Data to sheet
     public function collection()
     {
-        // $res = collect(DB::select('SELECT * FROM approves JOIN group_approves ON approves.book_number = group_approves.book_number WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$this->location,$this->start,$this->end]));
-    //    $res = collect(DB::select('SELECT * FROM approves INNER JOIN group_approves ON approves.book_number = group_approves.book_number'));
-  
-       
-    // return  Approve::join('group_approves', 'approves.book_number', '=', 'group_approves.book_number')->get();
-    
-    if (($this->start === null) && ($this->end === null))
-    {
-        dd("null range");
-    }
-    else
-    {
-        dd("may range");
-    }
-    
-    if ($this->sheetCount == "0")
-    {
-        // return $res = Approve::with('ap_group')->get();
-    }
-    else
-    {
-
-        // return $res2 = Group_approve::get();
-        // $res = Approve::with('ap_group')->get();
-        // $count3 = Approve::with('ap_group')->count();
-       
-        // for ($y = 0; $y<=1;$y++)
-        // {
-        //     $count2 = $res[$y]->ap_group->count();
-        //     for ($i=0; $i<=1; $i++)
-        //     {
-        //         for ($z = 0; $z <= 1; $z++)
-        //         {
-                
-        //             // $arr = array();
-        //             // array_push($arr, $res[$i]->ap_group[$z]);
-        //             echo($res[$i]->ap_group[$z]);
-        //             break;
-        //         }
-                
-        //     }
-        // }
-    
-        // return collect($arr);
-        // dd($arr);
-    }
+        if ($this->location == "all" || $this->location == null)
+        {
+            dd("all");
+        }
+        else
+        {
+            dd("not all");
+        }
         
-   
-//         SELECT table1.column1, table2.column2...
-// FROM table1
-// FULL JOIN table2
-// ON table1.common_field = table2.common_field
-      
-        // fetch data on db  to export on excell
-        // if ($this->location == null)
-        // {
-        //     return Approve::with('book_number')->get();
-        //     // return Approve::all();
-        // }
-        // else if ($this->location == "all")
-        // {
-        //     return Approve::with('book_number')->get();
-        //     // return Approve::all();
-        // }
-        // else 
-        // {
-        //     return Approve::with('book_number')->get();
-        //     // return collect(DB::select('SELECT * FROM approves WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$this->location,$this->start,$this->end]));
-        // }
-       
     }
 
     // Mapping data want to put on sheet
