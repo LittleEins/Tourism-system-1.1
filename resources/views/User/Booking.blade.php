@@ -34,7 +34,21 @@
                   <div class="col-md-40">
                     <div class="card-body p-4">
                       <div class="d-flex justify-content-center align-items-center">
-                        <x-flash-message/>
+                        @if (Session::get('success'))
+                        <div class=" mb-2">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>{{ Session::get('success') }}</strong>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    @if (Session::get('fails'))
+                        <div class="mb-2">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ Session::get('fails') }}</strong>
+                            </div>
+                        </div>
+                    @endif
                       </div>
                       <form action="{{route('book2.view')}}" method="post">
                         @csrf
