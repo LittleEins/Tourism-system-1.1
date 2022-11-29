@@ -76,6 +76,7 @@ Route::get('/admin/delete/notif',[AdminController::class,'delete_notif']);
 Route::get('/admin/fetch/account',[AdminController::class,'fetch_account']);
 Route::post('/create/staff/account',[AdminController::class,'create_staff_account']);
 Route::get('/delete/account',[AdminController::class,'delete_staff_account']); 
+Route::get('/admin/notif/list',[AdminController::class,'get_notif_list']); 
 Route::get('/list/location/link',[AdminController::class,'fetch_location_link']);
 Route::post('/supAdmin/addlocation',[SuperAdminController::class,'add_location']);
 Route::get('/supAdmin/fetch/account',[SuperAdminController::class,'fetch_account']);

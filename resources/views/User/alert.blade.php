@@ -97,7 +97,7 @@
             </div>
 
             <div class="card-body">
-              <table class="table table-bordered" style="white-space: nowrap">
+              <table class="table table-bordered" id="no-more-table">
                 <thead>
                   <tr>
                     <th class="col-2">Notification</th>

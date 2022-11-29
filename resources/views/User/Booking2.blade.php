@@ -66,7 +66,7 @@
                                   </div>
                                 </div>
                                 <div class="col-md-2 mb-3 ml-3 d-grid">
-                                  <input class="col-md-2 mb-3 ml-3 d-grid btn btn-primary request_book" type="submit" value="Request" id="add_btn">
+                                  <input class="col-md-2 mb-3 ml-3 d-grid btn btn-primary request_book w-100" type="submit" value="Request" id="add_btn">
                                 </div>
                               </form>
                             </div>

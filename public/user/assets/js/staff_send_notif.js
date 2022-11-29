@@ -1,6 +1,6 @@
 $(document).ready(function ()
 {   
-    // messages();
+    message();
     get_notif();
     view_click();
     user_message();
@@ -174,7 +174,7 @@ $(document).ready(function ()
             success: function (response) 
             {
                 console.log(response.notification);
-                $('#staff_notifications').html("");
+                $('#admin_notification').html("");
 
                 var count = response.notification.length;
 
@@ -182,7 +182,7 @@ $(document).ready(function ()
                 {
                     if (response.notification[i].type == 'normal')
                     {
-                    $('#staff_notifications').append(' <tr class="alert alert-primary">\
+                    $('#admin_notification').append(' <tr class="alert alert-primary">\
                     <td>'+response.notification[i].type+'</th>\
                     <td>'+response.notification[i].message+'</td>\
                     <td>'+response.notification[i].time+'</td>\
@@ -194,7 +194,7 @@ $(document).ready(function ()
                     }
                     else if (response.notification[i].type == 'alert')
                     {
-                    $('#staff_notifications').append(' <tr class="alert alert-warning">\
+                    $('#admin_notification').append(' <tr class="alert alert-warning">\
                     <td>'+response.notification[i].type+'</th>\
                     <td>'+response.notification[i].message+'</td>\
                     <td>'+response.notification[i].time+'</td>\
@@ -206,7 +206,7 @@ $(document).ready(function ()
                     }
                     else if (response.notification[i].type == 'danger')
                     {
-                    $('#staff_notifications').append(' <tr class="alert alert-danger">\
+                    $('#admin_notification').append(' <tr class="alert alert-danger">\
                     <td>'+response.notification[i].type+'</th>\
                     <td>'+response.notification[i].message+'</td>\
                     <td>'+response.notification[i].time+'</td>\
@@ -265,7 +265,7 @@ $(document).ready(function ()
                 }
                 else
                 {
-                    
+                  
                     $('#admin_add_success').html("");
                     $('#admin_add_success').addClass('alert alert-success');
                     $('#admin_add_success').text(response.success);

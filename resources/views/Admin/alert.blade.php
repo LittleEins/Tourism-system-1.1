@@ -86,7 +86,6 @@
                   <tr>
                     <th class="col-2">Notification</th>
                     <th scope="col">Message</th>
-                    <th scope="col">Sent</th>
                     <th scope="col">Time</th>
                     <th scope="col">Date</th>
                     <th scope="col">Delete</th>
