@@ -7,12 +7,14 @@ use App\Models\User;
 use App\Models\Book_data;
 use App\Models\Book_request;
 use App\Models\Approve;
+use App\Models\Approves_manual;
 use App\Models\Weekly_count;
 use App\Models\Map_location;
 use App\Models\staff_notification;
 use App\Models\User_notification;
 use App\Models\Admin_notification;
 use App\Models\Group_approve;
+use App\Models\Group_manual_approve;
 use App\Models\Reset_analytic;
 use App\Models\staff_alert;
 use App\Models\Daily_reset;
@@ -736,7 +738,6 @@ class staffController extends Controller
      // insert booker data
     function book_data (Request $req)
     {
-                   
          date_default_timezone_set('Asia/Manila');
          $time_date  = date('F j, Y g:i:a  ');
  
@@ -770,15 +771,16 @@ class staffController extends Controller
                          'address' =>$address[$i],
                          'book_number'=>$book_number,
                          'time_date' =>$time_date,
+                         'time_leave'=>$req->time_leave
                      ];
  
-                     DB::table('group_approves')->insert($datasave);
+                     DB::table('group_manual_approves')->insert($datasave);
              
                 }
 
-            $count_groups = Group_approve::where('book_number',$book_number)->count();
+            $count_groups = Group_manual_approve::where('book_number',$book_number)->count();
  
-            $insert_request = new Approve;
+            $insert_request = new Approves_manual;
             $insert_request->booker_id = $user_id->id;//
             $insert_request->staff_id = $user_id->id;///
             $insert_request->user_id = $user_id->id;//
@@ -796,12 +798,13 @@ class staffController extends Controller
             $insert_request->approve_td = $time_date;
             $insert_request->ap_date = date("Y-m-d");
             $insert_request->ap_type = "manual";//
+            $insert_request->time_leave = $req->time_leave;
             $insert_request->save();
 
             $data = User::where('id','=', session('LoggedUser'))->first();
 
-            $visit_count = Approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
-            $visit_group = Group_approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
+            $visit_count = Approves_manual::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
+            $visit_group = Group_manual_approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
             $total = $visit_count->count() + $visit_group->count();
     
             $data2 = Map_location::get(['name']);
@@ -854,16 +857,16 @@ class staffController extends Controller
                          'time_date' =>$time_date,
                      ];
  
-                     DB::table('group_approves')->insert($datasave);
+                     DB::table('group_manual_approves')->insert($datasave);
              
                  }
 
                  
-            $count_groups = Group_approve::where('book_number',$book_number)->count();
+            $count_groups = Group_manual_approve::where('book_number',$book_number)->count();
  
             $time_date  = date('F j, Y g:i:a  ');
 
-            $insert_request = new Approve;
+            $insert_request = new Approves_manual;
             $insert_request->booker_id = $user_id->id;//
             $insert_request->staff_id = $user_id->id;///
             $insert_request->user_id = $user_id->id;//
@@ -880,13 +883,14 @@ class staffController extends Controller
             $insert_request->day = strtolower(date('l'));
             $insert_request->approve_td = $time_date;
             $insert_request->ap_date = date("Y-m-d");
+            $insert_request->time_leave = $req->time_leave;
             $insert_request->ap_type = "manual";//
             $insert_request->save();
 
             $data = User::where('id','=', session('LoggedUser'))->first();
 
-            $visit_count = Approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
-            $visit_group = Group_approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
+            $visit_count = Approves_manual::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
+            $visit_group = Group_manual_approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
             $total = $visit_count->count() + $visit_group->count();
     
             $data2 = Map_location::get(['name']);
@@ -921,12 +925,12 @@ class staffController extends Controller
  
              $req->session()->put('book_number', $book_number);
              
-            $count_groups = Group_approve::where('book_number',$book_number)->count();
+            $count_groups = Group_manual_approve::where('book_number',$book_number)->count();
  
             $time_date  = date('F j, Y g:i:a  ');
 
              $data = User::where('id','=', session('LoggedUser'))->first();
-             $insert_request = new Approve;
+             $insert_request = new Approves_manual;
              $insert_request->booker_id = $data->id;//
              $insert_request->staff_id = $data->id;///
              $insert_request->user_id = $data->id;//
@@ -943,35 +947,36 @@ class staffController extends Controller
              $insert_request->day = strtolower(date('l'));
              $insert_request->approve_td = $time_date;
              $insert_request->ap_date = date("Y-m-d");
+             $insert_request->time_leave = $req->time_leave;
              $insert_request->ap_type = "manual";//
              $insert_request->save();
 
              $data = User::where('id','=', session('LoggedUser'))->first();
 
-             $visit_count = Approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
-            $visit_group = Group_approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
-            $total = $visit_count->count() + $visit_group->count();
-    
-            $data2 = Map_location::get(['name']);
-            $count = $data2->count();
-            $date  = date('F j, Y');
-            $end = "18";
-            $day = date('l');
-    
-    
-            for($i = 0; $i < $count; $i++){
-                if (strtolower($data->location) == strtolower($data2[$i]->name))
-                {
-    
-                    $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
-                    $count = $total + (int)$map_count->visit_count;
+             $visit_count = Approves_manual::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
+             $visit_group = Group_manual_approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
+             $total = $visit_count->count() + $visit_group->count();
+     
+             $data2 = Map_location::get(['name']);
+             $count = $data2->count();
+             $date  = date('F j, Y');
+             $end = "18";
+             $day = date('l');
+     
+     
+             for($i = 0; $i < $count; $i++){
+                 if (strtolower($data->location) == strtolower($data2[$i]->name))
+                 {
+     
+                     $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                     $count = $total + (int)$map_count->visit_count;
+                     
+                     $result = DB::table('map_locations')->where('name','=', strtolower($data2[$i]->name))->update(['visit_count'=>$count,'total_visit'=>$count]);
                     
-                    $result = DB::table('map_locations')->where('name','=', strtolower($data2[$i]->name))->update(['visit_count'=>$count,'total_visit'=>$count]);
-                   
-                    break;
-                }
-            }
- 
+                     break;
+                 }
+             }
+
              $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
              return view('staff.book_result', $data,['book_number'=>$book_number])->with('success','Book Successfully.');
          }
