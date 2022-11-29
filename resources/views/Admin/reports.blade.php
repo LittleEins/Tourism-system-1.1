@@ -35,23 +35,31 @@
                   <div class="d-flex">
                     <div class="col-sm-3">
                       <select name="locations" id="location" class="form-control input-sm">
+                        @if (Session::get('location') == null )
                         <option value="all">All</option>
                         @foreach($locations as $list)
                         <option value="{{ $list->name }}">{{ $list->name }}</option>
                         @endforeach
+                        @endif
+                        @if (Session::get('location') != null )
+                        <option value="{{Session::get('location')}}">{{ucfirst(Session::get('location'))}}</option>
+                        @foreach($locations as $list)
+                        <option value="{{ $list->name }}">{{ $list->name }}</option>
+                        @endforeach
+                        @endif
                       </select>
                     </div>
                     <div class="form-group row">
                       <label for="col-form-label col-sm-2">Start</label>
                     </div>
                     <div class="col-sm-3">
-                      <input type="date" class="form-control input-sm" id="fromDate" name="from" required>
+                      <input type="date" class="form-control input-sm" id="fromDate" name="from" value="{{ Session::get('start') }}" >
                     </div>
                     <div class="form-group row">
                       <label for="col-form-label col-sm-2">End</label>
                     </div>
                     <div class="col-sm-3">
-                      <input type="date" class="form-control input-sm" id="endDate" name="end" required>
+                      <input type="date" class="form-control input-sm" id="endDate" name="end" value="{{ Session::get('end') }}" >
                     </div>
                     <div class="col-sm-2">
                       <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
@@ -64,7 +72,7 @@
               </div>
             </form>
 
-            <table id="exampletable" class="table table-striped" style="width:100%;white-space: nowrap">
+        <table id="exampletable" class="table table-striped" style="width:100%;white-space: nowrap">
               <thead>
                 <tr>
                   <th scope="col">Name</th>
@@ -75,6 +83,7 @@
                   <th scope="col">Destination</th>
                   <th scope="col">Book Number</th>
                   <th scope="col">Groups</th>
+                  <th scope="col">View</th>
                   <th scope="col">Date & Time</th>
                 </tr>
               </thead>
@@ -88,11 +97,14 @@
                     <td>{{ $list->address }}</td>
                     <td>{{ $list->destination }}</td>
                     <td>{{ $list->book_number }}</td>
-                    <td>{{ $list->groups }} 
-                      @if ($list->groups != "0")
+                    <td>{{ $list->groups }}<td>
+                    @if ($list->groups != "0")
                       <a href="/admin/log/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> </td>
-                      @endif
-                      <td>{{ $list->approve_td }}</td>
+                    @endif
+                    @if ($list->groups == "0")
+                      <a href="/admin/log/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye-slash"></i></a> </td>
+                    @endif
+                    <td>{{ $list->approve_td }}</td>
                   </tr>
                   @endforeach
               </tbody>

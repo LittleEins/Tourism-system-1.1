@@ -7,17 +7,21 @@ use App\Models\User;
 use App\Models\Book_data;
 use App\Models\Book_request;
 use App\Models\Approve;
+use App\Models\Approves_manual;
 use App\Models\Weekly_count;
 use App\Models\Map_location;
 use App\Models\staff_notification;
 use App\Models\User_notification;
 use App\Models\Admin_notification;
 use App\Models\Group_approve;
+use App\Models\Group_manual_approve;
 use App\Models\Reset_analytic;
 use App\Models\staff_alert;
 use App\Models\Daily_reset;
 use Illuminate\Support\Facades\Hash;
 use App\Exports\ReportExport;
+use App\Exports\GroupExport;
+use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 use DateTime;
@@ -807,8 +811,14 @@ class AdminController extends Controller
     function report_gen ()
     {
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-        $data['lists'] = Approve::paginate(10);
-        $data['locations'] = Map_location::get();
+         //get all data
+         $ap = Approve::get();
+         $m_ap = Approves_manual::get();
+
+         // merging object
+         $data['lists'] = $ap->merge($m_ap);
+
+        $data['locations'] = Map_location::where('type',1)->get();
 
         return view('admin.reports', $data);
     }
@@ -820,14 +830,15 @@ class AdminController extends Controller
         $start = $req->start;
         $end = $req->end;
 
+  
        
-        if (($req->start == "null") && ($req->end == "null"))
+        if (($req->start === null) && ($req->end == null))
         {
-            return Excel::download(new ReportExport(), 'reports.xlsx');
+            return Excel::download(new GroupExport(), 'reports.xlsx');
         }
         else 
         {
-            return Excel::download(new ReportExport($location,$start,$end), 'reports.xlsx');
+            return Excel::download(new GroupExport($location,$start,$end), 'reports.xlsx');
         }
     }
 
@@ -851,18 +862,43 @@ class AdminController extends Controller
     function search_report (Request $req)
     {
 
-        if (strtolower($req->locations) == "all")
+        if ((strtolower($req->locations) == "all") && ($req->from === null) && ($req->end === null))
         {
             $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-            $data['locations'] = Map_location::get();
+            $data['locations'] = Map_location::where('type',1)->get();
 
             $startDate = $req->from;
             $endDate = $req->end;
             $location = strtolower($req->locations);
     
-            //sql raw command query
-            $data['lists'] =  DB::select("SELECT * FROM approves
-            WHERE ap_date >= ? AND ap_date <= ?",[$startDate,$endDate]);
+                //get all data
+            $ap = Approve::get();
+            $m_ap = Approves_manual::get();
+
+            // merging object
+            $data['lists'] = $ap->merge($m_ap);
+
+            Session::flash('start', $startDate);
+            Session::flash('end', $endDate);
+            Session::flash('location', $location);
+    
+            return view('admin.reports', $data);
+        }
+        else if ((strtolower($req->locations) == "all") && ($req->from != null) && ($req->end != null))
+        {
+            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+            $data['locations'] = Map_location::where('type',1)->get();
+
+            $startDate = $req->from;
+            $endDate = $req->end;
+            $location = strtolower($req->locations);
+    
+                //get all data
+            $ap = Approve::whereBetween('ap_date',[$startDate,$endDate])->get();
+            $m_ap = Approves_manual::whereBetween('ap_date',[$startDate,$endDate])->get();
+
+            // merging object
+            $data['lists'] = $ap->merge($m_ap);
 
             Session::flash('start', $startDate);
             Session::flash('end', $endDate);
@@ -872,6 +908,7 @@ class AdminController extends Controller
         }
        else
        {
+        dd("selecte location");
             $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
             $data['locations'] = Map_location::get();
 
