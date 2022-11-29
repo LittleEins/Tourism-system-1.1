@@ -13,7 +13,7 @@ class GroupExport implements WithMultipleSheets
     private $start;
     private $end;
 
-    public function __construct (string $location, string $start, string $end)
+    public function __construct (string $location = null, string $start = null, string $end = null)
     {
         $this->location = $location;
         $this->start = $start;

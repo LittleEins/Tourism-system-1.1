@@ -29,6 +29,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     /**
     * @return \Illuminate\Support\Collection
     */
+    // Quering Data to sheet
     public function collection()
     {
         // $res = collect(DB::select('SELECT * FROM approves JOIN group_approves ON approves.book_number = group_approves.book_number WHERE destination = ? AND ap_date >= ? AND ap_date <= ?',[$this->location,$this->start,$this->end]));
@@ -36,21 +37,24 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
   
        
     // return  Approve::join('group_approves', 'approves.book_number', '=', 'group_approves.book_number')->get();
+    
+    if (($this->start === null) && ($this->end === null))
+    {
+        dd("null range");
+    }
+    else
+    {
+        dd("may range");
+    }
+    
     if ($this->sheetCount == "0")
     {
-        return $res = Approve::with('ap_group')->get();
-    }
-    else if ($this->sheetCount == "1")
-    {
-        return $res2 = Group_approve::get();
-    }
-    else if ($this->sheetCount == "2")
-    {
-
+        // return $res = Approve::with('ap_group')->get();
     }
     else
     {
 
+        // return $res2 = Group_approve::get();
         // $res = Approve::with('ap_group')->get();
         // $count3 = Approve::with('ap_group')->count();
        
@@ -100,6 +104,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
        
     }
 
+    // Mapping data want to put on sheet
     public function map($approve): array
     {
      
@@ -119,6 +124,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
         ];
     }
 
+    // Headings for Sheet
     public function headings(): array
     {
         return [
@@ -134,6 +140,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
         ];
     }
 
+    // font or style on sheet
     public function registerEvents(): array
     {
         return [
@@ -147,4 +154,10 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
             }
         ];
     }
+
+    // Sheet naming
+    // public function title(): stream_set_blocking
+    // {
+       
+    // }
 }
