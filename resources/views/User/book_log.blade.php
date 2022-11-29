@@ -75,14 +75,10 @@
                     </td>
                     <td data-title="Action">
                         @if ($list->status == "pending")
-                        <td>
                           <a href="/user/book/delete?id={{ $list->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></a> 
-                        </td>
                         @endif
                         @if ($list->status == "approve")
-                        <td>
                           <a href="/user/book/leave?id={{ $list->book_number }}" class="btn btn-danger"><i class="fa fa-taxi"></i></a> 
-                        </td>
                         @endif
                     @endif
                   </tr>
