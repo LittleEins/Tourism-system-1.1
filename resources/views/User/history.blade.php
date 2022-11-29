@@ -27,17 +27,17 @@
     <div class="container">
       <div class="container">
         <div class="row">
-          <div class="col-12">
-            <table class="table table-bordered" style="white-space: nowrap">
+          <div class="col-12 table-responsive" id="no-more-table">
+            <table class="table table-bordered">
               <thead>
                 <tr>
+                  <th scope="col">Ticket number</th>
                   <th scope="col">Name</th>
                   <th scope="col">Gender</th>
                   <th scope="col">Phone</th>
                   <th scope="col">Email</th>
                   <th scope="col">Address</th>
                   <th scope="col">Destination</th>
-                  <th scope="col">Book Number</th>
                   <th scope="col">Groups</th>
                   <th scope="col">Date & Time</th>
                 </tr>
@@ -45,18 +45,18 @@
                 <tbody>
                   @foreach($lists as $list)
                   <tr>
-                    <th scope="row">{{ $list->first_name }} {{ $list->last_name }}</th>
-                    <td>{{ $list->gender }}</td>
-                    <td>{{ $list->phone }}</td>
-                    <td>{{ $list->email }}</td>
-                    <td>{{ $list->address }}</td>
-                    <td>{{ $list->destination }}</td>
-                    <td>{{ $list->book_number }}</td>
-                    <td>{{ $list->groups }} 
+                    <td data-title="Book Number">{{ $list->book_number }}</td>
+                    <th data-title="Name">{{ $list->first_name }} {{ $list->last_name }}</th>
+                    <td data-title="Gender">{{ $list->gender }}</td>
+                    <td data-title="Phone">{{ $list->phone }}</td>
+                    <td data-title="Email">{{ $list->email }}</td>
+                    <td data-title="Address">{{ $list->address }}</td>
+                    <td data-title="Destination">{{ $list->destination }}</td>
+                    <td data-title="Groups">{{ $list->groups }} 
                       @if ($list->groups != "0")
                       <a href="/user/log/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> </td>
                       @endif
-                      <td>{{ $list->approve_td }}</td>
+                    <td data-title="Date & Time">{{ $list->approve_td }}</td>
                   </tr>
                   @endforeach
               </tbody>
