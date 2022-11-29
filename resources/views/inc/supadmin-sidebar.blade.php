@@ -11,7 +11,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('supAdmin.addmap') }}">
           <i class="bi bi-pin-map-fill"></i>
-          <span>Add Location</span>
+          <span>Manage Location</span>
         </a>
       </li>
 
