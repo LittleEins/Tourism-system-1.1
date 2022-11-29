@@ -42,7 +42,7 @@
                       <div class="container height-100 d-flex justify-content-center align-items-center" >
                         <div class="text-center">
                           <x-flash-message/>
-                          <p>Please bring this Ticket # to the location you are  going..</p>
+                          <p class="alert alert-success">Manual Entry Succesfully Added. Ticket #</p>
                           <div class="panel-body d-flex justify-content-center">
                               <div class="form-group">
                                 <div class="row">
@@ -54,7 +54,7 @@
                                 <div class="row">
                                   <div class="col-md-12 mb-3">
                                     <div class="btn btn-success add_item_btn">
-                                      <a class="text-white" href="{{ route('book_log') }}">Request log</a>
+                                      <a class="text-white" href="/staff/check/point">Back</a>
                                     </div>
                                   </div>
                                 </div>
