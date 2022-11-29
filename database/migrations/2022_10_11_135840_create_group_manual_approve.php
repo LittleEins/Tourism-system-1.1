@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('approves', function (Blueprint $table) {
+        Schema::create('group_manual_approves', function (Blueprint $table) {
             $table->id();
-            $table->string('booker_id');
             $table->string('user_id');
-            $table->string('stuff_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('destination');
@@ -25,8 +23,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->string('book_number');
-            $table->string('groups')->nullable();
-            $table->string('approve_td');
+            $table->string('time_leave');
             $table->timestamps();
         });
     }
@@ -38,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('approves');
+        Schema::dropIfExists('book_data');
     }
 };

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2022 at 02:45 PM
+-- Generation Time: Nov 29, 2022 at 01:00 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -80,7 +80,51 @@ INSERT INTO `approves` (`id`, `booker_id`, `user_id`, `staff_id`, `first_name`, 
 (164, '32', '32', '32', 'Moymoy', 'Palaboy', 'Falls', 'male', '09123456789', 'moymoy@gmail.com', 'Purok 6, Arnedo , Bolinao Pangasina', '784880', '1', 'manual', 'monday', 'November 28, 2022 2:22:pm  ', '2022-11-28', '2022-11-28 06:22:21', '2022-11-28 06:22:21'),
 (165, '229', '35', '23', 'Jester Einstein', 'Ibasan', 'Falls', 'male', '09667263323', 'jezteribasan@gmail.com', 'Purok 6, Arnedo , Bolinao Pangasina', '128632', '0', NULL, 'monday', 'November 28, 2022 2:29:pm  ', '2022-11-28', '2022-11-28 06:29:44', '2022-11-28 06:29:44'),
 (166, '230', '33', '23', 'Jasmine', 'zinampan', 'Falls', 'female', '09770988356', 'jasminezinampan30@gmail.com', 'Mabini , Pangasinan', '264408', '4', NULL, 'monday', 'November 28, 2022 2:31:pm  ', '2022-11-28', '2022-11-28 06:31:09', '2022-11-28 06:31:09'),
-(167, '231', '31', '32', 'Juan', 'Dela Cruz', 'Patar', 'male', '09198805134', 'jerhomereantaso8@gmail.com', 'Samang Norte', '236813', '4', NULL, 'monday', 'November 28, 2022 2:41:pm  ', '2022-11-28', '2022-11-28 06:41:10', '2022-11-28 06:41:10');
+(167, '231', '31', '32', 'Juan', 'Dela Cruz', 'Patar', 'male', '09198805134', 'jerhomereantaso8@gmail.com', 'Samang Norte', '236813', '4', NULL, 'monday', 'November 28, 2022 2:41:pm  ', '2022-11-28', '2022-11-28 06:41:10', '2022-11-28 06:41:10'),
+(168, '23', '23', '23', 'Jake', 'Reantaso', 'Falls', 'male', '093432423424', 'jerhom@gmail.com', 'fdgfdgdgf', '391880', 'solo', 'manual', 'tuesday', 'November 29, 2022 8:20:am  ', '2022-11-29', '2022-11-29 00:20:36', '2022-11-29 00:20:36'),
+(169, '23', '23', '23', 'xcvvdfds', 'dfsdf', 'Falls', 'male', '5654654645', 'jerhom@gmail.com', 'fdgfdgdgf', '889000', '1', 'manual', 'tuesday', 'November 29, 2022 8:26:am  ', '2022-11-29', '2022-11-29 00:26:42', '2022-11-29 00:26:42'),
+(170, '23', '23', '23', 'xcvvdfds', 'dfsdf', 'Falls', 'male', '5654654645', 'jerhom@gmail.com', 'fdgfdgdgf', '758918', '1', 'manual', 'tuesday', 'November 29, 2022 8:28:am  ', '2022-11-29', '2022-11-29 00:28:58', '2022-11-29 00:28:58'),
+(171, '23', '23', '23', 'xcvvdfds', 'dfsdf', 'Falls', 'male', '5654654645', 'jerhom@gmail.com', 'fdgfdgdgf', '771133', '1', 'manual', 'tuesday', 'November 29, 2022 8:30:am  ', '2022-11-29', '2022-11-29 00:30:50', '2022-11-29 00:30:50'),
+(172, '23', '23', '23', 'xcvvdfds', 'dfsdf', 'Falls', 'male', '5654654645', 'jerhom@gmail.com', 'fdgfdgdgf', '137618', '1', 'manual', 'tuesday', 'November 29, 2022 8:31:am  ', '2022-11-29', '2022-11-29 00:31:39', '2022-11-29 00:31:39'),
+(173, '233', '31', '23', 'Juan', 'Dela Cruz', 'Falls', 'male', '09198805134', 'jerhomereantaso8@gmail.com', 'Samang Norte', '674251', '0', NULL, 'tuesday', 'November 29, 2022 11:24:am  ', '2022-11-29', '2022-11-29 03:24:55', '2022-11-29 03:24:55'),
+(174, '23', '23', '23', 'gdfgdgfd', 'fgdfgfd', 'Falls', 'male', '5645645646', 'jerhom@gmail.com', 'fgdfgdfgdfgfffgdfgd', '365154', '1', 'manual', 'tuesday', 'November 29, 2022 11:32:am  ', '2022-11-29', '2022-11-29 03:32:54', '2022-11-29 03:32:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `approves_manuals`
+--
+
+CREATE TABLE `approves_manuals` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `booker_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `staff_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `destination` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `book_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time_leave` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `groups` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `day` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ap_date` date NOT NULL,
+  `approve_td` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ap_type` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `approves_manuals`
+--
+
+INSERT INTO `approves_manuals` (`id`, `booker_id`, `user_id`, `staff_id`, `first_name`, `last_name`, `destination`, `gender`, `email`, `phone`, `address`, `book_number`, `time_leave`, `groups`, `day`, `ap_date`, `approve_td`, `ap_type`, `created_at`, `updated_at`) VALUES
+(1, '23', '23', '23', 'fgfgdfgf', 'fggfdgdfg', 'Falls', 'male', 'jerhom@gmail.com', '7564564564', 'ghgfhfghfgf', '544134', '22:02', 'solo', 'tuesday', '2022-11-29', 'November 29, 2022 7:28:pm  ', 'manual', '2022-11-29 11:28:40', '2022-11-29 11:28:40'),
+(2, '23', '23', '23', 'fgfff', 'dfdsfd`', 'Falls', 'male', 'jerhom@gmail.com', '564565645654', 'gfghfghgfhfg', '502010', '12:30', '1', 'tuesday', '2022-11-29', 'November 29, 2022 7:33:pm  ', 'manual', '2022-11-29 11:33:57', '2022-11-29 11:33:57');
 
 -- --------------------------------------------------------
 
@@ -147,14 +191,6 @@ CREATE TABLE `book_requests` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `book_requests`
---
-
-INSERT INTO `book_requests` (`id`, `user_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `email`, `address`, `groups`, `book_number`, `status`, `time_date`, `created_at`, `updated_at`) VALUES
-(229, '35', 'Jester Einstein', 'Ibasan', 'Falls', 'male', '09667263323', 'jezteribasan@gmail.com', 'Purok 6, Arnedo , Bolinao Pangasina', 'solo', '128632', 'approve', 'November 28, 2022 2:28:pm  ', '2022-11-28 06:28:42', '2022-11-28 06:29:44'),
-(230, '33', 'Jasmine', 'zinampan', 'Falls', 'female', '09770988356', 'jasminezinampan30@gmail.com', 'Mabini , Pangasinan', '4', '264408', 'approve', 'November 28, 2022 2:30:pm  ', '2022-11-28 06:30:48', '2022-11-28 06:31:09');
-
 -- --------------------------------------------------------
 
 --
@@ -175,10 +211,10 @@ CREATE TABLE `daily_resets` (
 --
 
 INSERT INTO `daily_resets` (`id`, `user_id`, `today`, `tomorrow`, `created_at`, `updated_at`) VALUES
-(12, '31', '2022-11-28', '2022-11-29', '2022-11-26 14:16:41', '2022-11-27 16:09:07'),
-(13, '23', '2022-11-28', '2022-11-29', '2022-11-27 05:40:32', '2022-11-27 16:11:28'),
+(12, '31', '2022-11-29', '2022-11-30', '2022-11-26 14:16:41', '2022-11-29 00:33:11'),
+(13, '23', '2022-11-29', '2022-11-30', '2022-11-27 05:40:32', '2022-11-29 00:07:18'),
 (14, '25', '2022-11-27', '2022-11-28', '2022-11-27 05:46:16', '2022-11-27 05:46:16'),
-(15, '3', '2022-11-28', '2022-11-29', '2022-11-27 05:47:05', '2022-11-27 16:17:39'),
+(15, '3', '2022-11-29', '2022-11-30', '2022-11-27 05:47:05', '2022-11-29 02:41:34'),
 (16, '32', '2022-11-28', '2022-11-29', '2022-11-27 05:50:06', '2022-11-28 06:20:29'),
 (17, '33', '2022-11-28', '2022-11-29', '2022-11-28 06:23:41', '2022-11-28 06:23:41'),
 (18, '35', '2022-11-28', '2022-11-29', '2022-11-28 06:27:11', '2022-11-28 06:27:11');
@@ -240,7 +276,41 @@ INSERT INTO `group_approves` (`id`, `booker_id`, `first_name`, `last_name`, `des
 (75, '231', 'Jay', 'Cruz', 'Patar', 'male', NULL, 'QC Manila', '236813', 'November 28, 2022 2:39:pm  ', '2022-11-28', NULL, NULL),
 (76, '231', 'Elaisha', 'monte', 'Patar', 'female', NULL, 'QC Manila', '236813', 'November 28, 2022 2:39:pm  ', '2022-11-28', NULL, NULL),
 (77, '231', 'danlo', 'love', 'Patar', 'female', NULL, 'QC Manila', '236813', 'November 28, 2022 2:39:pm  ', '2022-11-28', NULL, NULL),
-(78, '231', 'teacher', 'love', 'Patar', 'female', NULL, 'QC Manila', '236813', 'November 28, 2022 2:39:pm  ', '2022-11-28', NULL, NULL);
+(78, '231', 'teacher', 'love', 'Patar', 'female', NULL, 'QC Manila', '236813', 'November 28, 2022 2:39:pm  ', '2022-11-28', NULL, NULL),
+(79, '23', 'fgdfgdfgd', 'fgfdgdfg', 'Falls', 'male', NULL, 'dgdfgdfgdf', '889000', 'November 29, 2022 8:26:am  ', NULL, NULL, NULL),
+(80, '23', 'fgdfgdfgd', 'fgfdgdfg', 'Falls', 'male', NULL, 'dgdfgdfgdf', '758918', 'November 29, 2022 8:28:am  ', NULL, NULL, NULL),
+(81, '23', 'fgdfgdfgd', 'fgfdgdfg', 'Falls', 'male', NULL, 'dgdfgdfgdf', '771133', 'November 29, 2022 8:30:am  ', NULL, NULL, NULL),
+(82, '23', 'fgdfgdfgd', 'fgfdgdfg', 'Falls', 'male', NULL, 'dgdfgdfgdf', '137618', 'November 29, 2022 8:31:am  ', NULL, NULL, NULL),
+(83, '23', 'dgsdfsd', 'bfdgdgd', 'Falls', 'male', NULL, 'vfgfd', '365154', 'November 29, 2022 11:32:am  ', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group_manual_approves`
+--
+
+CREATE TABLE `group_manual_approves` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `booker_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `destination` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `book_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time_leave` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time_date` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `group_manual_approves`
+--
+
+INSERT INTO `group_manual_approves` (`id`, `booker_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `address`, `book_number`, `time_leave`, `time_date`, `created_at`, `updated_at`) VALUES
+(1, '23', 'cffgdfg', 'fgdfgfgfd', 'Falls', 'female', NULL, 'fgfdgfdgfdgfdgfgf', '502010', '12:30', 'November 29, 2022 7:33:pm  ', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -267,8 +337,8 @@ CREATE TABLE `map_locations` (
 --
 
 INSERT INTO `map_locations` (`id`, `latitude`, `longitude`, `name`, `visit_count`, `total_visit`, `link`, `type`, `date`, `created_at`, `updated_at`) VALUES
-(18, '16.306320255841662', '119.85669989483964', 'Falls', '6', '6', '1', 1, 'November 21, 2022', '2022-11-16 23:00:53', '2022-11-26 23:12:05'),
-(19, '16.304605989070428', '119.78084923772767', 'Patar', '0', '5', '1', 1, 'November 19, 2022', '2022-11-19 05:46:10', '2022-11-27 22:42:51'),
+(18, '16.306320255841662', '119.85669989483964', 'Falls', '5', '5', '1', 1, 'November 21, 2022', '2022-11-16 23:00:53', '2022-11-28 19:25:41'),
+(19, '16.304605989070428', '119.78084923772767', 'Patar', '0', '0', '1', 1, 'November 19, 2022', '2022-11-19 05:46:10', '2022-11-27 22:42:51'),
 (21, '16.385095850998464', '119.89099412374158', 'Bolinao Seafood Grill', '0', '0', '1', 0, NULL, '2022-11-20 23:06:54', '2022-11-20 23:06:54');
 
 -- --------------------------------------------------------
@@ -315,7 +385,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (26, '2014_10_12_000000_rename_stuff_alerts', 21),
 (27, '2014_10_12_000000_rename_stuff_notifications', 22),
 (28, '2014_10_12_100000_create_daily_resets', 23),
-(29, '2014_10_12_100000_create_daily_reset', 24);
+(29, '2014_10_12_100000_create_daily_reset', 24),
+(30, '2022_10_11_135840_create_group_manual_approve', 25),
+(31, '2022_10_19_122642_create_approves_manual_table', 25),
+(32, '2022_10_18_071301_rename_book_number_to__book_requests_table', 26);
 
 -- --------------------------------------------------------
 
@@ -476,12 +549,13 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `phone`, `otp`, `email`, `
 (3, 'Tourism', 'Office', '09187705134', '247844', 'bolinaotourism@gmail.com', '', NULL, 'default-profile.png', NULL, 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '2', NULL, 'Tourism Office', NULL, '2022-10-17 06:53:09', '2022-10-17 06:53:36'),
 (23, 'Falls', 'CheckPoint', '09913183407', '515151', 'falls@gmail.com', NULL, NULL, 'color 2.PNG', '171', '5555', 0, '$2y$10$EsPiGHtXkbZXR1N3gyEG..wEBNb8SFceOzZNVEVWk0vt.79HCbWmi', '1', NULL, 'falls', NULL, '2022-11-16 23:07:28', '2022-11-25 03:20:17'),
 (25, 'Admin', 'Access', '09187705134', '247844', 'admin@gmail.com', '', NULL, 'default-profile.png', NULL, 'f17aec3f40caed18a558f4a58cbcffb23d72afee', 1, '$2y$10$9GP0mo4hQvl2ip9UBcXAi.2LS8aYLFtXskQG4m1fulJ9RDlsB64.C', '3', NULL, 'Supper Admin', NULL, '2022-10-17 06:53:09', '2022-10-17 06:53:36'),
-(31, 'Juan', 'Dela Cruz', '09198805134', '213994', 'jerhomereantaso8@gmail.com', 'male', 'Samang Norte', 'default-profile.png', NULL, '294cb7ed71d595977af6a21706f692526b83983e', 1, '$2y$10$VXrhYW5yFwmHOYPr0FNkrer8WPSTOro6Lh45885SyAx4fSjQVAiwW', '0', NULL, NULL, NULL, '2022-11-26 05:54:27', '2022-11-26 14:58:56'),
+(31, 'Juan', 'Dela Cruz', '09198805134', '213994', 'jerhomereantaso8@gmail.com', 'male', 'Samang Norte', 'IMG_20221128_131140.jpg', '7429766', '294cb7ed71d595977af6a21706f692526b83983e', 1, '$2y$10$VXrhYW5yFwmHOYPr0FNkrer8WPSTOro6Lh45885SyAx4fSjQVAiwW', '0', NULL, NULL, NULL, '2022-11-26 05:54:27', '2022-11-28 18:08:01'),
 (32, 'Patar', 'CheckPoint', '09913183407', '515151', 'patar@gmail.com', NULL, NULL, 'default-profile.png', NULL, '5555', 0, '$2y$10$7QeQg3bruf1SYmqF.el6qeq5l3YU2XBiYvYgxkZi/MHvn4UVM6sVK', '1', NULL, 'patar', NULL, '2022-11-26 21:47:39', '2022-11-26 21:49:29'),
 (33, 'Jasmine', 'zinampan', '09770988356', '791817', 'jasminezinampan30@gmail.com', 'female', 'Mabini , Pangasinan', 'default-profile.png', NULL, 'f6e735b9833aa08ab5574f109376f257af64455b', 1, '$2y$10$H0wg7dBKW4k1oSALMmsN3ekvxs1yJUMGGGwzw9JsABY9.oUkloavy', '0', NULL, NULL, NULL, '2022-11-27 22:21:38', '2022-11-27 22:27:52'),
 (34, 'Marcos', 'Hayway', '09123456789', '638734', 'marcos@gmail.com', NULL, NULL, 'default-profile.png', NULL, '0bcf3bf528566b3a36cc4d8bd459a904d889c829', 0, '$2y$10$g/QpL8K6uw5JE67n4DobBOADDXdKtqTp6b.aN2O022RkV4FjyQyzW', '0', NULL, NULL, NULL, '2022-11-27 22:24:25', '2022-11-27 22:24:25'),
 (35, 'Jester Einstein', 'Ibasan', '09667263323', '931420', 'jezteribasan@gmail.com', 'male', 'Purok 6, Arnedo , Bolinao Pangasina', 'default-profile.png', NULL, 'e4f042a89ab31d20daa5f7878dd27b6edf8cf23d', 0, '$2y$10$8wuFaRho1lmJaOLQGnLsDOK0kuNNAgeKEJQUDhwptAseZHqunrgvS', '0', NULL, NULL, NULL, '2022-11-27 22:25:52', '2022-11-27 22:27:38'),
-(36, 'dan', 'ganda', '09770988356', '425958', 'danilynbanogon@gmail.com', NULL, NULL, 'default-profile.png', NULL, '0531eb71b24f0bce9fbf5654587543f601fa0cce', 0, '$2y$10$jK7wzyNK1AR/bhcVtkYSXOM28l8TaiP1XlAYnIlOYTRgvxgm0u08a', '0', NULL, NULL, NULL, '2022-11-27 22:33:09', '2022-11-27 22:33:09');
+(36, 'dan', 'ganda', '09770988356', '425958', 'danilynbanogon@gmail.com', NULL, NULL, 'default-profile.png', NULL, '0531eb71b24f0bce9fbf5654587543f601fa0cce', 0, '$2y$10$jK7wzyNK1AR/bhcVtkYSXOM28l8TaiP1XlAYnIlOYTRgvxgm0u08a', '0', NULL, NULL, NULL, '2022-11-27 22:33:09', '2022-11-27 22:33:09'),
+(37, 'Jun', 'Piedad', '09511650330', '915585', 'harrisonopiedad@yahoo.com', NULL, NULL, 'default-profile.png', NULL, 'b2a5ddab31fbc06a6bf82a047ab9c60826753895', 0, '$2y$10$r3zlG3mX9eCkTvHVLxq/uenlR2KAffqyozQhyhubOTKcyWFO5eMYi', '0', NULL, NULL, NULL, '2022-11-28 19:21:24', '2022-11-28 19:21:24');
 
 -- --------------------------------------------------------
 
@@ -538,7 +612,7 @@ CREATE TABLE `weekly_counts` (
 INSERT INTO `weekly_counts` (`id`, `user_id`, `location`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`, `date`, `remember_token`, `created_at`, `updated_at`) VALUES
 (41, 2, 'falls', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-07 06:46:31', '2022-11-14 00:53:16'),
 (42, 10, 'patar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-11 12:28:48', '2022-11-12 13:51:52'),
-(43, 23, 'falls', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-17 15:11:23', '2022-11-28 06:31:09'),
+(43, 23, 'falls', '6', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-17 15:11:23', '2022-11-29 03:24:55'),
 (44, 24, 'patar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-19 14:02:11', '2022-11-19 14:02:11'),
 (45, 32, 'patar', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-27 05:50:24', '2022-11-28 06:41:10');
 
@@ -556,6 +630,12 @@ ALTER TABLE `admin_notifs`
 -- Indexes for table `approves`
 --
 ALTER TABLE `approves`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `approves_manuals`
+--
+ALTER TABLE `approves_manuals`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -587,6 +667,12 @@ ALTER TABLE `failed_jobs`
 -- Indexes for table `group_approves`
 --
 ALTER TABLE `group_approves`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `group_manual_approves`
+--
+ALTER TABLE `group_manual_approves`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -672,7 +758,13 @@ ALTER TABLE `admin_notifs`
 -- AUTO_INCREMENT for table `approves`
 --
 ALTER TABLE `approves`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+
+--
+-- AUTO_INCREMENT for table `approves_manuals`
+--
+ALTER TABLE `approves_manuals`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `book_datas`
@@ -684,7 +776,7 @@ ALTER TABLE `book_datas`
 -- AUTO_INCREMENT for table `book_requests`
 --
 ALTER TABLE `book_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
 
 --
 -- AUTO_INCREMENT for table `daily_resets`
@@ -702,7 +794,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `group_approves`
 --
 ALTER TABLE `group_approves`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+
+--
+-- AUTO_INCREMENT for table `group_manual_approves`
+--
+ALTER TABLE `group_manual_approves`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `map_locations`
@@ -714,7 +812,7 @@ ALTER TABLE `map_locations`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -750,7 +848,7 @@ ALTER TABLE `staff_notifications`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `user_notifications`

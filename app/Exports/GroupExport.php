@@ -25,7 +25,7 @@ class GroupExport implements WithMultipleSheets
         
         $sheets = [];
 
-        for ($sheetCount = 0; $sheetCount <= 1; $sheetCount++)
+        for ($sheetCount = 0; $sheetCount <= 3; $sheetCount++)
         {
             $sheets[] = new ReportExport($this->location,$this->start,$this->end, $sheetCount);
         }

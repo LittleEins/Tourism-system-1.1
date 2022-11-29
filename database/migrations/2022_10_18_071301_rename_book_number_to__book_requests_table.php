@@ -13,9 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('book_requests', function (Blueprint $table) {
-            $table->string('book_number')->after('address');
-        });
+        Schema::rename('approves_manual','approves_manuals');
     }
 
     /**

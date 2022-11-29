@@ -54,6 +54,13 @@
                                     </select>
                                     <x-error_style/>@error('password') {{$message}} @enderror</p>
                                   </div>
+                                  <div class="col-md -1mb-1 d-flex align-middle">
+                                    <p>Est. Time to Leave</p>
+                                    <div class="col-md-4 mb-1">
+                                      <input type="time" name="time_leave" required>
+                                      <x-error_style/>@error('time_leave') {{$message}} @enderror</p>
+                                    </div>
+                                  </div>
                                   <hr class="mt-2 mb-3"/>   
                                 </div>
                                 <div class="row">

@@ -40,10 +40,17 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     {
         return $res = Approve::with('ap_group')->get();
     }
+    else if ($this->sheetCount == "1")
+    {
+        return $res2 = Group_approve::get();
+    }
+    else if ($this->sheetCount == "2")
+    {
+
+    }
     else
     {
 
-        return $res2 = Group_approve::get();
         // $res = Approve::with('ap_group')->get();
         // $count3 = Approve::with('ap_group')->count();
        
