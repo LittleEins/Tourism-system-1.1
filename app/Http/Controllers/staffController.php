@@ -771,7 +771,8 @@ class staffController extends Controller
                          'address' =>$address[$i],
                          'book_number'=>$book_number,
                          'time_date' =>$time_date,
-                         'time_leave'=>$req->time_leave
+                         'time_leave'=>$req->time_leave,
+                         'ap_date' => date("Y-m-d"),
                      ];
  
                      DB::table('group_manual_approves')->insert($datasave);

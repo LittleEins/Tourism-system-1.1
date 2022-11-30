@@ -22,7 +22,6 @@ class GroupExport implements WithMultipleSheets
 
     public function sheets(): array
     {
-        
         $sheets = [];
 
         for ($sheetCount = 0; $sheetCount <= 3; $sheetCount++)
