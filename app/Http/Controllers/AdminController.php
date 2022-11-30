@@ -840,15 +840,12 @@ class AdminController extends Controller
         $start = $req->start;
         $end = $req->end;
 
-
-        if (($req->start === null) && ($req->end == null) && ($location == null) || ($location == "all"))
+        if ((($req->start == null) && ($req->end === null)) && (($location == null) || ($location == "all")))
         {
-            dd("all or null");
             return Excel::download(new GroupExport(), 'reports.xlsx');
         }
         else 
         {
-            dd("with range ");
             return Excel::download(new GroupExport($location,$start,$end), 'reports.xlsx');
         }
     }

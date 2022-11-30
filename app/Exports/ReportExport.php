@@ -3,15 +3,18 @@
 namespace App\Exports;
 
 use App\Models\Approve;
+use App\Models\Approves_manual;
 use App\Models\Group_approve;
+use App\Models\Group_manual_approve;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings, WithEvents
+class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings, WithEvents, WithTitle
 {
     private $location;
     public $start;
@@ -32,13 +35,84 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     // Quering Data to sheet
     public function collection()
     {
-        if ($this->location == "all" || $this->location == null)
+        if (($this->location == "all" || $this->location == null) && ($this->start == null && $this->end == null))
         {
-            dd("all");
+            if ($this->sheetCount == "0")
+            {
+                return Approve::get();
+            }
+            else if ($this->sheetCount == "1")
+            {
+                return Group_approve::get();
+            }
+            else if ($this->sheetCount == "2")
+            {
+                return Approves_manual::get();
+            } 
+            else
+            {
+                return Group_manual_approve::get();
+            }
+        }
+        else if (($this->location == "all" || $this->location == null) && ($this->start != null && $this->end != null))
+        {
+            if ($this->sheetCount == "0")
+            {
+                return Approve::whereBetween('ap_date',[$this->start,$this->end])->get();
+            }
+            else if ($this->sheetCount == "1")
+            {
+                return Group_approve::whereBetween('ap_date',[$this->start,$this->end])->get();
+            }
+            else if ($this->sheetCount == "2")
+            {
+                return Approves_manual::whereBetween('ap_date',[$this->start,$this->end])->get();
+            } 
+            else
+            {
+                return Group_manual_approve::whereBetween('ap_date',[$this->start,$this->end])->get();
+            }
         }
         else
         {
-            dd("not all");
+            if (($this->start === null) && ($this->end === null))
+            {
+                if ($this->sheetCount == "0")
+                {
+                    return Approve::where('destination',ucfirst($this->location))->get();
+                }
+                else if ($this->sheetCount == "1")
+                {
+                    return Group_approve::where('destination',ucfirst($this->location))->get();
+                }
+                else if ($this->sheetCount == "2")
+                {
+                    return Approves_manual::where('destination',ucfirst($this->location))->get();
+                } 
+                else
+                {
+                    return Group_manual_approve::where('destination',ucfirst($this->location))->get();
+                }
+            }
+            else
+            {
+                if ($this->sheetCount == "0")
+                {
+                    return Approve::where('destination',ucfirst($this->location))->whereBetween('ap_date',[$this->start,$this->end])->get();
+                }
+                else if ($this->sheetCount == "1")
+                {
+                    return Group_approve::where('destination',ucfirst($this->location))->whereBetween('ap_date',[$this->start,$this->end])->get();
+                }
+                else if ($this->sheetCount == "2")
+                {
+                    return Approves_manual::where('destination',ucfirst($this->location))->whereBetween('ap_date',[$this->start,$this->end])->get();
+                } 
+                else
+                {
+                    return Group_manual_approve::where('destination',ucfirst($this->location))->whereBetween('ap_date',[$this->start,$this->end])->get();
+                }
+            }
         }
         
     }
@@ -95,8 +169,23 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     }
 
     // Sheet naming
-    // public function title(): stream_set_blocking
-    // {
-       
-    // }
+    public function title(): string
+    {
+        if ($this->sheetCount == "0")
+        {
+            return "System Approves";
+        }
+        else if ($this->sheetCount == "1")
+        {
+            return "System Approve Group";
+        }
+        else if ($this->sheetCount == "2")
+        {
+            return "Manual Approve";
+        } 
+        else
+        {
+            return "Manual Approve Groups";
+        }
+    }
 }
