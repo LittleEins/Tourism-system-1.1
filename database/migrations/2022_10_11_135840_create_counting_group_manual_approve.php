@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('group_manual_approves', function (Blueprint $table) {
+        Schema::create('counting_group_manual_approves', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
             $table->string('first_name');
@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('address');
             $table->string('book_number');
             $table->string('time_leave');
+            $table->string('ap_date');
+            $table->string('time_date');
             $table->timestamps();
         });
     }

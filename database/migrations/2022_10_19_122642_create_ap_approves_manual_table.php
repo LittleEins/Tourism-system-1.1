@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('approves_manual', function (Blueprint $table) {
+        Schema::create('ap_approves_manuals', function (Blueprint $table) {
             $table->id();
             $table->string('booker_id');
             $table->string('user_id');
@@ -22,11 +22,15 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('destination');
             $table->string('gender');
+            $table->string('email');
             $table->string('phone');
             $table->string('address');
             $table->string('book_number');
             $table->string('time_leave');
             $table->string('groups')->nullable();
+            $table->string('day');
+            $table->string('ap_date');
+            $table->string('ap_type');
             $table->string('approve_td');
             $table->timestamps();
         });
