@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::rename('approves_manual','approves_manuals');
+        Schema::rename('counting_group_manual_approves','counting_group_approves');
     }
 
     /**
