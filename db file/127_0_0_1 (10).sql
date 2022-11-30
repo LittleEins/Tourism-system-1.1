@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2022 at 01:00 PM
+-- Generation Time: Nov 30, 2022 at 07:53 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -41,6 +41,15 @@ CREATE TABLE `admin_notifs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admin_notifs`
+--
+
+INSERT INTO `admin_notifs` (`id`, `sender`, `type`, `message`, `status`, `sendto`, `time`, `date`, `created_at`, `updated_at`) VALUES
+(10, 'Tourism Office', 'normal', 'fgfgdfg', 'unread', 'all_staffs', '11:56:pm', 'November 29, 2022', '2022-11-29 15:56:51', '2022-11-29 15:56:51'),
+(11, 'Tourism Office', 'alert', 'ghfghfgh', 'unread', 'all_staffs', '11:58:pm', 'November 29, 2022', '2022-11-29 15:58:17', '2022-11-29 15:58:17'),
+(12, 'Tourism Office', 'alert', 'fgfdgfd', 'unread', 'all_staffs', '12:27:am', 'November 30, 2022', '2022-11-29 16:27:40', '2022-11-29 16:27:40');
 
 -- --------------------------------------------------------
 
@@ -123,8 +132,8 @@ CREATE TABLE `approves_manuals` (
 --
 
 INSERT INTO `approves_manuals` (`id`, `booker_id`, `user_id`, `staff_id`, `first_name`, `last_name`, `destination`, `gender`, `email`, `phone`, `address`, `book_number`, `time_leave`, `groups`, `day`, `ap_date`, `approve_td`, `ap_type`, `created_at`, `updated_at`) VALUES
-(1, '23', '23', '23', 'fgfgdfgf', 'fggfdgdfg', 'Falls', 'male', 'jerhom@gmail.com', '7564564564', 'ghgfhfghfgf', '544134', '22:02', 'solo', 'tuesday', '2022-11-29', 'November 29, 2022 7:28:pm  ', 'manual', '2022-11-29 11:28:40', '2022-11-29 11:28:40'),
-(2, '23', '23', '23', 'fgfff', 'dfdsfd`', 'Falls', 'male', 'jerhom@gmail.com', '564565645654', 'gfghfghgfhfg', '502010', '12:30', '1', 'tuesday', '2022-11-29', 'November 29, 2022 7:33:pm  ', 'manual', '2022-11-29 11:33:57', '2022-11-29 11:33:57');
+(1, '23', '23', '23', 'fgfgdfgf', 'fggfdgdfg', 'Falls', 'male', 'jerhom@gmail.com', '7564564564', 'ghgfhfghfgf', '544134', '9', 'solo', 'tuesday', '2022-11-29', 'November 29, 2022 7:28:pm  ', 'manual', '2022-11-29 11:28:40', '2022-11-29 11:28:40'),
+(2, '23', '23', '23', 'fgfff', 'dfdsfd`', 'Falls', 'male', 'jerhom@gmail.com', '564565645654', 'gfghfghgfhfg', '502010', '8', '1', 'tuesday', '2022-11-29', 'November 29, 2022 7:33:pm  ', 'manual', '2022-11-29 11:33:57', '2022-11-29 11:33:57');
 
 -- --------------------------------------------------------
 
@@ -211,10 +220,10 @@ CREATE TABLE `daily_resets` (
 --
 
 INSERT INTO `daily_resets` (`id`, `user_id`, `today`, `tomorrow`, `created_at`, `updated_at`) VALUES
-(12, '31', '2022-11-29', '2022-11-30', '2022-11-26 14:16:41', '2022-11-29 00:33:11'),
-(13, '23', '2022-11-29', '2022-11-30', '2022-11-27 05:40:32', '2022-11-29 00:07:18'),
+(12, '31', '2022-11-30', '2022-12-01', '2022-11-26 14:16:41', '2022-11-29 16:03:37'),
+(13, '23', '2022-11-30', '2022-12-01', '2022-11-27 05:40:32', '2022-11-30 03:31:27'),
 (14, '25', '2022-11-27', '2022-11-28', '2022-11-27 05:46:16', '2022-11-27 05:46:16'),
-(15, '3', '2022-11-29', '2022-11-30', '2022-11-27 05:47:05', '2022-11-29 02:41:34'),
+(15, '3', '2022-11-30', '2022-12-01', '2022-11-27 05:47:05', '2022-11-30 00:50:48'),
 (16, '32', '2022-11-28', '2022-11-29', '2022-11-27 05:50:06', '2022-11-28 06:20:29'),
 (17, '33', '2022-11-28', '2022-11-29', '2022-11-28 06:23:41', '2022-11-28 06:23:41'),
 (18, '35', '2022-11-28', '2022-11-29', '2022-11-28 06:27:11', '2022-11-28 06:27:11');
@@ -300,6 +309,7 @@ CREATE TABLE `group_manual_approves` (
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `book_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `time_leave` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ap_date` date DEFAULT NULL,
   `time_date` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -309,8 +319,8 @@ CREATE TABLE `group_manual_approves` (
 -- Dumping data for table `group_manual_approves`
 --
 
-INSERT INTO `group_manual_approves` (`id`, `booker_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `address`, `book_number`, `time_leave`, `time_date`, `created_at`, `updated_at`) VALUES
-(1, '23', 'cffgdfg', 'fgdfgfgfd', 'Falls', 'female', NULL, 'fgfdgfdgfdgfdgfgf', '502010', '12:30', 'November 29, 2022 7:33:pm  ', NULL, NULL);
+INSERT INTO `group_manual_approves` (`id`, `booker_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `address`, `book_number`, `time_leave`, `ap_date`, `time_date`, `created_at`, `updated_at`) VALUES
+(1, '23', 'cffgdfg', 'fgdfgfgfd', 'Falls', 'female', NULL, 'fgfdgfdgfdgfdgfgf', '502010', '11', NULL, 'November 29, 2022 7:33:pm  ', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -337,7 +347,7 @@ CREATE TABLE `map_locations` (
 --
 
 INSERT INTO `map_locations` (`id`, `latitude`, `longitude`, `name`, `visit_count`, `total_visit`, `link`, `type`, `date`, `created_at`, `updated_at`) VALUES
-(18, '16.306320255841662', '119.85669989483964', 'Falls', '5', '5', '1', 1, 'November 21, 2022', '2022-11-16 23:00:53', '2022-11-28 19:25:41'),
+(18, '16.306320255841662', '119.85669989483964', 'Falls', '0', '0', '1', 1, 'November 21, 2022', '2022-11-16 23:00:53', '2022-11-28 19:25:41'),
 (19, '16.304605989070428', '119.78084923772767', 'Patar', '0', '0', '1', 1, 'November 19, 2022', '2022-11-19 05:46:10', '2022-11-27 22:42:51'),
 (21, '16.385095850998464', '119.89099412374158', 'Bolinao Seafood Grill', '0', '0', '1', 0, NULL, '2022-11-20 23:06:54', '2022-11-20 23:06:54');
 
@@ -487,6 +497,16 @@ CREATE TABLE `staff_alerts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `staff_alerts`
+--
+
+INSERT INTO `staff_alerts` (`id`, `sender`, `type`, `message`, `status`, `sendto`, `time`, `date`, `created_at`, `updated_at`) VALUES
+(11, 'Tourism Office', 'normal', 'staff', 'unread', 'all_staffs', '11:07:pm', 'November 29, 2022', '2022-11-29 15:07:28', '2022-11-29 15:07:28'),
+(12, 'Tourism Office', 'normal', 'fgfdgdf', 'unread', 'all_staffs', '11:52:pm', 'November 29, 2022', '2022-11-29 15:52:11', '2022-11-29 15:52:11'),
+(13, 'Tourism Office', 'normal', 'fgfdgdf', 'unread', 'all_staffs', '11:52:pm', 'November 29, 2022', '2022-11-29 15:52:33', '2022-11-29 15:52:33'),
+(14, 'Tourism Office', 'normal', 'fgfgdfg', 'seen', 'all_staffs', '11:53:pm', 'November 29, 2022', '2022-11-29 15:53:08', '2022-11-29 15:53:08');
 
 -- --------------------------------------------------------
 
@@ -752,7 +772,7 @@ ALTER TABLE `weekly_counts`
 -- AUTO_INCREMENT for table `admin_notifs`
 --
 ALTER TABLE `admin_notifs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `approves`
@@ -836,7 +856,7 @@ ALTER TABLE `reset_analytics`
 -- AUTO_INCREMENT for table `staff_alerts`
 --
 ALTER TABLE `staff_alerts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `staff_notifications`
