@@ -1,7 +1,7 @@
 
 $(document).ready(function ()
 {
-    setInterval(dashboard, 1000);
+    setInterval(dashboard, 3000);
     book_count();
 
 
