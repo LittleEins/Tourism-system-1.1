@@ -131,7 +131,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
             $approve->address,
             $approve->destination,
             $approve->book_number,
-            $approve->groups,
+           // $approve->groups,
             $approve->approve_td,
 
         ];
@@ -141,6 +141,7 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     public function headings(): array
     {
         return [
+            'ID',
             'LAST NAME',
             'FIRST NAME',
             'GENDER',
