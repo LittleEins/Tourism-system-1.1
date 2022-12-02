@@ -31,7 +31,17 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body">
-                <div id="map" style="width: 100%; height: 400px;"></div>
+                <div class="card-title">
+                  <h4 id="mapHover">Locations</h4>
+                  <div>
+                    @for($i=0;$i < $count; $i++)
+    
+                     <a href="" id="{{ $location[$i]->name }}" class="btn btn-primary">{{ $location[$i]->name }}</a>
+                    
+                    @endfor
+                  </div>
+                </div>
+                <div id="map" class="card-img-bottom" style="width: 100%; height: 400px;"></div>
               </div>
             </div>
           </div><!-- End Map -->
