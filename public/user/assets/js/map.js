@@ -2,6 +2,7 @@ const apiKey = 'pk.eyJ1IjoiamVyaG9tZTEyIiwiYSI6ImNsOHpkeWk4MTBsNHYzb3A0aXhwM3N2O
 
 $(document).ready(function ()
 {
+
     load_map();
 
     var myMap = L.map('map', {
@@ -47,6 +48,7 @@ $(document).ready(function ()
    <div><a href='https://goo.gl/maps/Jb6MPWpCgaXXu739A'>Visit</a>\
    </div>");
 
+
     function load_map ()
     {
         $.ajax ({
@@ -55,26 +57,62 @@ $(document).ready(function ()
             dataType: "json",
             success: function (response) 
             {
-                
     
                 let l = response.locations.length;
+
+                var mapHover = document.querySelector('#mapHover');
+
                 for (let i = 0; i < l; i++)
                 {
                     var name = response.locations[i].name;
                     var names = name;
                     var count_visit = response.locations[i].visit_count;
-    
+
+                    var locName = document.querySelector('#'+response.locations[i].name+'');
+
                     
                     // Mark
-                  var name = L.marker([response.locations[i].latitude, response.locations[i].longitude]).addTo(myMap);
+                    var name = L.marker([response.locations[i].latitude, response.locations[i].longitude]).addTo(myMap);
     
-                     // circle on map
-                    L.circle([response.locations[i].latitude, response.locations[i].longitude], {
+                    // side text
+                    var toollip = L.tooltip({
+                        permanent: true
+                    }).setContent(response.locations[i].visit_count);
+
+                    name.bindTooltip(toollip);
+
+                    //  circle on map
+                    var vir_map = L.circle([response.locations[i].latitude, response.locations[i].longitude], {
                         color: 'red',
                         fillColor: '#f03',
                         fillOpacity: 0.5,
                         radius: 500
                     }).addTo(myMap);
+
+                    // var circle = L.circle([response.locations[i].latitude, response.locations[i].longitude], 500, {
+                    //     color: 'red',
+                    //     fillColor: '#f03',
+                    //     fillOpacity: 0.5
+                    // }).addTo(myMap);
+                    
+                    // var myZoom = {
+                    //   start:  myMap.getZoom(),
+                    //   end: myMap.getZoom()
+                    // };
+                    
+                    // myMap.on('zoomstart', function(e) {
+                    //    myZoom.start = myMap.getZoom();
+                    // });
+                    
+                    // myMap.on('zoomend', function(e) {
+                    //     myZoom.end = myMap.getZoom();
+                    //     var diff = myZoom.start - myZoom.end;
+                    //     if (diff > 0) {
+                    //         circle.setRadius(circle.getRadius() * 2);
+                    //     } else if (diff < 0) {
+                    //         circle.setRadius(circle.getRadius() / 2);
+                    //     }
+                    // });
     
                     // add text circle
                     var tundol = L.divIcon({
@@ -94,7 +132,7 @@ $(document).ready(function ()
                     {
                         name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
                         <div style='font-size: 10px;'>"+names+" Visited</div>\
-                        <div>"+response.locations[i].visit_count+"\
+                        <div><img src='/user/assets/img/download.jpg' style='height:100px; width: 100px'></div\
                         </div>");
                     }
                     else
@@ -104,6 +142,18 @@ $(document).ready(function ()
                         <div>\
                         </div>");
                     }
+
+                    // zoom in
+                    locName.addEventListener("mouseover", ()=>
+                    {
+                       
+                        myMap.flyTo([response.locations[i].latitude, response.locations[i].longitude], 14);
+
+                    },false);
+
+                    mapHover.addEventListener("mouseover", ()=>{
+                        myMap.flyTo([16.3398435,119.8216285], 11);
+                    },false);
                 }
             }
         });
