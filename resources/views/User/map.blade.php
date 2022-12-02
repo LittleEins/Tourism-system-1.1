@@ -36,7 +36,7 @@
                   <div>
                     @for($i=0;$i < $count; $i++)
     
-                     <a href="" id="{{ $location[$i]->name }}" class="btn btn-primary">{{ $location[$i]->name }}</a>
+                     <a href="#" id="{{ $location[$i]->name }}" class="btn btn-primary">{{ $location[$i]->name }}</a>
                     
                     @endfor
                   </div>
