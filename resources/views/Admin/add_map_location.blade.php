@@ -36,34 +36,54 @@
             </button>
           </div>
           <div id="add_success"></div>
-          <div class="modal-body">
+          <form id="addLoc" method="post" enctype="multipart/form-data">
+            <div class="modal-body">
 
-            <div class="form-group mb3">
-              <label for="">Location Name</label>
-              <input type="text" class="name form-control">
-              <x-error_style/><span id="err_name"></span></p>
-            </div>
+              @csrf
+              <div class="form-group mb3">
+                <label for="">Location Name</label>
+                <input type="text" name="name" class="name form-control">
+                <x-error_style/><span id="err_name"></span></p>
+              </div>
 
-            <div class="form-group mb3">
-              <label for="">Latitude</label>
-              <input type="text" class="latitude form-control">
-              <x-error_style/><span id="err_latitude"></span></p>
-            </div>
+              <div class="form-group mb3">
+                <label for="">Latitude</label>
+                <input type="text" name="latitude" class="latitude form-control">
+                <x-error_style/><span id="err_latitude"></span></p>
+              </div>
 
-            <div class="form-group mb3">
-              <label for="">Longitude</label>
-              <input type="text" class="longitude form-control">
-              <x-error_style/><span id="err_longitude"></span></p>
+              <div class="form-group mb3">
+                <label for="">Longitude</label>
+                <input type="text" name="longitude" class="longitude form-control">
+                <x-error_style/><span id="err_longitude"></span></p>
+              </div>
+
+              <div class="form-group mb3">
+                <label for="">Image</label>
+                <input type="file" name="img" class="img form-control">
+                <x-error_style/><span id="err_img"></span></p>
+              </div>
+
+              <div class="form-group mb3">
+                <label for="">Color</label>
+                <input type="color" name="color" class="color form-control">
+                <x-error_style/><span id="err_color"></span></p>
+              </div>
+              
+              <div class="form-check">
+                <input class="pin_type form-check-input pin" type="checkbox" value="" id="flexCheckDefault" />
+                <label class="form-check-label" for="flexCheckDefault">Pin only</label>
+              </div>
+
+              <div class="form-group mb3" id="url">
+              </div>
+
             </div>
-            <div class="form-check">
-              <input class="pin_type form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-              <label class="form-check-label" for="flexCheckDefault">Pin only</label>
+            <div class="modal-footer" id="modal_btn">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary ">Save changes</button>
             </div>
-          </div>
-          <div class="modal-footer" id="modal_btn">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary add_location">Save changes</button>
-          </div>
+        </form>
         </div>
       </div>
     </div>

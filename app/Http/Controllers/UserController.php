@@ -680,7 +680,7 @@ class UserController extends Controller
 
     function map_locations ()
     {
-        $locations = Map_location::get(['id','name', 'latitude','longitude','visit_count','type']);
+        $locations = Map_location::get();
 
         return response()->json([
             'locations' => $locations,

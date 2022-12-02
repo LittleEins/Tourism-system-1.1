@@ -628,9 +628,10 @@ class AdminController extends Controller
 
         // validator
         $validate = \Validator::make($req->all(), [
-            'name' => 'required|max:255 | unique:map_locations',
+            'name' => 'required|max:255 | unique:map_locations', 
             'latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],    
-            'longitude' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/']
+            'longitude' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'img' => 'image| mimes:jpeg,png,jpg|max:2048',
         ]);
 
         if ($validate->fails())
@@ -644,6 +645,7 @@ class AdminController extends Controller
         { 
             if ($req->input('pin_type') == 'true')
             {
+                // loc only
                 $add_location = new Map_location;
                 $add_location->name = ucfirst($req->input('name'));
                 $add_location->latitude = $req->input('latitude');
@@ -651,6 +653,18 @@ class AdminController extends Controller
                 $add_location->visit_count = "0";
                 $add_location->link = "1";
                 $add_location->type = 0;
+
+                // check if have file upload in insert to db
+                if ($req->hasFile('img'))
+                {
+                    $file = $req->file('img');
+                    $extention = $file->getClientOriginalExtension();
+                    $filename = time() . '.' .$extention;
+                    $file->move('/user/assets/map_img/',$filename);
+                    $add_location->img_name = $filename;
+                }
+
+                $add_location->color = $req->input('color');
                 $add_location->save();
                 
     
@@ -661,13 +675,27 @@ class AdminController extends Controller
             }
             else
             {
+                // pin
                 $add_location = new Map_location;
                 $add_location->name = ucfirst($req->input('name'));
                 $add_location->latitude = $req->input('latitude');
                 $add_location->longitude = $req->input('longitude');
                 $add_location->visit_count = "0";
                 $add_location->type = 1;
-                $add_location->save();
+                
+                 // check if have file upload in insert to db
+                 if ($req->hasFile('img'))
+                 {
+                     $file = $req->file('img');
+                     $extention = $file->getClientOriginalExtension();
+                     $filename = time() . '.' .$extention;
+                     $file->move('user/assets/map_img/',$filename);
+                     $add_location->img_name = $filename;
+                 }
+ 
+                 $add_location->color = $req->input('color');
+                 $add_location->link_url = $req->input('url');
+                 $add_location->save();
                 
     
                 return response()->json([
