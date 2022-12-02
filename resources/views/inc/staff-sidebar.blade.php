@@ -9,11 +9,11 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/staff/alert/notifications">
+        <a class="nav-link collapsed" href="/staff/view/all">
           <i class="bi bi-exclamation-diamond"></i>
-          <span>Manage Notification</span>
+          <span>Notification</span>
         </a>
-      </li><!-- Map Page Nav -->
+      </li>
 
 
       <li class="nav-item">

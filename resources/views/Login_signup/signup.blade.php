@@ -35,8 +35,22 @@
                     </div>
                     <div class="form-group">
                       <label for="phone" class="sr-only">Phone</label>
-                      <input type="text" name="phone" class="form-control" placeholder="Phone" value="{{ old('phone') }}">
+                      <input type="number" name="phone" class="form-control" placeholder="Phone" value="{{ old('phone') }}">
                       <x-error_style/>@error('phone') {{$message}} @enderror</p>
+                    </div>
+                    <div class="form-group mb-4 ">
+                      <label for="gender" class="sr-only">Gender</label>
+                      <select name="gender" id="gender" class="container px-3 py-2" value="{{ old('gender') }}">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </select>
+                      <x-error_style/>@error('gender') {{$message}} @enderror</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="address" class="sr-only">Address</label>
+                      <input type="text" name="address" class="form-control" placeholder="Address" value="{{ old('address') }}">
+                      <x-error_style/>@error('address') {{$message}} @enderror</p>
                     </div>
                     <div class="form-group mb-4">
                       <label for="password" class="sr-only">Password</label>

@@ -28,7 +28,7 @@
                           <button type="submit" class="btn btn-danger px-4 validate">Verify</button> 
                         </div>
                         <div class="mt-4 mb-2">
-                          <p>Receive email verification? <a href="http://127.0.0.1:8000/resend/emailverification?id={{ Session::get('id')}}">re-send</a></p>
+                          <p>Receive email verification? <a href="/resend/emailverification?id={{ Session::get('id')}}">re-send</a></p>
                         </div>
                       </div>
                     </div>

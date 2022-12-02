@@ -118,6 +118,7 @@ class MainController extends Controller
             'last_name' => 'required | min: 2',
             'phone' => 'required | min: 11',
             'email' => 'required | email | unique:users',
+            'address' => 'required',
             'password' => 'required | confirmed | min:8 ',
         ]);
 
@@ -130,6 +131,8 @@ class MainController extends Controller
         $data->last_name = $req->last_name;
         $data->email = $req->email;
         $data->phone = $req->phone;
+        $data->gender = $req->gender;
+        $data->address = $req->address;
         $data->img_name = "default-profile.png";
         $data->otp = $otp;
         $data->password = hash::make($req->password);

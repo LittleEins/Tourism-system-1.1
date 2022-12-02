@@ -711,10 +711,21 @@ class AdminController extends Controller
 
     function delete_location (Request $req)
     {
-        $delete = Map_location::where('id','=', $req->id)->delete();
-        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $location = Map_location::find($req->id);
+        if ($location)
+        {
+            // delete the img of map
+            $path = 'user/assets/map_img/'.$location->img_name;
+            if(File::exists($path))
+            {
+                File::delete($path);
+            }
+
+            $delete = Map_location::where('id','=', $req->id)->delete();
+            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
         return view('admin.add_map_location', $data);
+        }
     }
 
     function fetch_account ()
