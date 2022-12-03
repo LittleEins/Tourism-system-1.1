@@ -83,7 +83,7 @@ $(document).ready(function ()
 
                     //  circle on map
                     var vir_map = L.circle([response.locations[i].latitude, response.locations[i].longitude], {
-                        color: 'red',
+                        color: response.locations[i].color,
                         fillColor: '#f03',
                         fillOpacity: 0.5,
                         radius: 500
@@ -131,15 +131,15 @@ $(document).ready(function ()
                     if (response.locations[i].type == '1')
                     {
                         name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                        <div style='font-size: 10px;'>"+names+" Visited</div>\
-                        <div><img src='/user/assets/img/download.jpg' style='height:100px; width: 100px'></div\
+                        <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
+                        <div><img src='/user/assets/map_img/"+response.locations[i].img_name+"' style='height:100px; width: 100px'></div\
                         </div>");
                     }
                     else
                     {
                         name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                        <div style='font-size: 10px;'>"+names+" Visited</div>\
-                        <div>\
+                        <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
+                        <div><a href='"+response.locations[i].link_url+"'>Visit</a>\
                         </div>");
                     }
 

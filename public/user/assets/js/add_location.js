@@ -31,16 +31,35 @@ $(document).ready(function ()
         });
     }
 
-    $(document).on('click','.add_location', function (e)
+    // pin url
+    $(document).on('click','.pin', function (e)
+    {
+        $('#url').html("");
+        if ($('#flexCheckDefault').is(':checked'))
+        {
+            $('#url').append('<input type="url" name="url" class="url form-control" placeholder="Url">\
+            <x-error_style/><span id="err_url"></span></p>');
+        }
+        else
+        {
+            $('#url').html(" ");
+        }
+    });
+
+    // insert location to map
+    $(document).on('submit','#addLoc', function (e)
     {
         e.preventDefault();
 
-        var data = {
-            'name': $('.name').val(),
-            'latitude': $('.latitude').val(),
-            'longitude': $('.longitude').val(),
-            'pin_type': $('#flexCheckDefault').is(':checked'),
-        }
+        var formData = new FormData($('#addLoc')[0]);
+
+        console.log(formData);
+        // var data = {
+        //     'name': $('.name').val(),
+        //     'latitude': $('.latitude').val(),
+        //     'longitude': $('.longitude').val(),
+        //     'pin_type': $('#flexCheckDefault').is(':checked'),
+        // }
         
         $.ajaxSetup({
             headers: {
@@ -51,15 +70,14 @@ $(document).ready(function ()
         $.ajax ({
             type: "POST",
             url: "/addlocation",
-            data: data,
-            dataType: "json",
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function (response) 
             {
-               
                 //get response
                 if (response.status == 400)
                 {
-                    console.log('error');
                     $('#err_name').html("");
                     $('#err_latitude').html("");
                     $('#err_longitude').html("");
@@ -67,6 +85,7 @@ $(document).ready(function ()
                     $('#err_name').append(response.errors.name);
                     $('#err_latitude').append(response.errors.latitude);
                     $('#err_longitude').append(response.errors.longitude);
+                    $('#err_img').append(response.errors.img);
 
           
                 }

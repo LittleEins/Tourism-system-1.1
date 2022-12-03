@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2022 at 03:22 PM
+-- Generation Time: Dec 02, 2022 at 11:52 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -98,13 +98,6 @@ CREATE TABLE `approves_manuals` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `approves_manuals`
---
-
-INSERT INTO `approves_manuals` (`id`, `booker_id`, `user_id`, `staff_id`, `first_name`, `last_name`, `destination`, `gender`, `email`, `phone`, `address`, `book_number`, `time_leave`, `groups`, `day`, `ap_date`, `approve_td`, `ap_type`, `created_at`, `updated_at`) VALUES
-(7, '23', '23', '23', 'jake', 'dfdsf', 'Falls', 'male', 'jerhom@gmail.com', '453453454353', 'jdfslfsdkfsdfds', '483231', '21', '1', 'wednesday', '2022-11-30', 'November 30, 2022 9:43:pm  ', 'manual', '2022-11-30 13:43:04', '2022-11-30 13:43:04');
 
 -- --------------------------------------------------------
 
@@ -224,13 +217,13 @@ CREATE TABLE `daily_resets` (
 --
 
 INSERT INTO `daily_resets` (`id`, `user_id`, `today`, `tomorrow`, `created_at`, `updated_at`) VALUES
-(12, '31', '2022-11-30', '2022-12-01', '2022-11-26 14:16:41', '2022-11-29 16:03:37'),
-(13, '23', '2022-11-30', '2022-12-01', '2022-11-27 05:40:32', '2022-11-30 03:31:27'),
-(14, '25', '2022-11-27', '2022-11-28', '2022-11-27 05:46:16', '2022-11-27 05:46:16'),
-(15, '3', '2022-11-30', '2022-12-01', '2022-11-27 05:47:05', '2022-11-30 00:50:48'),
-(16, '32', '2022-11-28', '2022-11-29', '2022-11-27 05:50:06', '2022-11-28 06:20:29'),
+(12, '31', '2022-12-03', '2022-12-04', '2022-11-26 14:16:41', '2022-12-02 16:27:14'),
+(13, '23', '2022-12-03', '2022-12-04', '2022-11-27 05:40:32', '2022-12-02 22:44:45'),
+(14, '25', '2022-12-01', '2022-12-02', '2022-11-27 05:46:16', '2022-12-01 13:07:51'),
+(15, '3', '2022-12-03', '2022-12-04', '2022-11-27 05:47:05', '2022-12-02 17:29:05'),
+(16, '32', '2022-12-01', '2022-12-02', '2022-11-27 05:50:06', '2022-12-01 08:01:13'),
 (17, '33', '2022-11-28', '2022-11-29', '2022-11-28 06:23:41', '2022-11-28 06:23:41'),
-(18, '35', '2022-11-28', '2022-11-29', '2022-11-28 06:27:11', '2022-11-28 06:27:11');
+(18, '35', '2022-12-01', '2022-12-02', '2022-11-28 06:27:11', '2022-12-01 05:11:25');
 
 -- --------------------------------------------------------
 
@@ -293,13 +286,6 @@ CREATE TABLE `group_manual_approves` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `group_manual_approves`
---
-
-INSERT INTO `group_manual_approves` (`id`, `booker_id`, `first_name`, `last_name`, `destination`, `gender`, `phone`, `address`, `book_number`, `time_leave`, `ap_date`, `time_date`, `created_at`, `updated_at`) VALUES
-(6, '23', 'fdsfsfdss', 'dfgdfgdfg', 'Falls', 'male', NULL, 'dfgdgfdgdg', '483231', '21', '2022-11-30', 'November 30, 2022 9:43:pm  ', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -311,6 +297,9 @@ CREATE TABLE `map_locations` (
   `latitude` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `longitude` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img_name` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `color` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link_url` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `visit_count` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total_visit` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `link` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -319,15 +308,6 @@ CREATE TABLE `map_locations` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `map_locations`
---
-
-INSERT INTO `map_locations` (`id`, `latitude`, `longitude`, `name`, `visit_count`, `total_visit`, `link`, `type`, `date`, `created_at`, `updated_at`) VALUES
-(18, '16.306320255841662', '119.85669989483964', 'Falls', '0', '2', '1', 1, 'November 21, 2022', '2022-11-16 23:00:53', '2022-11-30 13:45:44'),
-(19, '16.304605989070428', '119.78084923772767', 'Patar', '0', '0', '1', 1, 'November 19, 2022', '2022-11-19 05:46:10', '2022-11-27 22:42:51'),
-(21, '16.385095850998464', '119.89099412374158', 'Bolinao Seafood Grill', '0', '0', '1', 0, NULL, '2022-11-20 23:06:54', '2022-11-20 23:06:54');
 
 -- --------------------------------------------------------
 
@@ -455,7 +435,7 @@ INSERT INTO `reset_analytics` (`id`, `staff`, `start`, `end`, `created_at`, `upd
 (3, '23', '2022-11-28', '2022-12-04', '2022-11-17 07:11:02', '2022-11-27 16:11:28'),
 (4, '24', '2022-11-14', '2022-11-20', '2022-11-19 14:01:50', '2022-11-19 14:01:50'),
 (5, '9', '2022-11-21', '2022-11-27', '2022-11-21 00:58:49', '2022-11-21 00:58:49'),
-(6, '25', '2022-11-14', '2022-11-20', '2022-11-21 05:59:25', '2022-11-27 05:46:16'),
+(6, '25', '2022-11-28', '2022-12-04', '2022-11-21 05:59:25', '2022-12-01 13:07:51'),
 (7, '31', '2022-11-28', '2022-12-04', '2022-11-26 14:16:41', '2022-11-27 16:09:08'),
 (8, '32', '2022-11-28', '2022-12-04', '2022-11-27 05:50:06', '2022-11-28 06:20:29'),
 (9, '33', '2022-11-28', '2022-12-04', '2022-11-28 06:23:41', '2022-11-28 06:23:41'),
@@ -540,7 +520,9 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `phone`, `otp`, `email`, `
 (34, 'Marcos', 'Hayway', '09123456789', '638734', 'marcos@gmail.com', NULL, NULL, 'default-profile.png', NULL, '0bcf3bf528566b3a36cc4d8bd459a904d889c829', 0, '$2y$10$g/QpL8K6uw5JE67n4DobBOADDXdKtqTp6b.aN2O022RkV4FjyQyzW', '0', NULL, NULL, NULL, '2022-11-27 22:24:25', '2022-11-27 22:24:25'),
 (35, 'Jester Einstein', 'Ibasan', '09667263323', '931420', 'jezteribasan@gmail.com', 'male', 'Purok 6, Arnedo , Bolinao Pangasina', 'default-profile.png', NULL, 'e4f042a89ab31d20daa5f7878dd27b6edf8cf23d', 0, '$2y$10$8wuFaRho1lmJaOLQGnLsDOK0kuNNAgeKEJQUDhwptAseZHqunrgvS', '0', NULL, NULL, NULL, '2022-11-27 22:25:52', '2022-11-27 22:27:38'),
 (36, 'dan', 'ganda', '09770988356', '425958', 'danilynbanogon@gmail.com', NULL, NULL, 'default-profile.png', NULL, '0531eb71b24f0bce9fbf5654587543f601fa0cce', 0, '$2y$10$jK7wzyNK1AR/bhcVtkYSXOM28l8TaiP1XlAYnIlOYTRgvxgm0u08a', '0', NULL, NULL, NULL, '2022-11-27 22:33:09', '2022-11-27 22:33:09'),
-(37, 'Jun', 'Piedad', '09511650330', '915585', 'harrisonopiedad@yahoo.com', NULL, NULL, 'default-profile.png', NULL, 'b2a5ddab31fbc06a6bf82a047ab9c60826753895', 0, '$2y$10$r3zlG3mX9eCkTvHVLxq/uenlR2KAffqyozQhyhubOTKcyWFO5eMYi', '0', NULL, NULL, NULL, '2022-11-28 19:21:24', '2022-11-28 19:21:24');
+(37, 'Jun', 'Piedad', '09511650330', '915585', 'harrisonopiedad@yahoo.com', NULL, NULL, 'default-profile.png', NULL, 'b2a5ddab31fbc06a6bf82a047ab9c60826753895', 0, '$2y$10$r3zlG3mX9eCkTvHVLxq/uenlR2KAffqyozQhyhubOTKcyWFO5eMYi', '0', NULL, NULL, NULL, '2022-11-28 19:21:24', '2022-11-28 19:21:24'),
+(38, 'Juan', 'Dela Cruz', '09187705134', '272607', 'jerhomereantasobusinessmail@gmail.com', 'male', 'Samang Norte Bolinao', 'default-profile.png', NULL, '42cb44a196aec4cf275617e62be8ff2b6e056637', 1, '$2y$10$gD40W..AhTUQEuu2Vuyy4.cUNyOuEY7tIQPaejR2ySuUbSPuzCeNy', '0', NULL, NULL, NULL, '2022-12-02 09:14:54', '2022-12-02 09:24:34'),
+(39, 'Lou', 'Jan', '099131873456', '451808', 'jerhomereantaso85@gmail.com', 'female', 'Bolinao', 'default-profile.png', NULL, 'cb6889535a5b0ce573fa2741a98301da0a3f4660', 1, '$2y$10$cc0hS2l09dVb7y9Ke0jXcOLLIamSaZDDQHssb1GZ7/HJ0U8MNo28O', '0', NULL, NULL, NULL, '2022-12-02 09:25:38', '2022-12-02 09:28:36');
 
 -- --------------------------------------------------------
 
@@ -590,9 +572,9 @@ CREATE TABLE `weekly_counts` (
 INSERT INTO `weekly_counts` (`id`, `user_id`, `location`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`, `date`, `remember_token`, `created_at`, `updated_at`) VALUES
 (41, 2, 'falls', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-07 06:46:31', '2022-11-14 00:53:16'),
 (42, 10, 'patar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-11 12:28:48', '2022-11-12 13:51:52'),
-(43, 23, 'falls', '6', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-17 15:11:23', '2022-11-29 03:24:55'),
+(43, 23, 'falls', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-17 15:11:23', '2022-12-01 07:46:23'),
 (44, 24, 'patar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-19 14:02:11', '2022-11-19 14:02:11'),
-(45, 32, 'patar', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-27 05:50:24', '2022-11-28 06:41:10');
+(45, 32, 'patar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-11-27 05:50:24', '2022-11-28 06:41:10');
 
 --
 -- Indexes for dumped tables
@@ -748,13 +730,13 @@ ALTER TABLE `admin_notifs`
 -- AUTO_INCREMENT for table `approves`
 --
 ALTER TABLE `approves`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT for table `approves_manuals`
 --
 ALTER TABLE `approves_manuals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `book_datas`
@@ -766,7 +748,7 @@ ALTER TABLE `book_datas`
 -- AUTO_INCREMENT for table `book_requests`
 --
 ALTER TABLE `book_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=236;
 
 --
 -- AUTO_INCREMENT for table `counting_approves_manuals`
@@ -808,7 +790,7 @@ ALTER TABLE `group_manual_approves`
 -- AUTO_INCREMENT for table `map_locations`
 --
 ALTER TABLE `map_locations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -844,19 +826,19 @@ ALTER TABLE `staff_alerts`
 -- AUTO_INCREMENT for table `staff_notifications`
 --
 ALTER TABLE `staff_notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `user_notifications`
 --
 ALTER TABLE `user_notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `weekly_counts`

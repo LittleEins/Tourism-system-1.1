@@ -22,10 +22,6 @@
               <thead>
                 <tr>
                   <th scope="col">Name</th>
-                  <th scope="col">Gender</th>
-                  <th scope="col">Phone</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Address</th>
                   <th scope="col">Book Number</th>
                   <th scope="col">Groups</th>
                   <th scope="col">Date & Time</th>
@@ -35,10 +31,6 @@
                   @foreach($approve_list as $list)
                   <tr>
                     <th scope="row">{{ $list->first_name }} {{ $list->last_name }}</th>
-                    <td>{{ $list->gender }}</td>
-                    <td>{{ $list->phone }}</td>
-                    <td>{{ $list->email }}</td>
-                    <td>{{ $list->address }}</td>
                     <td>{{ $list->book_number }}</td>
                     <td>{{ $list->groups }}</td>
                     <td>{{ $list->approve_td }}</td>
