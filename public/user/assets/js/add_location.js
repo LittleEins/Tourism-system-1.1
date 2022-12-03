@@ -32,10 +32,10 @@ $(document).ready(function ()
     }
 
     // pin url
-    $(document).on('click','.pin', function (e)
+    $(document).on('click','.pin_loc', function (e)
     {
         $('#url').html("");
-        if ($('#flexCheckDefault').is(':checked'))
+        if ($('#pin').is(':checked'))
         {
             $('#url').append('<input type="url" name="url" class="url form-control" placeholder="Url">\
             <x-error_style/><span id="err_url"></span></p>');
@@ -52,14 +52,6 @@ $(document).ready(function ()
         e.preventDefault();
 
         var formData = new FormData($('#addLoc')[0]);
-
-        console.log(formData);
-        // var data = {
-        //     'name': $('.name').val(),
-        //     'latitude': $('.latitude').val(),
-        //     'longitude': $('.longitude').val(),
-        //     'pin_type': $('#flexCheckDefault').is(':checked'),
-        // }
         
         $.ajaxSetup({
             headers: {
@@ -81,6 +73,7 @@ $(document).ready(function ()
                     $('#err_name').html("");
                     $('#err_latitude').html("");
                     $('#err_longitude').html("");
+                    $('#err_img').html("");
 
                     $('#err_name').append(response.errors.name);
                     $('#err_latitude').append(response.errors.latitude);
@@ -95,10 +88,20 @@ $(document).ready(function ()
                     $('#add_success').html("");
                     $('#add_success').addClass('alert alert-success');
                     $('#add_success').text(response.success);
-                    $('#supadminaddlocationModal').find('input').val("");
+                    $('#addLoc').find('input').val("");
                     $('#err_name').html("");
                     $('#err_latitude').html("");
                     $('#err_longitude').html("");
+                    $('#err_img').html("");
+                    $('#checkk').html("");
+                    $('#checkk').append('<input name="pin" class="pin_loc" id="pin" type="checkbox" value="test">\
+                    <label class="form-check-label" for="pin">Pin only</label>')
+                    $('#url').html("");
+                    setTimeout(function(){
+                        $('#add_success').html("");
+                        $('#add_success').removeClass('alert alert-success');
+                    }, 5000);
+
                 }
 
                 map_locations();

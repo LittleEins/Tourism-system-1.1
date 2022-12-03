@@ -19,34 +19,6 @@ $(document).ready(function ()
         position: 'bottomright'
     }).addTo(myMap);
 
-    var tourism_office = L.marker([ 16.388653840169958, 119.89281431024764]).addTo(myMap);
-
-    // circle on map
-   L.circle([16.388653840169958, 119.89281431024764], {
-       color: 'red',
-       fillColor: '#f03',
-       fillOpacity: 0.5,
-       radius: 500
-   }).addTo(myMap);
-
-   // add text circle
-   var tourismoffice = L.divIcon({
-       className: 'my-div-icon',
-       html: '<h1 style="font-size:10px; width:fit-content; height:300px;">Tourism Office</h1>',
-       iconAnchor: [15, -7]
-   });
-   // you can set .my-div-icon styles in CSS
-   
-   L.marker([119.89281431024764, 119.89281431024764], {
-       icon: tourismoffice
-   }).addTo(myMap);
-
-   // pop up message on map
-  
-   tourism_office.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-   <div style='font-size: 10px;'>Tourism Office</div>\
-   <div><a href='https://goo.gl/maps/Jb6MPWpCgaXXu739A'>Visit</a>\
-   </div>");
 
 
     function load_map ()
@@ -62,58 +34,41 @@ $(document).ready(function ()
 
                 var mapHover = document.querySelector('#mapHover');
 
+
                 for (let i = 0; i < l; i++)
                 {
                     var name = response.locations[i].name;
                     var names = name;
                     var count_visit = response.locations[i].visit_count;
 
-                    var locName = document.querySelector('#'+response.locations[i].name+'');
+                     // split naming if have space
+                    var nameLocation = response.locations[i].name;
+                    var fistWord = nameLocation.split(" ")[0]
+
+                    var locName = document.querySelector('#'+fistWord+'');
 
                     
                     // Mark
                     var name = L.marker([response.locations[i].latitude, response.locations[i].longitude]).addTo(myMap);
     
-                    // side text
-                    var toollip = L.tooltip({
-                        permanent: true
-                    }).setContent(response.locations[i].visit_count);
+                    if (response.locations[i].type == '1')
+                    {
+                         // side text
+                        var toollip = L.tooltip({
+                            permanent: true
+                        }).setContent(response.locations[i].visit_count);
 
-                    name.bindTooltip(toollip);
+                        name.bindTooltip(toollip);
+                    }
 
                     //  circle on map
                     var vir_map = L.circle([response.locations[i].latitude, response.locations[i].longitude], {
-                        color: response.locations[i].color,
-                        fillColor: '#f03',
-                        fillOpacity: 0.5,
+                        color: 'black',
+                        fillColor: response.locations[i].color,
+                        fillOpacity: 0.2,
                         radius: 500
                     }).addTo(myMap);
 
-                    // var circle = L.circle([response.locations[i].latitude, response.locations[i].longitude], 500, {
-                    //     color: 'red',
-                    //     fillColor: '#f03',
-                    //     fillOpacity: 0.5
-                    // }).addTo(myMap);
-                    
-                    // var myZoom = {
-                    //   start:  myMap.getZoom(),
-                    //   end: myMap.getZoom()
-                    // };
-                    
-                    // myMap.on('zoomstart', function(e) {
-                    //    myZoom.start = myMap.getZoom();
-                    // });
-                    
-                    // myMap.on('zoomend', function(e) {
-                    //     myZoom.end = myMap.getZoom();
-                    //     var diff = myZoom.start - myZoom.end;
-                    //     if (diff > 0) {
-                    //         circle.setRadius(circle.getRadius() * 2);
-                    //     } else if (diff < 0) {
-                    //         circle.setRadius(circle.getRadius() / 2);
-                    //     }
-                    // });
-    
                     // add text circle
                     var tundol = L.divIcon({
                         className: 'my-div-icon',
@@ -130,17 +85,37 @@ $(document).ready(function ()
                    
                     if (response.locations[i].type == '1')
                     {
-                        name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                        <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
-                        <div><img src='/user/assets/map_img/"+response.locations[i].img_name+"' style='height:100px; width: 100px'></div\
-                        </div>");
+                        if (response.locations[i].img_name != null)
+                        {
+                            name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box; text-align:center;'>\
+                            <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
+                            <div><img src='/user/assets/map_img/"+response.locations[i].img_name+"' style='height:100px; width: 100px; margin: 5px 0;'></div\
+                            </div>");
+                        }
+                        else
+                        {
+                            name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box; text-align:center;'>\
+                            <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
+                            </div>");
+                        }
                     }
                     else
                     {
-                        name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box;'>\
-                        <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
-                        <div><a href='"+response.locations[i].link_url+"'>Visit</a>\
-                        </div>");
+                        if (response.locations[i].img_name != null)
+                        {
+                            name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box; text-align:center;'>\
+                            <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
+                            <div><div><img src='/user/assets/map_img/"+response.locations[i].img_name+"' style='height:100px; width: 100px; margin: 5px 0;'></div\
+                            </div><a style='text-align:center; font-weight: bold;' href='"+response.locations[i].link_url+"'>Visit</a>\
+                            </div>");
+                        }
+                        else
+                        {
+                            name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box; text-align:center;'>\
+                            <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
+                            <div><a style='text-align:center; font-weight: bold;' href='"+response.locations[i].link_url+"'>Visit</a>\
+                            </div>");
+                        }
                     }
 
                     // zoom in

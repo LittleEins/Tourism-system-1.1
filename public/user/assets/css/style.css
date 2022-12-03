@@ -1337,4 +1337,45 @@ input[type="number"] {
     margin-bottom: 10px;
   }
 
+  .map_table 
+  {
+    height: 150px;
+    overflow: scroll;
+    display: grid;
+    flex-direction: column;
+    border: 2px solid;
+    padding: 0 10px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    border-radius: 10px;
+  }
+
+  .map_table a 
+  {
+    margin: 5px 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+  }
+
+}
+
+@media only screen and (min-width:805px)
+{
+  .map_table 
+  {
+    width: 60%;
+    height: 100px;
+    overflow: scroll;
+    flex-direction: row;
+    border: 1px solid;
+    padding: 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    border-radius: 10px;
+  }
+
+  .map_table a 
+  {
+    margin: 5px 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+  }
+
+
 }
