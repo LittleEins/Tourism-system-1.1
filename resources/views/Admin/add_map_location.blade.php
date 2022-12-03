@@ -70,9 +70,9 @@
                 <x-error_style/><span id="err_color"></span></p>
               </div>
               
-              <div class="form-check">
-                <input class="pin_type form-check-input pin" type="checkbox" value="" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">Pin only</label>
+              <div class="form-check" id="checkk">
+                <input name="pin" class="pin_loc" id="pin" type="checkbox" value="test">
+                <label class="form-check-label" for="pin">Pin only</label>
               </div>
 
               <div class="form-group mb3" id="url">

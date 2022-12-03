@@ -33,10 +33,10 @@
               <div class="card-body">
                 <div class="card-title">
                   <h4 id="mapHover">Locations</h4>
-                  <div>
+                  <div class="map_table">
                     @for($i=0;$i < $count; $i++)
     
-                     <a href="#" id="{{ $location[$i]->name }}" class="btn btn-primary">{{ $location[$i]->name }}</a>
+                     <a href="#" id="{{ strtok($location[$i]->name," ") }}" class="loc_btn btn" style="background: {{$location[$i]->color}};">{{ $location[$i]->name }}</a>
                     
                     @endfor
                   </div>

@@ -616,7 +616,7 @@ class AdminController extends Controller
 
     function map_location_fetch ()
     {
-        $data = Map_location::get(['id','name', 'latitude','longitude','type']);
+        $data = Map_location::orderBy('created_at','DESC')->get(['id','name', 'latitude','longitude','type']);
 
         return response()->json([
             'locations' => $data,
@@ -643,9 +643,9 @@ class AdminController extends Controller
         }
         else
         { 
-            if ($req->input('pin_type') == 'true')
+            if ($req->input('pin'))
             {
-                // loc only
+                // pin
                 $add_location = new Map_location;
                 $add_location->name = ucfirst($req->input('name'));
                 $add_location->latitude = $req->input('latitude');
@@ -665,6 +665,7 @@ class AdminController extends Controller
                 }
 
                 $add_location->color = $req->input('color');
+                $add_location->link_url = $req->input('url');
                 $add_location->save();
                 
     
@@ -675,7 +676,7 @@ class AdminController extends Controller
             }
             else
             {
-                // pin
+                // loc
                 $add_location = new Map_location;
                 $add_location->name = ucfirst($req->input('name'));
                 $add_location->latitude = $req->input('latitude');
@@ -694,7 +695,6 @@ class AdminController extends Controller
                  }
  
                  $add_location->color = $req->input('color');
-                 $add_location->link_url = $req->input('url');
                  $add_location->save();
                 
     
@@ -721,10 +721,22 @@ class AdminController extends Controller
                 File::delete($path);
             }
 
+            $useracc = User::get();
+            $userCount = count($useracc);
+
+            for ($i = 0; $i <= $userCount-1; $i++)
+            {
+                if ((strtolower($useracc[$i]->first_name) == strtolower(strtok($location->name," "))) && ($location->type == 1 ))
+                {
+                    $remove = User::where('first_name', $location->name)->delete();
+                    break;
+                }
+            }
+
             $delete = Map_location::where('id','=', $req->id)->delete();
             $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
-        return view('admin.add_map_location', $data);
+            return view('admin.add_map_location', $data);
         }
     }
 
