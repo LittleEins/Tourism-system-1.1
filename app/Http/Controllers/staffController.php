@@ -242,11 +242,13 @@ class staffController extends Controller
             if (($check_date->today == date("Y-m-d", strtotime("today"))) && ($check_date->tomorrow == date("Y-m-d", strtotime("tomorrow"))))
             {
                 // check if leave is not due
-                $desti = Counting_approves_manual::where('time_leave','<',$now)->get(['destination']);
-                $desti2 = Counting_group_approve::where('time_leave','<',$now)->get(['destination']);
+                $timenow = (int) $now;
+                $desti = DB::table('counting_approves_manuals')->where('time_leave','>=',$timenow)->get(['destination']);
+                $desti2 = DB::table('counting_group_approves')->where('time_leave','>=',$timenow)->get(['destination']);
                 
-                $count1 = Counting_approves_manual::where('time_leave','<',$now)->count();
-                $count2 = Counting_group_approve::where('time_leave','<',$now)->count();
+                $count1 = DB::table('counting_approves_manuals')->where('time_leave','>=',$timenow)->count();
+                $count2 = DB::table('counting_group_approves')->where('time_leave','>=',$timenow)->count();
+
                 // storing destination on array    
                 $des1 =[];
 
@@ -267,10 +269,12 @@ class staffController extends Controller
                 
                 }
 
-                $total = $count1 +$count2;
+                $total = $count1 + $count2;
+            
                 
                 if ($total != 0)
                 {
+                    
                     $data = User::where('id','=', session('LoggedUser'))->first();
 
                     $data2 = Map_location::get(['name']);
@@ -285,12 +289,13 @@ class staffController extends Controller
                         $map_count->visit_count = $count ;
                         $map_count->save();
                         
-                            Counting_approves_manual::where('time_leave','<',$now)->delete();
-                            Counting_group_approve::where('time_leave','<',$now)->delete();
+                        DB::table('counting_approves_manuals')->where('time_leave','>=',$timenow)->delete();
+                        DB::table('counting_group_approves')->where('time_leave','>=',$timenow)->delete();
 
         
                     }
                 }
+
 
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
@@ -485,55 +490,60 @@ class staffController extends Controller
             if (($check_date->today == date("Y-m-d", strtotime("today"))) && ($check_date->tomorrow == date("Y-m-d", strtotime("tomorrow"))))
             {
                    // check if leave is not due
-                   $desti = Counting_approves_manual::where('time_leave','<',$now)->get(['destination']);
-                   $desti2 = Counting_group_approve::where('time_leave','<',$now)->get(['destination']);
-                  
-                   $count1 = Counting_approves_manual::where('time_leave','<',$now)->count();
-                   $count2 = Counting_group_approve::where('time_leave','<',$now)->count();
-                    // storing destination on array    
-                   $des1 =[];
+                $timenow = (int) $now;
+                $desti = DB::table('counting_approves_manuals')->where('time_leave','>=',$timenow)->get(['destination']);
+                $desti2 = DB::table('counting_group_approves')->where('time_leave','>=',$timenow)->get(['destination']);
+                
+                $count1 = DB::table('counting_approves_manuals')->where('time_leave','>=',$timenow)->count();
+                $count2 = DB::table('counting_group_approves')->where('time_leave','>=',$timenow)->count();
 
-                   $descount = count($des1);
-                 
-                   for ($z = 0; $z < $count1; $z++ )
-                   {
-                        
-                        // checking if destination is already on array
-                        if (stripos(json_encode($des1),$desti[$z]->destination) !== false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            array_push($des1,$desti[$z]->destination);
-                        }
+                // storing destination on array    
+                $des1 =[];
+
+                $descount = count($des1);
+                
+                for ($z = 0; $z < $count1; $z++ )
+                {
                     
-                   }
+                    // checking if destination is already on array
+                    if (stripos(json_encode($des1),$desti[$z]->destination) !== false)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        array_push($des1,$desti[$z]->destination);
+                    }
+                
+                }
 
-                   $total = $count1 +$count2;
-                  
-                   if ($total != 0)
-                   {
-                        $data = User::where('id','=', session('LoggedUser'))->first();
+                $total = $count1 + $count2;
+           
+                
+                if ($total != 0)
+                {
+                   
+                    $data = User::where('id','=', session('LoggedUser'))->first();
 
-                        $data2 = Map_location::get(['name']);
-                        $count = $data2->count();
+                    $data2 = Map_location::get(['name']);
+                    $count = $data2->count();
 
-                        $des2count = count($des1);
+                    $des2count = count($des1);
 
-                        for ($u = 0; $u <= $des2count-1; $u++)
-                        {
-                            $map_count = Map_location::where('name','=', strtolower($des1[$u]))->first();
-                            $count =(int)$map_count->visit_count - $total ;
-                            $map_count->visit_count = $count ;
-                            $map_count->save();
-                            
-                             Counting_approves_manual::where('time_leave','<',$now)->delete();
-                             Counting_group_approve::where('time_leave','<',$now)->delete();
+                    for ($u = 0; $u <= $des2count-1; $u++)
+                    {
+                        $map_count = Map_location::where('name','=', strtolower($des1[$u]))->first();
+                        $count =(int)$map_count->visit_count - $total ;
+                        $map_count->visit_count = $count ;
+                        $map_count->save();
+                        
+                        DB::table('counting_approves_manuals')->where('time_leave','>=',$timenow)->delete();
+                        DB::table('counting_group_approves')->where('time_leave','>=',$timenow)->delete();
 
-            
-                        }
-                   }
+        
+                    }
+                }
+
 
                 $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
 
