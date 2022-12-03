@@ -122,7 +122,6 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     {
      
         return [
-            $approve->id,
             $approve->last_name,
             $approve->first_name,
             $approve->gender,
@@ -131,7 +130,6 @@ class ReportExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
             $approve->address,
             $approve->destination,
             $approve->book_number,
-            $approve->groups,
             $approve->approve_td,
 
         ];
