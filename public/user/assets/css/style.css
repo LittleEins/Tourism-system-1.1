@@ -1341,7 +1341,7 @@ input[type="number"] {
   {
     height: 150px;
     overflow: scroll;
-    display: grid;
+    display: flex;
     flex-direction: column;
     border: 2px solid;
     padding: 0 10px;
