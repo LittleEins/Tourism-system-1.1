@@ -50,7 +50,7 @@
 
             <div class="form-group mb3">
               <label for="">Password</label>
-              <input type="password" class="admin_password form-control">
+              <input type="password" name="password" class="admin_password form-control">
               <x-error_style/><span id="admin_err_password"></span></p>
             </div>
           </div>

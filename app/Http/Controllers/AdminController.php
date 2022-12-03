@@ -784,15 +784,16 @@ class AdminController extends Controller
         }
         else
         { 
+            $mailName = strtok($req->input('admin_type')," ");
             // Insert Data to DB
             $data = new User;
             $data->first_name = ucfirst($req->input('admin_type'));
             $data->last_name = "CheckPoint";
-            $data->email = strtolower($req->input('admin_type')."@gmail.com");
+            $data->email = strtolower($mailName."@gmail.com");
             $data->phone = "09913183407";
             $data->img_name = "default-profile.png";
             $data->otp = "515151";
-            $data->password = hash::make($req->password);
+            $data->password = hash::make($req->input('admin_password'));
             $data->verification_code = "5555";
             $data->role = '1';
             $data->location = strtolower($req->input('admin_type'));
