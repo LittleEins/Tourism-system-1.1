@@ -25,6 +25,13 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.createacc') }}">
           <i class="bi bi-people"></i>
+          <span>Create Account</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('admin.manageacc') }}">
+          <i class="bi bi-people"></i>
           <span>Manage Account</span>
         </a>
       </li>

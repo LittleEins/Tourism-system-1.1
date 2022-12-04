@@ -1021,4 +1021,73 @@ class AdminController extends Controller
         }
     }
 
+    function acc_manage ()
+    {
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['accounts'] = User::query()->where('role','!=','3')->where('role','!=','2')->get();
+
+        return view('admin.account_mange', $data);
+    }
+
+    function manage_del_acc (Request $req)
+    {
+
+        
+        $info = User::where('id',$req->id)->first();
+
+        if ($info->role = '1')
+        {
+            $location = Map_location::get(['name']);
+            $count = Map_location::get()->count();
+            
+            for ($i = 0; $i < $count; $i++)
+            {
+                if (strtolower($info['location']) == strtolower($location[$i]['name']))
+                {
+                    $update = Map_location::where('name',ucfirst($location[$i]['name']))->first();
+                    $update->link = null;
+                    $t = $update->save();
+    
+                    break;
+                }
+            }
+
+            $data['accounts'] = User::query()->where('role','!=','3')->get();
+    
+            $user = User::where('id',$req->id)->delete();
+    
+            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+    
+             return view('admin.account_mange', $data);
+    
+        }
+        else if ($info->role = '0')
+        {
+            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+            $data['accounts'] = User::query()->where('role','!=','3')->get();
+
+            $user = User::where('id',$req->id)->delete();
+
+            return view('admin.account_mange', $data);
+        }
+        else if ($info->role = '2')
+        {
+            $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+            $data['accounts'] = User::query()->where('role','!=','3')->get();
+
+            $user = User::where('id',$req->id)->delete();
+
+            return view('admin.account_mange', $data);
+
+        }
+    }
+
+    function edit_users_account (Request $req)
+    {
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        $data['info'] = User::where('id',$req->id)->first();
+
+        return view('admin.change_pass_user', $data);
+    }
+
 }

@@ -149,12 +149,16 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function ()
     Route::get('/map/locations',[AdminController::class,'add_map_location'])->name('admin.addmap');
     Route::get('/report/generate',[AdminController::class,'report_gen'])->name('admin.report');
     Route::get('/alert/notification',[AdminController::class,'alert']);
+    Route::get('/account/manage',[AdminController::class,'acc_manage'])->name('admin.manageacc');
 
+    Route::get('/account/delete',[AdminController::class,'manage_del_acc']); 
     Route::get('/admin/create/stufs',[AdminController::class,'create_staff'])->name('admin.createacc');
     Route::get('/log/view/all',[AdminController::class,'records_group_view']);
     Route::post('/search/report',[AdminController::class,'search_report']);
     Route::get('/delete/location',[AdminController::class,'delete_location']); 
     Route::post('/update/password/staff',[AdminController::class,'staff_update_pass'])->name('update_staff_pass');
+    Route::get('/edit/pass/account',[AdminController::class,'edit_users_account']); 
+    Route::post('/update/password/staff',[AdminController::class,'staff_update_pass'])->name('update_accounts_pass');
     // export
     Route::get('/reports/export', [AdminController::class, 'export']);
 });
