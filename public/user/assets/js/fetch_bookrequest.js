@@ -65,6 +65,6 @@ $(document).ready(function ()
 
         });
        
-    },20000);
+    },2000);
 
 });
