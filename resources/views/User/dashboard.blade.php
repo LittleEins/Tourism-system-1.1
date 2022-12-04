@@ -26,7 +26,8 @@
     <section class="section dashboard">
     
       <div class="container-fluid pt-4 px-4">
-        <div class="row g-4" id="dahboard">
+        <h4>Live Count</h4>
+        <div class="row g-4" id="dashboard">
           @for($i=0;$i < $count; $i++)
           <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">

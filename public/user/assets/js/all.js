@@ -1,13 +1,28 @@
 
 $(document).ready(function ()
 {
-    setInterval(dashboard, 3000);
+    setInterval(dashboard, 5000);
     book_count();
 
 
+    function leave_manual ()
+    {
+        $.ajax ({
+            type: "GET",
+            url: "/leave/manual",
+            dataType: "json",
+            success: function (response) 
+            {
+                console.log(response.check);
+            }
+ 
+        });
+    }
+
     function dashboard ()
     {
-
+        leave_manual();
+        
         $.ajax ({
             type: "GET",
             url: "/user/dashboard/fetch",
@@ -15,11 +30,11 @@ $(document).ready(function ()
             success: function (response) 
             {
                 let l = response.count;
-                $('#dahboard').html("");
+                $('#dashboard').html("");
                 $('#dahboard2').html("");
                 for (let i = 0; i < l; i++)
                 {
-                    $('#dahboard').append('<div class="col-sm-6 col-xl-3">\
+                    $('#dashboard').append('<div class="col-sm-6 col-xl-3">\
                     <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">\
                       <i class="fa fa-users fa-3x text-primary"></i>\
                       <div id="falls_count" class="ms-3">\

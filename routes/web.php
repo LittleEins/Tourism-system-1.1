@@ -47,6 +47,7 @@ Route::post('/resend/resetpassword',[MainController::class,'resend_resetpass'])-
 
 // ajax
 Route::get('/fetch-checkpoint',[staffController::class,'fetch_checkpoint']);
+Route::get('/leave/manual',[staffController::class,'leave_manual']);
 Route::get('/visited',[UserController::class,'fetch_visit']);
 Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
 Route::get('/book2/count',[UserController::class,'book2_count']);
