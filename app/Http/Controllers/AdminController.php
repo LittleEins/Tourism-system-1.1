@@ -659,8 +659,8 @@ class AdminController extends Controller
                 {
                     $file = $req->file('img');
                     $extention = $file->getClientOriginalExtension();
-                    $filename = time() . '.' .$extention;
-                    $file->move('/user/assets/map_img/',$filename);
+                    $filename = time(). '.' .$extention;
+                    $file->move('user/assets/map_img/',$filename);
                     $add_location->img_name = $filename;
                 }
 
@@ -687,11 +687,11 @@ class AdminController extends Controller
                  // check if have file upload in insert to db
                  if ($req->hasFile('img'))
                  {
-                     $file = $req->file('img');
-                     $extention = $file->getClientOriginalExtension();
-                     $filename = time() . '.' .$extention;
-                     $file->move('user/assets/map_img/',$filename);
-                     $add_location->img_name = $filename;
+                    $file = $req->file('img');
+                    $extention = $file->getClientOriginalExtension();
+                    $filename = time(). '.' .$extention;
+                    $file->move('user/assets/map_img/',$filename);
+                    $add_location->img_name = $filename;
                  }
  
                  $add_location->color = $req->input('color');
