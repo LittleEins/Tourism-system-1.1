@@ -29,12 +29,12 @@
         <h4>Live Count</h4>
         <div class="row g-4" id="dashboard">
           @for($i=0;$i < $count; $i++)
-          <div class="col-sm-6 col-xl-3">
+          <div class="col-sm-6 col-xl-4">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
               <i class="fa fa-users fa-3x text-primary"></i>
               <div id="falls_count" class="ms-3">
                   <p class="mb-2">{{ $location[$i]->name }}</p>
-                  <h6 id="patar_count" class="mb-0">{{ $location[$i]->visit_count }}</h6>
+                  <h6 id="patar_count" class="text-center mb-0">{{ $location[$i]->visit_count }}</h6>
               </div>
             </div>
           </div>
