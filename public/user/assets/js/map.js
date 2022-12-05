@@ -47,15 +47,73 @@ $(document).ready(function ()
 
                     var locName = document.querySelector('#'+fistWord+'');
 
-                    
+                    // change marker
+                    // checkp
+                    var LeafIcon1 = L.Icon.extend({
+                        options: {
+                           iconSize:     [38, 40],
+                           shadowSize:   [50, 64],
+                           iconAnchor:   [19, 37],
+                           toollipAchor: [20,400],
+                           popupAnchor:  [-3, -40]
+                        }
+                    });
+
+                    var check_point = new LeafIcon1({
+                        iconUrl: '/user/assets/map_img/stop.png',
+                    })
+
+                    // pin 
+                    var LeafIcon2 = L.Icon.extend({
+                        options: {
+                           iconSize:     [30, 35],
+                           shadowSize:   [50, 64],
+                           iconAnchor:   [15, 37],
+                           toollipAchor: [20,400],
+                           popupAnchor:  [-3, -40]
+                        }
+                    });
+
+                    var pin = new LeafIcon2({
+                        iconUrl: '/user/assets/map_img/beachd2.png',
+                    })
+
+                    // office
+                    var LeafIcon3 = L.Icon.extend({
+                        options: {
+                           iconSize:     [30, 35],
+                           shadowSize:   [50, 64],
+                           iconAnchor:   [15, 37],
+                           toollipAchor: [20,400],
+                           popupAnchor:  [-3, -40]
+                        }
+                    });
+
+                    var office = new LeafIcon3({
+                        iconUrl: '/user/assets/map_img/office.png',
+                    })
+
+
                     // Mark
-                    var name = L.marker([response.locations[i].latitude, response.locations[i].longitude]).addTo(myMap);
+                    if (response.locations[i].type == '1')
+                    {
+                        var name = L.marker([response.locations[i].latitude, response.locations[i].longitude], {icon: check_point}).addTo(myMap);
+                    }
+                    else if (response.locations[i].type == '2')
+                    {
+                        var name = L.marker([response.locations[i].latitude, response.locations[i].longitude], {icon: office}).addTo(myMap);
+                    }
+                    else
+                    {
+                        var name = L.marker([response.locations[i].latitude, response.locations[i].longitude], {icon: pin}).addTo(myMap);
+                    }
     
                     if (response.locations[i].type == '1')
                     {
                          // side text
                         var toollip = L.tooltip({
-                            permanent: true
+                            permanent: true,
+                            offset: [15,-15],
                         }).setContent(response.locations[i].visit_count);
 
                         name.bindTooltip(toollip);
@@ -83,6 +141,7 @@ $(document).ready(function ()
     
                     // pop up message on map
                    
+                    // checkpoint
                     if (response.locations[i].type == '1')
                     {
                         if (response.locations[i].img_name != null)
@@ -101,8 +160,10 @@ $(document).ready(function ()
                     }
                     else
                     {
+                        // pin
                         if (response.locations[i].img_name != null)
                         {
+                            // with img
                             name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box; text-align:center;'>\
                             <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
                             <div><div><img src='/user/assets/map_img/"+response.locations[i].img_name+"' style='height:100px; width: 100px; margin: 5px 0;'></div\
@@ -111,6 +172,7 @@ $(document).ready(function ()
                         }
                         else
                         {
+                            // no img
                             name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box; text-align:center;'>\
                             <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
                             <div><a style='text-align:center; font-weight: bold;' href='"+response.locations[i].link_url+"'>Visit</a>\
