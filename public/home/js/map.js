@@ -105,17 +105,6 @@ $(document).ready(function ()
                     {
                         var name = L.marker([response.locations[i].latitude, response.locations[i].longitude], {icon: pin}).addTo(myMap);
                     }
-    
-                    if (response.locations[i].type == '1')
-                    {
-                         // side text
-                        var toollip = L.tooltip({
-                            permanent: true,
-                            offset: [15,-15],
-                        }).setContent(response.locations[i].visit_count);
-
-                        name.bindTooltip(toollip);
-                    }
 
                     //  circle on map
                     var vir_map = L.circle([response.locations[i].latitude, response.locations[i].longitude], {
