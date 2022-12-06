@@ -16,7 +16,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Booking</h1>
+      <h1>Request Entry</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{route('book.view')}}">User Info</a></li>

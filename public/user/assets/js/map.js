@@ -124,7 +124,7 @@ $(document).ready(function ()
                         color: 'black',
                         fillColor: response.locations[i].color,
                         fillOpacity: 0.2,
-                        radius: 500
+                        radius: 100
                     }).addTo(myMap);
 
                     // add text circle
