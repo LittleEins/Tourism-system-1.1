@@ -148,14 +148,15 @@ button {
       .header_area .navbar .nav .nav-item .nav-link {
         font-family: "Playfair Display", serif;
         text-transform: uppercase;
-        color: #222222;
+        color: #f0ebeb;
+        font-weight:bold;
         padding: 22px 4px 22px 0;
         display: inline-block; }
         .header_area .navbar .nav .nav-item .nav-link:after {
           display: none; }
         @media (max-width: 991px) {
           .header_area .navbar .nav .nav-item .nav-link {
-            color: #222222;
+            color: #f0ebeb;
             padding: 12px 4px 12px 0; } }
       .header_area .navbar .nav .nav-item.active .nav-link {
         color: #cca772; }
