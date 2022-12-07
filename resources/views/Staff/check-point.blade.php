@@ -48,7 +48,7 @@
                 </tr>
               </thead>
                 <tbody id="check_point" >
-
+{{-- 
                   @foreach($book_list as $list)
                   <tr>
                     <td>{{ $list->first_name }} {{ $list->last_name }}</th>
@@ -70,7 +70,7 @@
                     <a href="/staff/book/confirm?id={{ $list->id }}" id="approve" class="btn btn-success approve_btn"><i class="far fa-check-circle"></i></a> 
                     </td>
                   </tr>
-                  @endforeach
+                  @endforeach --}}
               </tbody>
             </table>
           </div>
@@ -99,7 +99,7 @@
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="/user/assets/js/map.js"></script>
 {{-- <script src="/user/assets/js/add_rows.js"></script> --}}
-<script src="/user/assets/js/all.js"></script>
+<script src="/user/assets/js/fetch_bookrequest.js"></script>
 <script src="/user/assets/js/map.js"></script>
 
 <!-- Vendor JS Files -->
