@@ -600,7 +600,6 @@ class AdminController extends Controller
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
         $data['staff'] = Map_location::where('type',1)->get(['name']);
 
-        
         return view('admin.alert', $data);
     }
 
@@ -682,6 +681,7 @@ class AdminController extends Controller
                 $add_location->latitude = $req->input('latitude');
                 $add_location->longitude = $req->input('longitude');
                 $add_location->visit_count = "0";
+                $add_location->total_visit = "0";
                 $add_location->type = 1;
                 
                  // check if have file upload in insert to db
@@ -1029,6 +1029,32 @@ class AdminController extends Controller
         return view('admin.account_mange', $data);
     }
 
+    
+    function search_acc (Request $req)
+    {
+
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        
+      
+        if ($req->acc == 'all')
+        {
+            $data['accounts'] = User::query()->where('role','!=','3')->where('role','!=','2')->get();
+            return view('admin.account_mange', $data);
+        }
+        else if ($req->acc == '0')
+        {
+            $data['accounts'] = User::query()->where('role','!=','3')->where('role','!=','1')->where('role','!=','2')->get();
+            return view('admin.account_mange', $data);
+        }
+        else
+        {
+            $data['accounts'] = User::query()->where('role','!=','3')->where('role','!=','0')->where('role','!=','2')->get();
+            return view('admin.account_mange', $data);
+        }
+
+        
+    }
+
     function manage_del_acc (Request $req)
     {
 
@@ -1088,6 +1114,27 @@ class AdminController extends Controller
         $data['info'] = User::where('id',$req->id)->first();
 
         return view('admin.change_pass_user', $data);
+    }
+
+    
+    function admin_delete_notif (Request $req)
+    {
+        DB::table('admin_notifs')->where('id',$req->id)->delete();
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+
+        
+        return view('admin.alert', $data);
+    }
+
+    function admin_notif_log ()
+    {
+        $acc = User::where('id','=', session('LoggedUser'))->first();
+        //getting data by new insert
+        $data = Admin_notif::orderBy('created_at','desc')->get();
+
+        return response()->json([
+            'notification'=>$data,
+        ]);
     }
 
 }

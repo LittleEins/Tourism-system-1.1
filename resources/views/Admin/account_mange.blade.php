@@ -28,7 +28,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <form action="/admin/search/report" method="post">
+            <form action="/admin/search/acc" method="post">
               @csrf 
               <div class="row">
                 <div class="container-flued">
@@ -36,9 +36,8 @@
                     <div class="col-sm-3">
                       <select name="locations" id="location" class="form-control input-sm">
                         <option value="all">All</option>
-                        <option value="user">Users</option>
-                        <option value="staff">Staff</option>
-                        <option value="tourism">Tourism Office</option>
+                        <option value="0">Users</option>
+                        <option value="1">Staff</option>
                       </select>
                     </div>
                     <div class="col-sm-2">

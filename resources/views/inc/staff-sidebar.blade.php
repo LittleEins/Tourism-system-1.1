@@ -8,13 +8,6 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/staff/view/all">
-          <i class="bi bi-exclamation-diamond"></i>
-          <span>Notification</span>
-        </a>
-      </li>
-
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="/staff/check/point">

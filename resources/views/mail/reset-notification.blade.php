@@ -14,7 +14,7 @@
             <h2>Hello {{$reset_data['name']}}.</h2><br>
             <p>To reset your password, please click reset. </p>
             <br>
-            <a href="/reset/password?code={{$reset_data['verification_code']}}">Reset Password</a>
+            <a href="http://192.168.244.146:8000/reset/password?code={{$reset_data['verification_code']}}">Reset Password</a>
             <br><br>
             Thank you!. for more info please visit <em>www.bolinaotourism.com</em>
         </div>

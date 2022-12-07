@@ -1,228 +1,11 @@
 $(document).ready(function ()
 {   
-    message();
+ 
+    admin_notif();
+    user_message();
+    // message();
     get_notif();
     view_click();
-    user_message();
-
-    function view_click ()
-    {
-        var view = {
-            'view': $('.staff_view_click').val(),
-        }
-
-        if (view != null)
-        {
-
-            console.log(view);
-            $.ajax({
-                type: "GET",
-                url: "/staff/view/data",
-                data: view,
-                dataType: "json",
-                success: function (response)
-                {
-                    if (response.staff_view_data != null)
-                    {
-                        $('#staff_viewnotif').modal('show');
-                        $('#staff_sender').html("");
-                        $('#staff_type').html("");
-                        $('#staff_message').html("");
-    
-                        $('#staff_sender').append(response.staff_view_data.sender);
-                        $('#staff_type').append(response.staff_view_data.type);
-                        $('#staff_message').append(response.staff_view_data.message);
-    
-                       
-                    }
-                }
-            });
-        }
-
-    }
-
-    //  user notification
-    function user_message ()
-    {
-        $.ajax ({
-            type: "GET",
-            url: "/staff/notif",
-            dataType: "json",
-            success: function (response) 
-            {
-                console.log(response.notification);
-                $('#staff_notifications').html("");
-
-                var count = response.notification.length;
-
-                for(var i = 0; i < count; i++)
-                {
-                    if (response.notification[i].type == 'normal')
-                    {
-                        if (response.notification[i].status == "unread")
-                        {
-                            $('#staff_notifications').append('<tr class="alert alert-primary">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
-                            <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
-                            </td>\
-                            <td>\
-                            <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
-                            </td>\
-                            </tr>');
-                        }
-                        else
-                        {
-                            $('#staff_notifications').append('<tr class="">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
-                            <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
-                            </td>\
-                            <td>\
-                            <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
-                            </td>\
-                            </tr>');
-                        }
-                    }
-                    else if (response.notification[i].type == 'alert')
-                    {
-                        if (response.notification[i].status == "unread")
-                        {
-                            $('#staff_notifications').append(' <tr class="alert alert-warning">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
-                            <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
-                            </td>\
-                            <td>\
-                            <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
-                            </td>\
-                            </tr>');
-                        }
-                        else
-                        {
-                            $('#staff_notifications').append(' <tr class="">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
-                            <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
-                            </td>\
-                            <td>\
-                            <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
-                            </td>\
-                            </tr>');
-                        }
-                
-                    }
-                    else if (response.notification[i].type == 'danger')
-                    {
-                        if (response.notification[i].status == "unread")
-                        {
-                            $('#staff_notifications').append(' <tr class="alert alert-danger">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
-                            <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
-                            </td>\
-                            <td>\
-                            <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
-                            </td>\
-                            </tr>');
-                        }
-                        else 
-                        {
-                            $('#staff_notifications').append(' <tr class="">\
-                            <td>'+response.notification[i].type+'</th>\
-                            <td>'+response.notification[i].message+'</td>\
-                            <td>'+response.notification[i].time+'</td>\
-                            <td>'+response.notification[i].date+'</td>\
-                             <td>\
-                            <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
-                            </td>\
-                            <td>\
-                            <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
-                            </td>\
-                            </tr>');
-                        }
-     
-                    }
-                }
-                
-            }
-
-        });
-    }
-
-    function message ()
-    {
-        $.ajax ({
-            type: "GET",
-            url: "/staff/notif",
-            dataType: "json",
-            success: function (response) 
-            {
-                console.log(response.notification);
-                $('#admin_notification').html("");
-
-                var count = response.notification.length;
-
-                for(var i = 0; i < count; i++)
-                {
-                    if (response.notification[i].type == 'normal')
-                    {
-                    $('#admin_notification').append(' <tr class="alert alert-primary">\
-                    <td>'+response.notification[i].type+'</th>\
-                    <td>'+response.notification[i].message+'</td>\
-                    <td>'+response.notification[i].time+'</td>\
-                    <td>'+response.notification[i].date+'</td>\
-                    <td>\
-                    <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
-                    </td>\
-                    </tr>');
-                    }
-                    else if (response.notification[i].type == 'alert')
-                    {
-                    $('#admin_notification').append(' <tr class="alert alert-warning">\
-                    <td>'+response.notification[i].type+'</th>\
-                    <td>'+response.notification[i].message+'</td>\
-                    <td>'+response.notification[i].time+'</td>\
-                    <td>'+response.notification[i].date+'</td>\
-                    <td>\
-                    <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
-                    </td>\
-                    </tr>');
-                    }
-                    else if (response.notification[i].type == 'danger')
-                    {
-                    $('#admin_notification').append(' <tr class="alert alert-danger">\
-                    <td>'+response.notification[i].type+'</th>\
-                    <td>'+response.notification[i].message+'</td>\
-                    <td>'+response.notification[i].time+'</td>\
-                    <td>'+response.notification[i].date+'</td>\
-                    <td>\
-                    <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
-                    </td>\
-                    </tr>');
-                    }
-                }
-
-                
-            }
-
-        });
-    }
 
     $(document).on('click','.admin_create_notification', function (e)
     {
@@ -276,12 +59,359 @@ $(document).ready(function ()
                     $('#admin_err_sendto').html("");
                 }
 
+                admin_notif();
+                message();
                 messages();
                 get_notif();
             }
 
         });
     });
+
+
+    function view_click ()
+    {
+        var view = {
+            'view': $('.staff_view_click').val(),
+        }
+
+        if (view != null)
+        {
+
+            console.log(view);
+            $.ajax({
+                type: "GET",
+                url: "/staff/view/data",
+                data: view,
+                dataType: "json",
+                success: function (response)
+                {
+                    if (response.staff_view_data != null)
+                    {
+                        $('#staff_viewnotif').modal('show');
+                        $('#staff_sender').html("");
+                        $('#staff_type').html("");
+                        $('#staff_message').html("");
+    
+                        $('#staff_sender').append(response.staff_view_data.sender);
+                        $('#staff_type').append(response.staff_view_data.type);
+                        $('#staff_message').append(response.staff_view_data.message);
+    
+                       
+                    }
+                }
+            });
+        }
+
+    }
+
+    // //  user notification
+    // function user_message ()
+    // {
+    //     $.ajax ({
+    //         type: "GET",
+    //         url: "/staff/notif",
+    //         dataType: "json",
+    //         success: function (response) 
+    //         {
+    //             console.log(response.notification);
+    //             $('#staff_notifications').html("");
+
+    //             var count = response.notification.length;
+
+    //             for(var i = 0; i < count; i++)
+    //             {
+    //                 if (response.notification[i].type == 'normal')
+    //                 {
+    //                     if (response.notification[i].status == "unread")
+    //                     {
+    //                         $('#staff_notifications').append('<tr class="alert alert-primary">\
+    //                         <td>'+response.notification[i].type+'</th>\
+    //                         <td>'+response.notification[i].message+'</td>\
+    //                         <td>'+response.notification[i].time+'</td>\
+    //                         <td>'+response.notification[i].date+'</td>\
+    //                          <td>\
+    //                         <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+    //                         </td>\
+    //                         <td>\
+    //                         <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+    //                         </td>\
+    //                         </tr>');
+    //                     }
+    //                     else
+    //                     {
+    //                         $('#staff_notifications').append('<tr class="">\
+    //                         <td>'+response.notification[i].type+'</th>\
+    //                         <td>'+response.notification[i].message+'</td>\
+    //                         <td>'+response.notification[i].time+'</td>\
+    //                         <td>'+response.notification[i].date+'</td>\
+    //                          <td>\
+    //                         <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+    //                         </td>\
+    //                         <td>\
+    //                         <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+    //                         </td>\
+    //                         </tr>');
+    //                     }
+    //                 }
+    //                 else if (response.notification[i].type == 'alert')
+    //                 {
+    //                     if (response.notification[i].status == "unread")
+    //                     {
+    //                         $('#staff_notifications').append(' <tr class="alert alert-warning">\
+    //                         <td>'+response.notification[i].type+'</th>\
+    //                         <td>'+response.notification[i].message+'</td>\
+    //                         <td>'+response.notification[i].time+'</td>\
+    //                         <td>'+response.notification[i].date+'</td>\
+    //                          <td>\
+    //                         <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+    //                         </td>\
+    //                         <td>\
+    //                         <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+    //                         </td>\
+    //                         </tr>');
+    //                     }
+    //                     else
+    //                     {
+    //                         $('#staff_notifications').append(' <tr class="">\
+    //                         <td>'+response.notification[i].type+'</th>\
+    //                         <td>'+response.notification[i].message+'</td>\
+    //                         <td>'+response.notification[i].time+'</td>\
+    //                         <td>'+response.notification[i].date+'</td>\
+    //                          <td>\
+    //                         <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+    //                         </td>\
+    //                         <td>\
+    //                         <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+    //                         </td>\
+    //                         </tr>');
+    //                     }
+                
+    //                 }
+    //                 else if (response.notification[i].type == 'danger')
+    //                 {
+    //                     if (response.notification[i].status == "unread")
+    //                     {
+    //                         $('#staff_notifications').append(' <tr class="alert alert-danger">\
+    //                         <td>'+response.notification[i].type+'</th>\
+    //                         <td>'+response.notification[i].message+'</td>\
+    //                         <td>'+response.notification[i].time+'</td>\
+    //                         <td>'+response.notification[i].date+'</td>\
+    //                          <td>\
+    //                         <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+    //                         </td>\
+    //                         <td>\
+    //                         <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+    //                         </td>\
+    //                         </tr>');
+    //                     }
+    //                     else 
+    //                     {
+    //                         $('#staff_notifications').append(' <tr class="">\
+    //                         <td>'+response.notification[i].type+'</th>\
+    //                         <td>'+response.notification[i].message+'</td>\
+    //                         <td>'+response.notification[i].time+'</td>\
+    //                         <td>'+response.notification[i].date+'</td>\
+    //                          <td>\
+    //                         <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+    //                         </td>\
+    //                         <td>\
+    //                         <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+    //                         </td>\
+    //                         </tr>');
+    //                     }
+     
+    //                 }
+    //             }
+                
+    //         }
+
+    //     });
+    // }
+
+      //  user notification
+      function user_message ()
+      {
+          $.ajax ({
+              type: "GET",
+              url: "/staff/notif",
+              dataType: "json",
+              success: function (response) 
+              {
+                  console.log(response.notification);
+                  $('#staff_notifications').html("");
+  
+                  var count = response.notification.length;
+  
+                  for(var i = 0; i < count; i++)
+                  {
+                      if (response.notification[i].type == 'normal')
+                      {
+                          if (response.notification[i].status == "unread")
+                          {
+                              $('#staff_notifications').append('<tr class="alert alert-primary">\
+                              <td>'+response.notification[i].type+'</th>\
+                              <td>'+response.notification[i].message+'</td>\
+                              <td>'+response.notification[i].time+'</td>\
+                              <td>'+response.notification[i].date+'</td>\
+                               <td>\
+                              <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+                              </td>\
+                              <td>\
+                              <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                              </td>\
+                              </tr>');
+                          }
+                          else
+                          {
+                              $('#staff_notifications').append('<tr class="">\
+                              <td>'+response.notification[i].type+'</th>\
+                              <td>'+response.notification[i].message+'</td>\
+                              <td>'+response.notification[i].time+'</td>\
+                              <td>'+response.notification[i].date+'</td>\
+                               <td>\
+                              <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+                              </td>\
+                              <td>\
+                              <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                              </td>\
+                              </tr>');
+                          }
+                      }
+                      else if (response.notification[i].type == 'alert')
+                      {
+                          if (response.notification[i].status == "unread")
+                          {
+                              $('#staff_notifications').append(' <tr class="alert alert-warning">\
+                              <td>'+response.notification[i].type+'</th>\
+                              <td>'+response.notification[i].message+'</td>\
+                              <td>'+response.notification[i].time+'</td>\
+                              <td>'+response.notification[i].date+'</td>\
+                               <td>\
+                              <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+                              </td>\
+                              <td>\
+                              <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                              </td>\
+                              </tr>');
+                          }
+                          else
+                          {
+                              $('#staff_notifications').append(' <tr class="">\
+                              <td>'+response.notification[i].type+'</th>\
+                              <td>'+response.notification[i].message+'</td>\
+                              <td>'+response.notification[i].time+'</td>\
+                              <td>'+response.notification[i].date+'</td>\
+                               <td>\
+                              <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+                              </td>\
+                              <td>\
+                              <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                              </td>\
+                              </tr>');
+                          }
+                  
+                      }
+                      else if (response.notification[i].type == 'danger')
+                      {
+                          if (response.notification[i].status == "unread")
+                          {
+                              $('#staff_notifications').append(' <tr class="alert alert-danger">\
+                              <td>'+response.notification[i].type+'</th>\
+                              <td>'+response.notification[i].message+'</td>\
+                              <td>'+response.notification[i].time+'</td>\
+                              <td>'+response.notification[i].date+'</td>\
+                               <td>\
+                              <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+                              </td>\
+                              <td>\
+                              <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                              </td>\
+                              </tr>');
+                          }
+                          else 
+                          {
+                              $('#staff_notifications').append(' <tr class="">\
+                              <td>'+response.notification[i].type+'</th>\
+                              <td>'+response.notification[i].message+'</td>\
+                              <td>'+response.notification[i].time+'</td>\
+                              <td>'+response.notification[i].date+'</td>\
+                               <td>\
+                              <a href="/staff/view/notification?id='+response.notification[i].id+'" class="btn btn-primary"><i class="fa fa-eye"></i></a> \
+                              </td>\
+                              <td>\
+                              <a href="/staff/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                              </td>\
+                              </tr>');
+                          }
+       
+                      }
+                  }
+                  
+              }
+  
+          });
+      }
+  
+// admin notif
+    function admin_notif ()
+    {
+        $.ajax ({
+            type: "GET",
+            url: "/admin/notif",
+            dataType: "json",
+            success: function (response) 
+            {
+                console.log(response.notification);
+                $('#admin_notifs').html("");
+
+                var count = response.notification.length;
+
+                for(var i = 0; i < count; i++)
+                {
+                    if (response.notification[i].type == 'normal')
+                    {
+                    $('#admin_notifs').append(' <tr class="alert alert-primary">\
+                    <td>'+response.notification[i].type+'</th>\
+                    <td>'+response.notification[i].message+'</td>\
+                    <td>'+response.notification[i].time+'</td>\
+                    <td>'+response.notification[i].date+'</td>\
+                    <td>\
+                    <a href="/admin/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                    </td>\
+                    </tr>');
+                    }
+                    else if (response.notification[i].type == 'alert')
+                    {
+                    $('#admin_notifs').append(' <tr class="alert alert-warning">\
+                    <td>'+response.notification[i].type+'</th>\
+                    <td>'+response.notification[i].message+'</td>\
+                    <td>'+response.notification[i].time+'</td>\
+                    <td>'+response.notification[i].date+'</td>\
+                    <td>\
+                    <a href="/admin/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                    </td>\
+                    </tr>');
+                    }
+                    else if (response.notification[i].type == 'danger')
+                    {
+                    $('#admin_notifs').append(' <tr class="alert alert-danger">\
+                    <td>'+response.notification[i].type+'</th>\
+                    <td>'+response.notification[i].message+'</td>\
+                    <td>'+response.notification[i].time+'</td>\
+                    <td>'+response.notification[i].date+'</td>\
+                    <td>\
+                    <a href="/admin/delete/notif?id='+response.notification[i].id+'" class="btn btn-danger"><i class="fa fa-trash"></i></a> \
+                    </td>\
+                    </tr>');
+                    }
+                }
+
+                
+            }
+
+        });
+    }
 
 
     function get_notif()

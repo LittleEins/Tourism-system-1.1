@@ -64,10 +64,12 @@ Route::get('/staff/view/notification',[staffController::class,'staff_notif_view'
 Route::get('/notif',[staffController::class,'notif_log']);
 Route::get('/staff/notific',[staffController::class,'get_notif']);
 Route::get('/staff/notif',[staffController::class,'staff_notif_log']);
+Route::get('/admin/notif',[AdminController::class,'admin_notif_log']);
 Route::get('/staff/view/notif',[staffController::class,'view_notif']);
 Route::get('delete/notif',[staffController::class,'delete_notif']);
 Route::get('/user/delete/notif',[UserController::class,'user_delete_notif']);
 Route::get('/staff/delete/notif',[staffController::class,'staff_delete_notif']);
+Route::get('/admin/delete/notif',[AdminController::class,'admin_delete_notif']);
 Route::get('/locations/map',[UserController::class,'map_locations']);
 Route::get('/maplocation',[AdminController::class,'map_location_fetch']);
 Route::post('/addlocation',[AdminController::class,'add_location']);
@@ -155,6 +157,7 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function ()
     Route::get('/admin/create/stufs',[AdminController::class,'create_staff'])->name('admin.createacc');
     Route::get('/log/view/all',[AdminController::class,'records_group_view']);
     Route::post('/search/report',[AdminController::class,'search_report']);
+    Route::post('/search/acc',[AdminController::class,'search_acc']);
     Route::get('/delete/location',[AdminController::class,'delete_location']); 
     Route::post('/update/password/staff',[AdminController::class,'staff_update_pass'])->name('update_staff_pass');
     Route::get('/edit/pass/account',[AdminController::class,'edit_users_account']); 
