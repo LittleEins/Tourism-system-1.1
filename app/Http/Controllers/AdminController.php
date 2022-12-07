@@ -1029,6 +1029,32 @@ class AdminController extends Controller
         return view('admin.account_mange', $data);
     }
 
+    
+    function search_acc (Request $req)
+    {
+
+        $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
+        
+      
+        if ($req->acc == 'all')
+        {
+            $data['accounts'] = User::query()->where('role','!=','3')->where('role','!=','2')->get();
+            return view('admin.account_mange', $data);
+        }
+        else if ($req->acc == '0')
+        {
+            $data['accounts'] = User::query()->where('role','!=','3')->where('role','!=','1')->where('role','!=','2')->get();
+            return view('admin.account_mange', $data);
+        }
+        else
+        {
+            $data['accounts'] = User::query()->where('role','!=','3')->where('role','!=','0')->where('role','!=','2')->get();
+            return view('admin.account_mange', $data);
+        }
+
+        
+    }
+
     function manage_del_acc (Request $req)
     {
 
