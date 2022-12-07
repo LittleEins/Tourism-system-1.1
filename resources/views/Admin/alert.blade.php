@@ -91,7 +91,7 @@
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>
-                <tbody id="admin_notification">
+                <tbody id="admin_notifs">
 
                 </tbody>
               </table>

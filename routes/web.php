@@ -64,10 +64,12 @@ Route::get('/staff/view/notification',[staffController::class,'staff_notif_view'
 Route::get('/notif',[staffController::class,'notif_log']);
 Route::get('/staff/notific',[staffController::class,'get_notif']);
 Route::get('/staff/notif',[staffController::class,'staff_notif_log']);
+Route::get('/admin/notif',[AdminController::class,'admin_notif_log']);
 Route::get('/staff/view/notif',[staffController::class,'view_notif']);
 Route::get('delete/notif',[staffController::class,'delete_notif']);
 Route::get('/user/delete/notif',[UserController::class,'user_delete_notif']);
 Route::get('/staff/delete/notif',[staffController::class,'staff_delete_notif']);
+Route::get('/admin/delete/notif',[AdminController::class,'admin_delete_notif']);
 Route::get('/locations/map',[UserController::class,'map_locations']);
 Route::get('/maplocation',[AdminController::class,'map_location_fetch']);
 Route::post('/addlocation',[AdminController::class,'add_location']);

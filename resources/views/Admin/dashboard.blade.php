@@ -35,9 +35,8 @@
           </div>
           @endfor
         </div>
-        <div class="row g-4" id=>
-          <h4>Total Visit</h4>
-          <div id="dahboard2">
+        <h4>Total Visit</h4>
+        <div class="row g-4" id="dahboard2">
               @for($i=0;$i < $count; $i++)
               <div class="col-sm-6 col-xl-4">
                 <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
@@ -49,7 +48,6 @@
                 </div>
               </div>
               @endfor
-          </div>
         </div>
       </div>
     </section>
