@@ -111,13 +111,13 @@ $(document).ready(function ()
                         color: 'black',
                         fillColor: response.locations[i].color,
                         fillOpacity: 0.2,
-                        radius: 500
+                        radius: 100
                     }).addTo(myMap);
 
                     // add text circle
                     var tundol = L.divIcon({
                         className: 'my-div-icon',
-                        html: '<h1 style="font-size:10px; width:fit-content; height:300px;">'+response.locations[i].name+'</h1>',
+                        html: '<h1 style="font-size:2px; width:fit-content; height:300px;">'+response.locations[i].name+'</h1>',
                         iconAnchor: [15, -7]
                     });
                     // you can set .my-div-icon styles in CSS

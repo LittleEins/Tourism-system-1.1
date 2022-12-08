@@ -35,10 +35,25 @@
                   <h4 id="mapHover">Locations</h4>
                   <div class="map_table">
                     @for($i=0;$i < $count; $i++)
-    
-                     <a href="#" id="{{ strtok($location[$i]->name," ") }}" class="loc_btn btn" style="background: {{$location[$i]->color}};">{{ $location[$i]->name }}</a>
-                    
+                    @if ($location[$i]->type == "2")
+                        <a href="#" id="{{ strtok($location[$i]->name," ") }}" class="loc_btn btn" style="color: white; background: blue;">{{ $location[$i]->name }}</a>
+                      @endif
+                      @if ($location[$i]->type == "0")
+                        <a href="#" id="{{ strtok($location[$i]->name," ") }}" class="loc_btn btn" style="color: white; background: skyblue;">{{ $location[$i]->name }}</a>
+                      @endif
+                      @if ($location[$i]->type == "1")
+                        <a href="#" id="{{ strtok($location[$i]->name," ") }}" class="loc_btn btn" style="color: white; background: yellow;">{{ $location[$i]->name }}</a>
+                      @endif
                     @endfor
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="container">
+                    <div class="d-flex">
+                      <span class="btn_tourism">Tourism Office</span>
+                      <span class="btn_check">Check Point</span>
+                      <span class="btn_estab">Establishments</span>
+                    </div>
                   </div>
                 </div>
                 <div id="map" class="card-img-bottom" style="width: 100%; height: 400px;"></div>

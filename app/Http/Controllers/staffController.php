@@ -1311,7 +1311,13 @@ class staffController extends Controller
     function logs ()
     {
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
-        $data['lists'] = Approve::where('staff_id',session('LoggedUser'))->paginate(10);
+
+        //get all data
+        $ap = Approve::where('staff_id',session('LoggedUser'))->get();
+        $m_ap = Approves_manual::where('staff_id',session('LoggedUser'))->get();
+
+        // merging object
+        $data['lists'] = $ap->merge($m_ap);
 
         return view('staff.history', $data);
     }

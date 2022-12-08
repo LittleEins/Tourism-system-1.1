@@ -27,7 +27,7 @@
                   <th scope="col">Date & Time</th>
                 </tr>
               </thead>
-                <tbody>
+                <tbody id="check_point">
                   @foreach($lists as $list)
                   <tr>
                     <th scope="row">{{ $list->first_name }} {{ $list->last_name }}</th>
@@ -41,7 +41,7 @@
                   @endforeach
               </tbody>
             </table>
-            {{$lists->links()}}
+          
           </div>
         </div>
       </div>
