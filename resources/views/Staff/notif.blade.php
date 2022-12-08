@@ -10,7 +10,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-    @include('inc.staff-sidebar');
+    @include('inc.staff-sidebar')
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
