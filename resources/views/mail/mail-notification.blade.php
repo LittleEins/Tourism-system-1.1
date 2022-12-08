@@ -11,12 +11,12 @@
     
     <section>
         <div class="mail-container">
-            <h2>Hello {{$acc_data['name']}}, thank you for register.</h2><br>
+            <h2>Hello {{$acc_data['name']}}, thank you for your registration!</h2><br>
             <p>This is your OTP: <span>{{ $acc_data['otp'] }}</span>, or you can click verify to activate your account. </p>
             <br>
             <a href="http://192.168.244.146:8000/verify?code={{$acc_data['verification_code']}}">Verify</a>
             <br><br>
-            Thank you!. for more info please visit <em>www.bolinaotourism.com</em>
+            Thank you! For more info please visit <em>www.bolinaotourism.com</em>
         </div>
     </section>
 
