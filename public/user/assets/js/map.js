@@ -131,7 +131,7 @@ $(document).ready(function ()
                     // add text circle
                     var tundol = L.divIcon({
                         className: 'my-div-icon',
-                        html: '<h1 style="font-size:2px; width:fit-content; height:300px;">'+response.locations[i].name+'</h1>',
+                        html: '<h1 style="font-size:.75rem; width:fit-content; height:300px;">'+response.locations[i].name+'</h1>',
                         iconAnchor: [15, -7]
                     });
                     // you can set .my-div-icon styles in CSS
