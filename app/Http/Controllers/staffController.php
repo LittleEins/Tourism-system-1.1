@@ -218,12 +218,12 @@ class staffController extends Controller
     {
         date_default_timezone_set('Asia/Manila');
         $end = "18";
-        $now = date('H');
+        $now = date('U');
         $day = date('l');
         $date  = date('F j, Y');
 
          // check if leave is not due
-         $timenow = (int) $now;
+         $timenow =  (int)$now;
          $desti = DB::table('counting_approves_manuals')->where('time_leave','<',$timenow)->get();
          $desti2 = DB::table('counting_group_approves')->where('time_leave','<',$timenow)->get();
 
@@ -862,7 +862,7 @@ class staffController extends Controller
                  $destination = $req->destination;
                  $phone = $req->contact;
                  $address = $req->address;
- 
+                 $time_leave = strtotime($req->time_leave);
                  for ($i=0; $i < count($first_name); $i++)
                  {
                      $datasave = [
@@ -874,7 +874,7 @@ class staffController extends Controller
                          'address' =>$address[$i],
                          'book_number'=>$book_number,
                          'time_date' =>$time_date,
-                         'time_leave'=>date('H'),
+                         'time_leave'=>$time_leave,
                          'ap_date' => date("Y-m-d"),
                      ];
  
@@ -903,7 +903,7 @@ class staffController extends Controller
                 $insert_request->approve_td = $time_date;
                 $insert_request->ap_date = date("Y-m-d");
                 $insert_request->ap_type = "manual";//
-                $insert_request->time_leave = date('H');
+                $insert_request->time_leave = strtotime($req->time_leave);
                 $insert_request->save();
 
                 $counting_ap = new Counting_approves_manual;
@@ -924,7 +924,7 @@ class staffController extends Controller
                 $counting_ap->approve_td = $time_date;
                 $counting_ap->ap_date = date("Y-m-d");
                 $counting_ap->ap_type = "manual";//
-                $counting_ap->time_leave = date('H');
+                $counting_ap->time_leave = strtotime($req->time_leave);
                 $counting_ap->save();
 
                 $data = User::where('id','=', session('LoggedUser'))->first();
@@ -967,7 +967,7 @@ class staffController extends Controller
                  $destination = $req->destination;
                  $phone = $req->contact;
                  $address = $req->address;
-
+                 $time_leave = strtotime($req->time_leave);
                  $user_id = User::where('id','=', session('LoggedUser'))->first();
  
                  for ($i=0; $i < count($first_name); $i++)
@@ -982,7 +982,7 @@ class staffController extends Controller
                          'address' =>$address[$i],
                          'book_number'=>$book_number,
                          'time_date' =>$time_date,
-                         'time_leave'=>date('H'),
+                         'time_leave'=>$time_leave,
                          'ap_date' => date("Y-m-d"),
                      ];
  
@@ -1012,7 +1012,7 @@ class staffController extends Controller
             $insert_request->approve_td = $time_date;
             $insert_request->ap_date = date("Y-m-d");
             $insert_request->ap_type = "manual";//
-            $insert_request->time_leave = date('H');
+            $insert_request->time_leave =  strtotime($req->time_leave);
             $insert_request->save();
 
             $counting_ap = new Counting_approves_manual;
@@ -1033,7 +1033,7 @@ class staffController extends Controller
             $counting_ap->approve_td = $time_date;
             $counting_ap->ap_date = date("Y-m-d");
             $counting_ap->ap_type = "manual";//
-            $counting_ap->time_leave = date('H');
+            $counting_ap->time_leave = strtotime($req->time_leave);
             $counting_ap->save();
 
             $data = User::where('id','=', session('LoggedUser'))->first();
@@ -1097,7 +1097,7 @@ class staffController extends Controller
              $insert_request->day = strtolower(date('l'));
              $insert_request->approve_td = $time_date;
              $insert_request->ap_date = date("Y-m-d");
-             $insert_request->time_leave = date('H');
+             $insert_request->time_leave = strtotime($req->time_leave);
              $insert_request->ap_type = "manual";//
              $insert_request->save();
 
@@ -1119,7 +1119,7 @@ class staffController extends Controller
              $ap_manual->day = strtolower(date('l'));
              $ap_manual->approve_td = $time_date;
              $ap_manual->ap_date = date("Y-m-d");
-             $ap_manual->time_leave = date('H');
+             $ap_manual->time_leave = strtotime($req->time_leave);
              $ap_manual->ap_type = "manual";//
              $ap_manual->save();
 
