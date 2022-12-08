@@ -670,7 +670,7 @@ class UserController extends Controller
         $totaltundol = $tundol->count(); + $tundolGroup->count();
 
         $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
-        $data['location'] = Map_location::get(['name','visit_count']);
+        $data['location'] = Map_location::get(['name','visit_count','type']);
         $data['count'] = Map_location::get(['name','visit_count'])->count();;
         $data['falls_count'] = $totalfalls;
         $data['tundol_count'] = $totaltundol;

@@ -3,7 +3,8 @@ const apiKey = 'pk.eyJ1IjoiamVyaG9tZTEyIiwiYSI6ImNsOHpkeWk4MTBsNHYzb3A0aXhwM3N2O
 $(document).ready(function ()
 {
 
-    load_map();
+    load_map()
+    setInterval(load_count,2000);
 
     var myMap = L.map('map', {
         maxZoom: 20,
@@ -20,7 +21,6 @@ $(document).ready(function ()
     }).addTo(myMap);
 
 
-
     function load_map ()
     {
         $.ajax ({
@@ -33,10 +33,11 @@ $(document).ready(function ()
                 let l = response.locations.length;
 
                 var mapHover = document.querySelector('#mapHover');
-
+                $('.map').html("");
 
                 for (let i = 0; i < l; i++)
                 {
+                 
                     var name = response.locations[i].name;
                     var names = name;
                     var count_visit = response.locations[i].visit_count;
@@ -114,7 +115,7 @@ $(document).ready(function ()
                         var toollip = L.tooltip({
                             permanent: true,
                             offset: [15,-15],
-                        }).setContent(response.locations[i].visit_count);
+                        }).setContent("<span id='live_count'>"+response.locations[i].visit_count+"</span>");
 
                         name.bindTooltip(toollip);
                     }
@@ -130,7 +131,7 @@ $(document).ready(function ()
                     // add text circle
                     var tundol = L.divIcon({
                         className: 'my-div-icon',
-                        html: '<h1 style="font-size:10px; width:fit-content; height:300px;">'+response.locations[i].name+'</h1>',
+                        html: '<h1 style="font-size:2px; width:fit-content; height:300px;">'+response.locations[i].name+'</h1>',
                         iconAnchor: [15, -7]
                     });
                     // you can set .my-div-icon styles in CSS
@@ -165,7 +166,7 @@ $(document).ready(function ()
                         {
                             // with img
                             name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box; text-align:center;'>\
-                            <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
+                            <div style='font-size: 10px;'>"+response.locations[i].name+"</div>\
                             <div><div><img src='/user/assets/map_img/"+response.locations[i].img_name+"' style='height:100px; width: 100px; margin: 5px 0;'></div\
                             </div><a style='text-align:center; font-weight: bold;' href='"+response.locations[i].link_url+"'>Visit</a>\
                             </div>");
@@ -174,7 +175,7 @@ $(document).ready(function ()
                         {
                             // no img
                             name.bindPopup("<div style='width:fit-content; height:fit-content; display:flex; flex-direction: column; justify-content:center; align-items:center; box-sizing:border-box; text-align:center;'>\
-                            <div style='font-size: 10px;'>"+response.locations[i].name+" Visited</div>\
+                            <div style='font-size: 10px;'>"+response.locations[i].name+"</div>\
                             <div><a style='text-align:center; font-weight: bold;' href='"+response.locations[i].link_url+"'>Visit</a>\
                             </div>");
                         }
@@ -195,6 +196,38 @@ $(document).ready(function ()
             }
         });
     }
+
+    function load_count ()
+    {
+        $.ajax ({
+            type: "GET",
+            url: "/locations/map",
+            dataType: "json",
+            success: function (response) 
+            {
+    
+                let l = response.locations.length;
+                console.log(l);
+                for (let i = 0; i < l; i++)
+                {
+                 
+                    var name = response.locations[i].name;
+                    var names = name;
+                    var count_visit = response.locations[i].visit_count;
+
+                   
+                    if (response.locations[i].type == '1')
+                    {
+
+                        $('#live_count').html("");
+                        $('#live_count').append("<span id='live_count'>"+response.locations[i].visit_count+"</span>")
+                    }
+
+                }
+            }
+        });
+    }
+
 
 
        
