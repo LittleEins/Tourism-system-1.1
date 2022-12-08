@@ -3,7 +3,8 @@ const apiKey = 'pk.eyJ1IjoiamVyaG9tZTEyIiwiYSI6ImNsOHpkeWk4MTBsNHYzb3A0aXhwM3N2O
 $(document).ready(function ()
 {
 
-    load_map();
+    load_map()
+    setInterval(load_count,2000);
 
     var myMap = L.map('map', {
         maxZoom: 20,
@@ -33,10 +34,11 @@ $(document).ready(function ()
                 let l = response.locations.length;
 
                 var mapHover = document.querySelector('#mapHover');
-
+                $('.map').html("");
 
                 for (let i = 0; i < l; i++)
                 {
+                 
                     var name = response.locations[i].name;
                     var names = name;
                     var count_visit = response.locations[i].visit_count;
@@ -114,7 +116,7 @@ $(document).ready(function ()
                         var toollip = L.tooltip({
                             permanent: true,
                             offset: [15,-15],
-                        }).setContent(response.locations[i].visit_count);
+                        }).setContent("<span id='live_count'>"+response.locations[i].visit_count+"</span>");
 
                         name.bindTooltip(toollip);
                     }
@@ -195,6 +197,45 @@ $(document).ready(function ()
             }
         });
     }
+
+    function load_count ()
+    {
+        $.ajax ({
+            type: "GET",
+            url: "/locations/map",
+            dataType: "json",
+            success: function (response) 
+            {
+    
+                let l = response.locations.length;
+                console.log(l);
+                for (let i = 0; i < l; i++)
+                {
+                 
+                    var name = response.locations[i].name;
+                    var names = name;
+                    var count_visit = response.locations[i].visit_count;
+
+                   
+                    if (response.locations[i].type == '1')
+                    {
+                        //  // side text
+                        // var toollip = L.tooltip({
+                        //     permanent: true,
+                        //     offset: [15,-15],
+                        // }).setContent();
+
+                        // name.bindTooltip(toollip);
+
+                        $('#live_count').html("");
+                        $('#live_count').append("<span id='live_count'>"+response.locations[i].visit_count+"</span>")
+                    }
+
+                }
+            }
+        });
+    }
+
 
 
        
