@@ -94,10 +94,10 @@
               </a>
             </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+          </ul>
+        </li>
 
       </ul>
-    </nav><!-- End Icons Navigation -->
+    </nav>
 
-  </header><!-- End Header -->
+  </header>
