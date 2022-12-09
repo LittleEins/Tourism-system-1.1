@@ -865,7 +865,7 @@ class UserController extends Controller
                         'last_name' =>$last_name[$i],
                         'gender' =>$gender[$i],
                         'destination' =>$destination,
-                        'phone' =>$phone[$i],
+                        'contact' =>$phone[$i],
                         'address' =>$address[$i],
                         'book_number'=>$book_number,
                         'time_date' =>$time_date,
