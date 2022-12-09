@@ -115,7 +115,7 @@ $(document).ready(function ()
                         var toollip = L.tooltip({
                             permanent: true,
                             offset: [15,-15],
-                        }).setContent("<span id='live_count'>"+response.locations[i].visit_count+"</span>");
+                        }).setContent("<span id='"+name+"'>"+response.locations[i].visit_count+"</span>");
 
                         name.bindTooltip(toollip);
                     }
@@ -220,7 +220,7 @@ $(document).ready(function ()
                     {
 
                         $('#live_count').html("");
-                        $('#live_count').append("<span id='live_count'>"+response.locations[i].visit_count+"</span>")
+                        $('#live_count').append("<span id='"+name+"'>"+response.locations[i].visit_count+"</span>")
                     }
 
                 }
