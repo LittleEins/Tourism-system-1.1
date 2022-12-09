@@ -3,8 +3,8 @@ const apiKey = 'pk.eyJ1IjoiamVyaG9tZTEyIiwiYSI6ImNsOHpkeWk4MTBsNHYzb3A0aXhwM3N2O
 $(document).ready(function ()
 {
 
-    load_map()
-    setInterval(load_count,2000);
+    load_map();
+    setInterval(load_counts,2000);
 
     var myMap = L.map('map', {
         maxZoom: 20,
@@ -197,7 +197,7 @@ $(document).ready(function ()
         });
     }
 
-    function load_count ()
+    function load_counts ()
     {
         $.ajax ({
             type: "GET",
