@@ -46,6 +46,7 @@ $(document).ready(function ()
                     var nameLocation = response.locations[i].name;
                     var fistWord = nameLocation.split(" ")[0]
 
+
                     var locName = document.querySelector('#'+fistWord+'');
 
                     // change marker
@@ -115,7 +116,7 @@ $(document).ready(function ()
                         var toollip = L.tooltip({
                             permanent: true,
                             offset: [15,-15],
-                        }).setContent("<span id='"+name+"'>"+response.locations[i].visit_count+"</span>");
+                        }).setContent("<span id='"+response.locations[i].name.split(" ")[0][i]+"'>"+response.locations[i].visit_count+"</span>");
 
                         name.bindTooltip(toollip);
                     }
@@ -205,22 +206,28 @@ $(document).ready(function ()
             dataType: "json",
             success: function (response) 
             {
-    
+            
                 let l = response.locations.length;
                 console.log(l);
                 for (let i = 0; i < l; i++)
                 {
+
                  
                     var name = response.locations[i].name;
                     var names = name;
                     var count_visit = response.locations[i].visit_count;
 
+                    var nameLocation = response.locations[i].name;
+                    var fistWord = nameLocation.split(" ")[0]
+
                    
                     if (response.locations[i].type == '1')
                     {
+                        let nameId = "#"+fistWord;
+                        console.log(nameId);
 
-                        $('#live_count').html("");
-                        $('#live_count').append("<span id='"+name+"'>"+response.locations[i].visit_count+"</span>")
+                        $('#'+response.locations[i].name.split(" ")[0][i]).html("");
+                        $('#'+response.locations[i].name.split(" ")[0][i]).append("<span id='"+response.locations[i].name.split(" ")[0]+"qw'>"+response.locations[i].visit_count+"</span>")
                     }
 
                 }
