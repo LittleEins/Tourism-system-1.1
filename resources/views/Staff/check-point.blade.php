@@ -48,29 +48,7 @@
                 </tr>
               </thead>
                 <tbody id="check_point" >
-{{-- 
-                  @foreach($book_list as $list)
-                  <tr>
-                    <td>{{ $list->first_name }} {{ $list->last_name }}</th>
-                    <td>{{ $list->gender }}</td>
-                    <td>{{ $list->phone }}</td>
-                    <td>{{ $list->email }}</td>
-                    <td>{{ $list->address }}</td>
-                    <td>{{ $list->groups }}</td>
-                    <td>{{ $list->book_number }}</td>
-                    <td>
-                    @if($list->groups != "solo")
-                    <a href="/staff/book/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> 
-                    </td>
-                    @endif
-                    <td>
-                    <a href="/staff/book/delete?id={{ $list->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></a> 
-                    </td>
-                    <td>
-                    <a href="/staff/book/confirm?id={{ $list->id }}" id="approve" class="btn btn-success approve_btn"><i class="far fa-check-circle"></i></a> 
-                    </td>
-                  </tr>
-                  @endforeach --}}
+
               </tbody>
             </table>
           </div>

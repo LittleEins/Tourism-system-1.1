@@ -20,37 +20,30 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Notification</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Groups</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div id="admin_add_success"></div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
-                <select id="admin_type" class="admin_type form-select" aria-label="Default select example">
-                  <option value="">Notification type</option>
-                  <option value="normal">Normal</option>
-                  <option value="alert">Alert</option>
-                  <option value="danger">Danger</option>
-                </select>
-                <x-error_style/><span id="admin_err_type"></span></p>
-              </div>
-              <div class="mb-3">
-                <select id="sendto" class="admin_sendto form-select" aria-label="Default select example">
-                 
-                </select>
-                <x-error_style/><span id="admin_err_sendto"></span></p>
-              </div>
-              <div class="mb-3">
-                <label for="message-text" class="col-form-label">Message:</label>
-                <textarea class="admin_message form-control" id="admin_message"></textarea>
-                <x-error_style/><span id="admin_err_message"></span></p>
+                <div id="remove_success" class="container"></div>
+                <table class="table table-striped" style="width:100%; white-space: nowrap">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Book Number</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                    <tbody id="groups_manual" >
+                  </tbody>
+                </table>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary admin_create_notification">Send message</button>
           </div>
         </div>
       </div>
@@ -61,7 +54,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <table id="example" class="table table-striped" style="width:100%; white-space: nowrap">
+            <table id="example"  class="table table-striped" style="width:100%; white-space: nowrap">
               <thead>
                 <tr>
                   <th scope="col">Name</th>
@@ -71,46 +64,51 @@
                   <th scope="col">Es. Time Leave</th>
                   <th scope="col">Date & Time</th>
                   <th scope="col">Update</th>
+                  <th scope="col">Leave</th>
                 </tr>
               </thead>
+         
                 <tbody>
-                  @foreach($lists as $list)
+                  @for ($i = 0; $i <= count($tl)-1; $i++)
                   <tr>
-                    <th scope="row">{{ $list->first_name }} {{ $list->last_name }}</th>
-                    <td>{{ $list->book_number }}</td>
-                    <td>
-                    <select name="" id="">
-                      <option value="{{ $list->destination }}">{{ $list->destination }}</option>
-                      @foreach ($locations as $loc )
-                          <option value="{{ $loc->name }}">{{ $loc->name }}</option>
-                      @endforeach
-                    </select>
-                  </td> 
-                    <td>
-                      @if ($list->groups != "0")
-                        <a href="#" class="btn btn-primary entry-btn" data-bs-toggle="modal" data-bs-target="#admin_createNotification" data-bs-whatever="@mdo"><i class="far fa-eye"></i></a> 
-                      @endif 
-                      @if ($list->groups == "0")
-                        <a href="#" class="btn btn-primary "><i class="far fa-eye-slash"></i></a> 
-                      @endif 
-                    </td>
-                    <td>
-                      @php
-                    
-                        $dt = new DateTime('@'.$list->time_leave);
-                        $dt->setTimeZone(new DateTimeZone('Asia/Manila'));
-                        $res = $dt->format('H:i');
-                    
-                      @endphp
-                      <input type="time" value="{{$res}}">
-                    </td>
-                    <td>{{ $list->approve_td }}</td>
-                    <td>
-                      <a href="" class="btn btn-primary">Update</a>
-                    </td>
+                    <form action="/staff/manual/update" method="post">
+                      @csrf
+                      <th scope="row">{{ $lists[$i]->first_name }} {{ $lists[$i]->last_name }}</th>
+                      <td>{{ $lists[$i]->book_number }}</td>
+                      <td>
+                        <input type="hidden" name="id" value="{{ $lists[$i]->id }}">
+                      <input type="hidden" name="book_number" value="{{ $lists[$i]->book_number }}">
+                      <select name="destination" id="">
+                        <option value="{{ $lists[$i]->destination }}">{{ $lists[$i]->destination }}</option>
+                        @foreach ($locations as $loc )
+                            <option value="{{ $loc->name }}">{{ $loc->name }}</option>
+                        @endforeach
+                      </select>
+                    </td> 
+                      <td>
+                        @if ($lists[$i]->groups != "0")
+                          <button value="{{ $lists[$i]->book_number }}" class="groups-btn btn btn-primary entry-btn" data-bs-toggle="modal" data-bs-target="#admin_createNotification" data-bs-whatever="@mdo"><i class="far fa-eye"></i></button> 
+                        @endif 
+                        @if ($lists[$i]->groups == "0")
+                          <button value="{{ $lists[$i]->id }}" class="btn btn-primary "><i class="far fa-eye-slash"></i></button> 
+                        @endif 
+                      </td>
+                      <td>
+                        <input name="time" type="time" value="{{ $tl[$i] }}">
+                      </td>
+                      <td>{{ $lists[$i]->approve_td }}</td>
+                      
+                      <td>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                      </td>
+                      <td>
+                        <a href="/staff/manual/leave?id={{ $lists[$i]->book_number }}" class="btn btn-danger">Leave</a>
+                      </td>
+                    </form>
                   </tr>
-                  @endforeach
+                  @endfor
               </tbody>
+       
             </table>
           
           </div>
@@ -154,7 +152,6 @@
 <!-- Template Main JS File -->
 <script src="/user/assets/js/main.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
-<script src="/user/assets/js/map.js"></script>
 <script>$('#example').DataTable();</script>
 
 </body>

@@ -5,6 +5,100 @@ $(document).ready(function ()
     view_click();
     user_message();
 
+    // clicking manual view groups and get id
+    $(document).on('click','.groups-btn', function (e) {
+        e.preventDefault();
+        $('#groups_manual').html("Plese wait..");
+        // get id from loop and pass to modal
+
+        var data = {
+            'book_number': $(this).val()
+        }
+        
+
+        $.ajax({
+            type: "GET",
+            url: "/get/group/data",
+            data: data,
+            dataType: "json",
+            success: function (response)
+            {
+                $('#groups_manual').html("");
+                $('#remove_success').html("");
+                $.each(response.groups, function (key, list)
+                {
+                   
+                    $('#groups_manual').append('\
+                    <tr>\
+                        <td>'+list.first_name+' '+list.last_name+'</td>\
+                        <td>'+list.book_number+'</td>\
+                        <td><button value="'+list.id+'/'+list.book_number+'" class="group_remove btn btn-danger">Remove</button></td>\
+                    </tr>')
+                });
+            }
+        });
+
+        
+    });
+
+    // remove group member
+    $(document).on('click','.group_remove', function (e){
+        e.preventDefault();
+
+        var data = {
+            'group_id': $(this).val()
+        }
+        
+
+        $.ajax({
+            type: "GET",
+            url: "/get/group/delete",
+            data: data,
+            dataType: "json",
+            success: function (response)
+            {
+                $('#remove_success').addClass('alert alert-success');
+                $('#remove_success').html("Remove Successfully!");
+                
+                $('#groups_manual').html("Plese wait..");
+                // get id from loop and pass to modal
+
+                var data = {
+                    'book_number': response.book_number
+                }
+                
+
+                $.ajax({
+                    type: "GET",
+                    url: "/get/group/data",
+                    data: data,
+                    dataType: "json",
+                    success: function (response)
+                    {
+                 
+                        $('#groups_manual').html("");
+
+                        setTimeout(() => {
+                            $('#remove_success').removeClass('alert alert-success');
+                            $('#remove_success').html("");
+                        }, 2000);
+                        $.each(response.groups, function (key, list)
+                        {
+                        
+                            $('#groups_manual').append('\
+                            <tr>\
+                                <td>'+list.first_name+' '+list.last_name+'</td>\
+                                <td>'+list.book_number+'</td>\
+                                <td><button value="'+list.id+'/'+list.book_number+'" class="group_remove btn btn-danger">Remove</button></td>\
+                            </tr>')
+                        });
+                    }
+                });
+            
+            }
+        });
+    });
+
     function view_click ()
     {
         var view = {

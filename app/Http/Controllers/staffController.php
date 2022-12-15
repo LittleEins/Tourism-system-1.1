@@ -930,8 +930,8 @@ class staffController extends Controller
 
                 $data = User::where('id','=', session('LoggedUser'))->first();
 
-                $visit_count = Counting_approves_manual::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
-                $visit_group = Counting_group_approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
+                $visit_count = Counting_approves_manual::where('book_number','=', $book_number)->get();
+                $visit_group = Counting_group_approve::where('book_number','=', $book_number)->get();
                 $total = $visit_count->count() + $visit_group->count();
         
                 $data2 = Map_location::get(['name']);
@@ -942,7 +942,7 @@ class staffController extends Controller
         
         
                 for($i = 0; $i < $count; $i++){
-                    if (strtolower($data->location) == strtolower($data2[$i]->name))
+                    if (strtolower($req->destination) == strtolower($data2[$i]->name))
                     {
    
                        $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
@@ -1039,8 +1039,8 @@ class staffController extends Controller
 
             $data = User::where('id','=', session('LoggedUser'))->first();
 
-            $visit_count = Counting_approves_manual::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
-            $visit_group = Group_manual_approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
+            $visit_count = Counting_approves_manual::where('book_number','=', $book_number)->get();
+            $visit_group = Counting_group_approve::where('book_number','=', $book_number)->get();
             $total = $visit_count->count() + $visit_group->count();
     
             $data2 = Map_location::get(['name']);
@@ -1051,19 +1051,19 @@ class staffController extends Controller
     
     
             for($i = 0; $i < $count; $i++){
-                if (strtolower($data->location) == strtolower($data2[$i]->name))
+                if (strtolower($req->destination) == strtolower($data2[$i]->name))
                 {
 
-                   $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
-                   $count = (int)$map_count->visit_count + $total;
-                   $count2 = (int)$map_count->total_visit + $total;
-                   
-                   $result = DB::table('map_locations')->where('name','=', strtolower($data2[$i]->name))->update(['visit_count'=>$count,'total_visit'=>$count2]);
-               
-                   break;
+                    $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                    $count = (int)$map_count->visit_count + $total;
+                    $count2 = (int)$map_count->total_visit + $total;
+                    
+                    $result = DB::table('map_locations')->where('name','=', strtolower($data2[$i]->name))->update(['visit_count'=>$count,'total_visit'=>$count2]);
+                
+                    break;
                 }
             }
- 
+
              $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
              return view('staff.book_result', $data,['book_number'=>$book_number])->with('success','Book Successfully.');
              }
@@ -1126,20 +1126,20 @@ class staffController extends Controller
 
              $data = User::where('id','=', session('LoggedUser'))->first();
 
-             $visit_count = Approves_manual::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
-             $visit_group = Group_manual_approve::where('book_number','=', $book_number)->where('destination','=', strtolower($data->location))->get();
-             $total = $visit_count->count() + $visit_group->count();
-     
-             $data2 = Map_location::get(['name']);
-             $count = $data2->count();
-             $date  = date('F j, Y');
-             $end = "18";
-             $day = date('l');
-     
-     
-             for($i = 0; $i < $count; $i++){
-                 if (strtolower($data->location) == strtolower($data2[$i]->name))
-                 {
+             $visit_count = Counting_approves_manual::where('book_number','=', $book_number)->get();
+            $visit_group = Counting_group_approve::where('book_number','=', $book_number)->get();
+            $total = $visit_count->count() + $visit_group->count();
+    
+            $data2 = Map_location::get(['name']);
+            $count = $data2->count();
+            $date  = date('F j, Y');
+            $end = "18";
+            $day = date('l');
+    
+    
+            for($i = 0; $i < $count; $i++){
+                if (strtolower($req->destination) == strtolower($data2[$i]->name))
+                {
 
                     $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
                     $count = (int)$map_count->visit_count + $total;
@@ -1148,8 +1148,8 @@ class staffController extends Controller
                     $result = DB::table('map_locations')->where('name','=', strtolower($data2[$i]->name))->update(['visit_count'=>$count,'total_visit'=>$count2]);
                 
                     break;
-                 }
-             }
+                }
+            }
 
              $data = ['user_data'=>User::where('id','=', session('LoggedUser'))->first()];
              return view('staff.book_result', $data,['book_number'=>$book_number])->with('success','Book Successfully.');
@@ -1353,16 +1353,221 @@ class staffController extends Controller
         return view('staff.entry_list', $data);
     }
 
-    function manual_list ()
+    function manual_entry ()
     {
 
         $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
 
          //get all data
-        $data['lists'] = Approves_manual::where('staff_id',session('LoggedUser'))->get();
+        $data['lists'] = Counting_approves_manual::get();
+       
+        // split time convert ph time
+        $data['tl'] = array();
         $data['locations'] = Map_location::where('type','1')->get();
+        foreach ($data['lists'] as $list)
+        {
+
+            $dt = new DateTime('@'.$list->time_leave);
+            $dt->setTimeZone(new DateTimeZone('Asia/Manila'));
+            $res = $dt->format('H:i');
+
+            array_push($data['tl'], $res);
+        }
+
 
         return view('staff.manual_entry', $data);
+    }
+
+    function fetch_group (Request $req)
+    {
+        $group =  Counting_group_approve::where('book_number',$req->book_number)->get();
+
+        return response()->json([
+            'groups' => $group
+        ]);
+    }
+
+    function fetch_group_delete (Request $req)
+    {
+        // split word into array
+        $parts = explode('/',$req->group_id);
+
+
+        //user info
+        $req_details = Counting_group_approve::where('book_number',$parts[1])->first();
+        $total = "1";
+
+        $data2 = Map_location::get(['name']);
+        $count = $data2->count();
+
+
+        // match data and update live count
+        for($i = 0; $i < $count; $i++){
+            if (strtolower(strtolower($req_details->destination)) == strtolower($data2[$i]->name))
+            {
+    
+                $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                $count =(int)$map_count->visit_count - $total ;
+                $map_count->visit_count = $count ;
+                $map_count->save();
+
+                break;
+            }
+        }
+
+        Counting_group_approve::where('id',$parts[0])->delete();
+
+        return response()->json([
+            'book_number' =>$parts[1]
+        ]);
+    }
+
+    function manual_leave (Request $req)
+    {
+        $count1 = Counting_approves_manual::where('book_number',$req->id)->count();
+        $count2 = Counting_group_approve::where('book_number',$req->id)->count();
+
+        //user info
+        $req_details = Counting_group_approve::where('book_number',$req->id)->first();
+        $total = $count1 + $count2;
+
+        $data2 = Map_location::get(['name']);
+        $count = $data2->count();
+
+
+        // match data and update live count
+        for($i = 0; $i < $count; $i++){
+            if (strtolower(strtolower($req_details->destination)) == strtolower($data2[$i]->name))
+            {
+    
+                $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                $count =(int)$map_count->visit_count - $total ;
+                $map_count->visit_count = $count ;
+                $map_count->save();
+
+                break;
+            }
+        }
+
+        Counting_approves_manual::where('book_number',$req->id)->delete();
+        Counting_group_approve::where('book_number',$req->id)->delete();
+
+        return back();
+    }
+
+    function manual_update (Request $req)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $datenow = (date("Y/m/d").' '.$req->time);
+        $final = strtotime($datenow);
+
+        $details = Counting_approves_manual::where('book_number','=', $req->book_number)->first();
+
+        if ($details->destination != $req->destination)
+        {
+            
+            $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+    
+            // counting and change the count to other location
+            $count1 = Counting_approves_manual::where('book_number',$req->book_number)->count();
+            $count2 = Counting_group_approve::where('book_number',$req->book_number)->count();
+
+            //user info
+            $req_details = Counting_group_approve::where('book_number',$req->book_number)->first();
+            $total = $count1 + $count2;
+
+            $data2 = Map_location::get(['name']);
+            $count = $data2->count();
+
+
+            // match data and update live count
+            for($i = 0; $i < $count; $i++){
+                if (strtolower(strtolower($req_details->destination)) == strtolower($data2[$i]->name))
+                {
+        
+                    $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                    $count =(int)$map_count->visit_count - $total ;
+                    $map_count->visit_count = $count ;
+                    $map_count->save();
+
+                    break;
+                }
+            }
+
+             // update new location
+             $result = DB::table('counting_approves_manuals')->where('book_number','=', $req->book_number)->update(['destination'=>$req->destination,'time_leave'=>$final]);
+             $result = DB::table('counting_group_approves')->where('book_number','=', $req->book_number)->update(['destination'=>$req->destination,'time_leave'=>$final]);
+
+            // change l
+            $count1 = Counting_approves_manual::where('book_number',$req->book_number)->count();
+            $count2 = Counting_group_approve::where('book_number',$req->book_number)->count();
+
+            //user info
+            $req_details = Counting_group_approve::where('book_number',$req->book_number)->first();
+            $total = $count1 + $count2;
+
+            $data2 = Map_location::get(['name']);
+            $count = $data2->count();
+
+
+            // match data and update live count
+            for($i = 0; $i < $count; $i++){
+                if (strtolower(strtolower($req_details->destination)) == strtolower($data2[$i]->name))
+                {
+        
+                    $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                    $count =(int)$map_count->visit_count + $total ;
+                    $map_count->visit_count = $count ;
+                    $map_count->save();
+
+                    break;
+                }
+            }
+
+
+            //get all data
+            $data['lists'] = Counting_approves_manual::get();
+            
+            // split time convert ph time
+            $data['tl'] = array();
+            $data['locations'] = Map_location::where('type','1')->get();
+            foreach ($data['lists'] as $list)
+            {
+    
+                $dt = new DateTime('@'.$list->time_leave);
+                $dt->setTimeZone(new DateTimeZone('Asia/Manila'));
+                $res = $dt->format('H:i');
+    
+                array_push($data['tl'], $res);
+            }
+    
+            return view('staff.manual_entry', $data);
+        }
+        else
+        {
+            $result = DB::table('counting_approves_manuals')->where('book_number','=', $req->book_number)->update(['time_leave'=>$final]);
+            $result = DB::table('counting_group_approves')->where('book_number','=', $req->book_number)->update(['time_leave'=>$final]);
+       
+            $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+    
+            //get all data
+            $data['lists'] = Counting_approves_manual::get();
+            
+            // split time convert ph time
+            $data['tl'] = array();
+            $data['locations'] = Map_location::where('type','1')->get();
+            foreach ($data['lists'] as $list)
+            {
+    
+                $dt = new DateTime('@'.$list->time_leave);
+                $dt->setTimeZone(new DateTimeZone('Asia/Manila'));
+                $res = $dt->format('H:i');
+    
+                array_push($data['tl'], $res);
+            }
+    
+            return view('staff.manual_entry', $data);
+        }
     }
 
 }

@@ -47,6 +47,8 @@ Route::post('/resend/resetpassword',[MainController::class,'resend_resetpass'])-
 
 // ajax
 Route::get('/fetch-checkpoint',[staffController::class,'fetch_checkpoint']);
+Route::get('/get/group/data',[staffController::class,'fetch_group']);
+Route::get('/get/group/delete',[staffController::class,'fetch_group_delete']);
 Route::get('/leave/manual',[staffController::class,'leave_manual']);
 Route::get('/visited',[UserController::class,'fetch_visit']);
 Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
@@ -143,7 +145,9 @@ Route::prefix('staff')->middleware(['isstaff'])->group(function ()
     Route::get('/add/entery',[staffController::class,'book2'])->name('staff.book2');//book2 section
     Route::post('/booking/submit',[staffController::class,'book_data'])->name('staff.book.data');//booking insert data
     Route::get('/entry/list',[staffController::class,'entry_list']);
-    Route::get('/manual/list',[staffController::class,'manual_list']);
+    Route::get('/manual/list',[staffController::class,'manual_entry']);
+    Route::get('/manual/leave',[staffController::class,'manual_leave']);
+    Route::post('/manual/update',[staffController::class,'manual_update']);
 });
 
 // admin route
