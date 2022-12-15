@@ -16,6 +16,19 @@
         </a>
       </li><!-- check_point -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/staff/manual/list">
+          <i class="bi bi-sign-stop"></i>
+          <span>Manual Entry</span>
+        </a>
+      </li><!-- check_point -->
+
+     <li class="nav-item">
+        <a class="nav-link collapsed" href="/staff/entry/list">
+          <i class="bi bi-sign-stop"></i>
+          <span>Entry List</span>
+        </a>
+      </li><!-- check_point -->
         
       <li class="nav-item">
         <a class="nav-link collapsed" href="/staff/log">

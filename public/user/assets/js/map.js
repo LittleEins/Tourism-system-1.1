@@ -226,6 +226,7 @@ $(document).ready(function ()
                         let nameId = "#"+fistWord;
                         console.log(nameId);
 
+                        // targetting the id of map splite the name by delemiter and add loop count
                         $('#'+response.locations[i].name.split(" ")[0][i]).html("");
                         $('#'+response.locations[i].name.split(" ")[0][i]).append("<span id='"+response.locations[i].name.split(" ")[0]+"qw'>"+response.locations[i].visit_count+"</span>")
                     }

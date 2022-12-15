@@ -142,6 +142,8 @@ Route::prefix('staff')->middleware(['isstaff'])->group(function ()
     Route::get('/view/all',[staffController::class,'notifications']);
     Route::get('/add/entery',[staffController::class,'book2'])->name('staff.book2');//book2 section
     Route::post('/booking/submit',[staffController::class,'book_data'])->name('staff.book.data');//booking insert data
+    Route::get('/entry/list',[staffController::class,'entry_list']);
+    Route::get('/manual/list',[staffController::class,'manual_list']);
 });
 
 // admin route

@@ -14,11 +14,54 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+
+    <!-- Modal add location -->
+    <div class="modal fade" id="admin_createNotification" tabindex="-1" aria-labelledby="admin_createNotification" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Notification</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div id="admin_add_success"></div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <select id="admin_type" class="admin_type form-select" aria-label="Default select example">
+                  <option value="">Notification type</option>
+                  <option value="normal">Normal</option>
+                  <option value="alert">Alert</option>
+                  <option value="danger">Danger</option>
+                </select>
+                <x-error_style/><span id="admin_err_type"></span></p>
+              </div>
+              <div class="mb-3">
+                <select id="sendto" class="admin_sendto form-select" aria-label="Default select example">
+                 
+                </select>
+                <x-error_style/><span id="admin_err_sendto"></span></p>
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="admin_message form-control" id="admin_message"></textarea>
+                <x-error_style/><span id="admin_err_message"></span></p>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary admin_create_notification">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="container">
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <table class="table table-bordered" style="white-space: nowrap">
+            <table id="example" class="table table-striped" style="width:100%; white-space: nowrap">
               <thead>
                 <tr>
                   <th scope="col">Name</th>
@@ -34,10 +77,10 @@
                     <td>{{ $list->book_number }}</td>
                     <td>
                       @if ($list->groups != "0")
-                      <a href="/staff/log/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> 
+                        <a href="#" class="btn btn-primary entry-btn" data-bs-toggle="modal" data-bs-target="#admin_createNotification" data-bs-whatever="@mdo"><i class="far fa-eye"></i></a> 
                       @endif 
                       @if ($list->groups == "0")
-                      <a href="#" class="btn btn-primary "><i class="far fa-eye-slash"></i></a> 
+                        <a href="#" class="btn btn-primary "><i class="far fa-eye-slash"></i></a> 
                       @endif 
                     </td>
                       <td>{{ $list->approve_td }}</td>
@@ -71,6 +114,8 @@
 <script src="/user/assets/js/fetch_bookrequest.js"></script>
 <script src="/user/assets/js/send_notification.js"></script>
 <script src="/user/assets/js/staff_send_notif.js"></script>
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
 <!-- Vendor JS Files -->
 <script src="/user/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -86,6 +131,7 @@
 <script src="/user/assets/js/main.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
 <script src="/user/assets/js/map.js"></script>
+<script>$('#example').DataTable();</script>
 
 </body>
 

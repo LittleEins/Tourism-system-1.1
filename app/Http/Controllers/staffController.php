@@ -21,6 +21,7 @@ use App\Models\Reset_analytic;
 use App\Models\staff_alert;
 use App\Models\Daily_reset;
 use DateTime;
+use DateTimeZone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File; // udr if you deleting on public 
 use Illuminate\Support\Facades\Storage; // use this if you make delete on storage
@@ -1337,6 +1338,31 @@ class staffController extends Controller
             return back();
         }
 
+    }
+
+    function entry_list ()
+    {
+
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+
+         //get all data
+         $ap = Approve::where('staff_id',session('LoggedUser'))->get();
+         $m_ap = Approves_manual::where('staff_id',session('LoggedUser'))->get();
+        $data['lists'] = $ap->merge($m_ap);
+
+        return view('staff.entry_list', $data);
+    }
+
+    function manual_list ()
+    {
+
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+
+         //get all data
+        $data['lists'] = Approves_manual::where('staff_id',session('LoggedUser'))->get();
+        $data['locations'] = Map_location::where('type','1')->get();
+
+        return view('staff.manual_entry', $data);
     }
 
 }
