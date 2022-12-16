@@ -39,6 +39,7 @@
                   <th scope="col">Destination</th>
                   <th scope="col">Groups</th>
                   <th scope="col">Status</th>
+                  <th scope="col">Update</th>
                   <th scope="col">View</th>
                   @if ($list != null)
                     @if ($list->status == "pending")
@@ -56,20 +57,34 @@
                 <tbody>
                   <tr>
                     @if($list != null)
+                    <form action="/user/location/update" method="post">
+                      @csrf
                     <td data-title="Ticket Number">{{ $list->book_number }}</td>
                     <th data-title="Name">{{ $list->first_name }} {{ $list->last_name }}</th>
                     <td data-title="Gender">{{ $list->gender }}</td>
                     <td data-title="Phone">{{ $list->phone }}</td>
                     <td data-title="Email">{{ $list->email }}</td>
                     <td data-title="Address">{{ $list->address }}</td>
-                    <td data-title="Destination">{{ $list->destination}}</td>
+                    <td data-title="Destination">
+                      <select name="destination" id="user_desti">
+                        <option value="{{ $list->destination }}">{{ $list->destination }}</option>
+                        @foreach ($locations as $loc )
+                            <option  value="{{ $loc->name }}">{{ $loc->name }}</option>
+                        @endforeach
+                      </select>
+                    </td>
                     <td data-title="Groups">{{ $list->groups }}</td>
                     <td data-title="Status">{{ $list->status }}</td>
+                    <td data-title="Update">
+                      <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i></button>
+                    </td>
+                    </form>
                     <td data-title="View">
                       @if ($list->groups == "solo")
                       <a href="#" class="btn btn-primary"><i class="far fa-eye-slash"></i></a> 
-                      @endif
-                      @if ($list->groups != "solo")
+                      @elseif ($list->groups == "0")
+                      <a href="#" class="btn btn-primary"><i class="far fa-eye-slash"></i></a> 
+                      @else
                       <a href="/user/book/view/all?id={{ $list->book_number }}" class="btn btn-primary"><i class="far fa-eye"></i></a> 
                       @endif
                     </td>

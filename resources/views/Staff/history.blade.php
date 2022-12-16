@@ -5,8 +5,8 @@
 
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
-          <i class="bi bi-grid"></i>
-          <span>Reports</span>
+          <i class="bi bi-clock-history"></i>
+          <span>Logs</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -14,6 +14,15 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Log</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><a href="#">History</a></li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
     <div class="container">
       <div class="container">
         <div class="row">

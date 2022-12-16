@@ -5,8 +5,8 @@
 
       <li class="nav-item">
         <a class="nav-link " href="dashboard">
-          <i class="bi bi-grid"></i>
-          <span>Reports</span>
+          <i class="bi bi-newspaper"></i>
+          <span>Manual Approves</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -14,6 +14,15 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Manual Approves</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><a href="#">Manual Entry</a></li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
 
     <!-- Modal add location -->
     <div class="modal fade" id="admin_createNotification" tabindex="-1" aria-labelledby="admin_createNotification" aria-hidden="true">
@@ -101,10 +110,10 @@
                       <td>
                         <button type="submit" class="btn btn-primary">Update</button>
                       </td>
+                    </form>
                       <td>
                         <a href="/staff/manual/leave?id={{ $lists[$i]->book_number }}" class="btn btn-danger">Leave</a>
                       </td>
-                    </form>
                   </tr>
                   @endfor
               </tbody>

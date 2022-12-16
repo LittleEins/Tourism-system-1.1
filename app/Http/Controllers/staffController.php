@@ -1360,19 +1360,19 @@ class staffController extends Controller
 
          //get all data
         $data['lists'] = Counting_approves_manual::get();
-       
-        // split time convert ph time
-        $data['tl'] = array();
-        $data['locations'] = Map_location::where('type','1')->get();
-        foreach ($data['lists'] as $list)
-        {
 
-            $dt = new DateTime('@'.$list->time_leave);
-            $dt->setTimeZone(new DateTimeZone('Asia/Manila'));
-            $res = $dt->format('H:i');
-
-            array_push($data['tl'], $res);
-        }
+         // split time convert ph time
+         $data['tl'] = array();
+         $data['locations'] = Map_location::where('type','1')->get();
+         foreach ($data['lists'] as $list)
+         {
+ 
+             $dt = new DateTime('@'.$list->time_leave);
+             $dt->setTimeZone(new DateTimeZone('Asia/Manila'));
+             $res = $dt->format('H:i');
+ 
+             array_push($data['tl'], $res);
+         }
 
 
         return view('staff.manual_entry', $data);
@@ -1386,6 +1386,7 @@ class staffController extends Controller
             'groups' => $group
         ]);
     }
+
 
     function fetch_group_delete (Request $req)
     {
@@ -1428,12 +1429,11 @@ class staffController extends Controller
         $count2 = Counting_group_approve::where('book_number',$req->id)->count();
 
         //user info
-        $req_details = Counting_group_approve::where('book_number',$req->id)->first();
+        $req_details = Counting_approves_manual::where('book_number',$req->id)->first();
         $total = $count1 + $count2;
 
         $data2 = Map_location::get(['name']);
         $count = $data2->count();
-
 
         // match data and update live count
         for($i = 0; $i < $count; $i++){
@@ -1569,5 +1569,184 @@ class staffController extends Controller
             return view('staff.manual_entry', $data);
         }
     }
+
+    // system entry list
+    function system_entry ()
+    {
+        $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+
+        //get all data
+       $data['lists'] = book_request::where('status','approve')->get();
+       $data['locations'] = Map_location::where('type','1')->get();
+
+
+       return view('staff.system_entry', $data);
+    }
+
+    function fetch_group_approve (Request $req)
+    {
+        $group =  Book_data::where('book_number',$req->book_number)->get();
+
+        return response()->json([
+            'groups' => $group
+        ]);
+    }
+
+    function fetch_approve_group_delete (Request $req)
+    {
+        // split word into array
+        $parts = explode('/',$req->group_id);
+
+
+        //user info
+        $req_details = Book_data::where('book_number',$parts[1])->first();
+        $total = "1";
+        $update_group_count = Book_request::where('book_number',$parts[1])->first();
+        $update_group_count->groups =  (int)$update_group_count->groups - (int)$total;
+        $update_group_count->save();
+
+        $data2 = Map_location::get(['name']);
+        $count = $data2->count();
+
+
+        // match data and update live count
+        for($i = 0; $i < $count; $i++){
+            if (strtolower(strtolower($req_details->destination)) == strtolower($data2[$i]->name))
+            {
+    
+                $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                $count =(int)$map_count->visit_count - $total ;
+                $map_count->visit_count = $count ;
+                $map_count->save();
+
+                break;
+            }
+        }
+
+
+        book_data::where('id',$parts[0])->delete();
+
+        return response()->json([
+            'book_number' =>$parts[1]
+        ]);
+    }
+
+    function system_leave (Request $req)
+    {
+        $count1 = Book_request::where('book_number',$req->id)->count();
+        $count2 = book_data::where('book_number',$req->id)->count();
+
+        //user info
+        $req_details = Book_request::where('book_number',$req->id)->first();
+        $total = $count1 + $count2;
+
+        $data2 = Map_location::get(['name']);
+        $count = $data2->count();
+
+
+        // match data and update live count
+        for($i = 0; $i < $count; $i++){
+            if (strtolower(strtolower($req_details->destination)) == strtolower($data2[$i]->name))
+            {
+    
+                $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                $count =(int)$map_count->visit_count - $total ;
+                $map_count->visit_count = $count ;
+                $map_count->save();
+
+                break;
+            }
+        }
+
+        Book_request::where('book_number',$req->id)->delete();
+        Book_data::where('book_number',$req->id)->delete();
+
+        return back();
+    }
+
+    function system_update (Request $req)
+    {
+
+        $details = Book_request::where('book_number','=', $req->book_number)->first();
+
+        if ($details->destination != $req->destination)
+        {
+            
+            $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+    
+            // counting and change the count to other location
+            $count1 = Book_request::where('book_number',$req->book_number)->count();
+            $count2 = Book_data::where('book_number',$req->book_number)->count();
+
+            //user info
+            $req_details = Book_request::where('book_number',$req->book_number)->first();
+            $total = $count1 + $count2;
+
+            $data2 = Map_location::get(['name']);
+            $count = $data2->count();
+
+
+            // match data and update live count
+            for($i = 0; $i < $count; $i++){
+                if (strtolower(strtolower($req_details->destination)) == strtolower($data2[$i]->name))
+                {
+        
+                    $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                    $count =(int)$map_count->visit_count - $total ;
+                    $map_count->visit_count = $count ;
+                    $map_count->save();
+
+                    break;
+                }
+            }
+
+             // update new location
+             $result = DB::table('book_requests')->where('book_number','=', $req->book_number)->update(['destination'=>$req->destination]);
+             $result = DB::table('book_datas')->where('book_number','=', $req->book_number)->update(['destination'=>$req->destination]);
+
+            // change location
+            $count1 = Book_request::where('book_number',$req->book_number)->count();
+            $count2 = Book_data::where('book_number',$req->book_number)->count();
+
+            //user info
+            $req_details = Book_request::where('book_number',$req->book_number)->first();
+            $total = $count1 + $count2;
+
+            $data2 = Map_location::get(['name']);
+            $count = $data2->count();
+
+
+            // match data and update live count
+            for($i = 0; $i < $count; $i++){
+                if (strtolower(strtolower($req_details->destination)) == strtolower($data2[$i]->name))
+                {
+        
+                    $map_count = Map_location::where('name','=', strtolower($data2[$i]->name))->first();
+                    $count =(int)$map_count->visit_count + $total ;
+                    $map_count->visit_count = $count ;
+                    $map_count->save();
+
+                    break;
+                }
+            }
+
+
+            //get all data
+            $data['lists'] = book_request::where('status','approve')->get();
+    
+            return view('staff.manual_entry', $data);
+        }
+        else
+        {
+          
+            $data['user_data'] = User::where('id','=', session('LoggedUser'))->first();
+    
+            //get all data
+            $data['lists'] = book_request::where('status','approve')->get();
+    
+            return view('staff.system_entry', $data);
+        }
+    }
+
 
 }

@@ -48,7 +48,9 @@ Route::post('/resend/resetpassword',[MainController::class,'resend_resetpass'])-
 // ajax
 Route::get('/fetch-checkpoint',[staffController::class,'fetch_checkpoint']);
 Route::get('/get/group/data',[staffController::class,'fetch_group']);
+Route::get('/get/approve/group/data',[staffController::class,'fetch_group_approve']);
 Route::get('/get/group/delete',[staffController::class,'fetch_group_delete']);
+Route::get('/get/approve/group/delete',[staffController::class,'fetch_approve_group_delete']);
 Route::get('/leave/manual',[staffController::class,'leave_manual']);
 Route::get('/visited',[UserController::class,'fetch_visit']);
 Route::get('/user/dashboard/fetch',[UserController::class,'dashboard_fetch']);
@@ -122,6 +124,8 @@ Route::prefix('user')->middleware(['authCheck'])->group(function ()
     Route::get('/log/view/all',[UserController::class,'records_group_view']);
     Route::get('/booking/log',[UserController::class,'book_log'])->name('book_log');
     Route::get('/records',[UserController::class,'records'])->name('history');
+
+    Route::post('/location/update',[UserController::class,'location_update']);
 });
 
 // staff route
@@ -146,8 +150,12 @@ Route::prefix('staff')->middleware(['isstaff'])->group(function ()
     Route::post('/booking/submit',[staffController::class,'book_data'])->name('staff.book.data');//booking insert data
     Route::get('/entry/list',[staffController::class,'entry_list']);
     Route::get('/manual/list',[staffController::class,'manual_entry']);
+    Route::get('/system/entry',[staffController::class,'system_entry']);
     Route::get('/manual/leave',[staffController::class,'manual_leave']);
     Route::post('/manual/update',[staffController::class,'manual_update']);
+
+    Route::get('/system/leave',[staffController::class,'system_leave']);
+    Route::post('/system/update',[staffController::class,'system_update']);
 });
 
 // admin route

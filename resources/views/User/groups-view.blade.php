@@ -27,7 +27,7 @@
     <div class="container">
       <div class="container">
         <div class="row">
-          <div class="col-12">
+          <div class="col-12" id="no-more-table">
             <table class="table table-bordered" style="white-space: nowrap">
               <thead>
                 <tr>
@@ -40,10 +40,10 @@
                 <tbody>
                   @foreach ($groups as $list)
                   <tr>
-                    <th>{{ $list->first_name }} {{ $list->last_name }}</th>
-                    <td>{{ $list->gender }}</td>
-                    <td>{{ $list->phone }}</td>
-                    <td>{{ $list->address }}</td>
+                    <td data-title="Name">{{ $list->first_name }} {{ $list->last_name }}</td>
+                    <td data-title="Gender">{{ $list->gender }}</td>
+                    <td data-title="Phone">{{ $list->phone }}</td>
+                    <td data-title="Address">{{ $list->address }}</td>
                   </tr>
                   @endforeach
               </tbody>

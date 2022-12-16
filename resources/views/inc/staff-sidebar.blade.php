@@ -18,21 +18,21 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="/staff/manual/list">
-          <i class="bi bi-sign-stop"></i>
-          <span>Manual Entry</span>
+          <i class="bi bi-newspaper"></i>
+          <span>Manual Approves</span>
         </a>
       </li><!-- check_point -->
 
      <li class="nav-item">
-        <a class="nav-link collapsed" href="/staff/entry/list">
-          <i class="bi bi-sign-stop"></i>
-          <span>Entry List</span>
+        <a class="nav-link collapsed" href="/staff/system/entry">
+          <i class="bi bi-book-half"></i>
+          <span>Approves Entry</span>
         </a>
       </li><!-- check_point -->
         
       <li class="nav-item">
         <a class="nav-link collapsed" href="/staff/log">
-          <i class="bi bi-sign-stop"></i>
+          <i class="bi bi-clock-history"></i>
           <span>Request Log</span>
         </a>
       </li>
