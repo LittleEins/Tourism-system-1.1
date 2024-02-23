@@ -7,6 +7,40 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+#### How to Install:
+**You will need these dependencies:**
+- [x] Latest version of Composer
+- [x] Latest version of PHP
+- [x] Latest version of XAMPP
+- [x] Latest version of Laravel
+- [x] Mailhog.exe - localhost:8025
+**After installing the dependencies, (fork the repository, if coming from GitHub) and attempt to do the following:**
+- 1.) Update composer via cmd: **'composer update' or 'composer update --ignore-platform-req=ext-gd'**
+- 2.) rename **env.example** to** .env**
+- 3.) Open **cmd** and clear cache via: *'php artisan cache:clear'*
+- 4.) Clear config via: **'php artisan config:clear'**
+- 5.) Generate new key via: **'php artisan key:generate'**
+- 6.) Important: Open **XAMP and RUN Apache and MySQL.**
+- 7.) After that, go to MySQL admin and **import database from /dbfiles/.sql file.**
+- 8.) Run local server in cmd via: **'php artisan serve'** or **'php artisan serve --host <current Ipv4 Address> --port 8000'**
+
+
+# For Account Testing:
+user acc:
+jerhomereantaso85@gmail.com
+pass: 11111111
+
+staff
+falls@gmail.com
+pass:  11111111
+
+admin acc(office)
+bolinaotourism@gmail.com
+pass: 12121212
+
+Sup admin
+admin@gmail.com
+pass: 12121212
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
